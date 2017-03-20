@@ -9,7 +9,7 @@ class RelationController extends Controller
 {
 
     /**
-     * @Route("/relation/create", name="createR")
+     * @Route("/relation/create", name="create")
      */
     public function createAction()
     {
@@ -17,7 +17,7 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/delete/{id}", name="deleteR")
+     * @Route("/relation/delete/{id}", name="delete")
      */
     public function deleteAction()
     {
@@ -25,15 +25,15 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/update/{id}, name="updateR")
+     * @Route("/relation/update/{id}, name="update")
      */
     public function updateAction()
     {
         return $this->render('DLFamilytreeBundle:Relation:updateRelation.html.twig');
     }
-    
+
     /**
-     * @Route("/relations", name="listeR")
+     * @Route("/relations", name="liste")
      */
     public function listAction()
     {
