@@ -13,7 +13,7 @@ class RelationController extends Controller
      */
     public function createAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:createRelation.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:create.html.twig');
     }
 
     /**
@@ -21,7 +21,7 @@ class RelationController extends Controller
      */
     public function deleteAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:deleteRelation.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:delete.html.twig');
     }
 
     /**
@@ -29,7 +29,7 @@ class RelationController extends Controller
      */
     public function updateAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:updateRelation.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:update.html.twig');
     }
 
     /**
@@ -37,7 +37,7 @@ class RelationController extends Controller
      */
     public function listAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:listRelation.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:list.html.twig');
     }
 
 
