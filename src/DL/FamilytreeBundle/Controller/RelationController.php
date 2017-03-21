@@ -45,7 +45,9 @@ class RelationController extends Controller
      */
     public function listAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:list.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:list.html.twig', [
+            'relations' => $this->getDoctrine()->getRepository("DLFamilytreeBundle:Relation")->findAll()
+        ]);
     }
 
 

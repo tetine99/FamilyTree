@@ -56,6 +56,9 @@ class PeopleController extends Controller
      */
     public function listAction()
     {
-        return $this->render('DLFamilytreeBundle:People:list.html.twig');
+        return "crotte";
+     /*   return $this->render('DLFamilytreeBundle:People:list.html.twig', [
+         //   'peoples' => $this->getDoctrine()->getRepository("DLFamilytreeBundle:People")->findAll()
+        ]);*/
     }
 }
