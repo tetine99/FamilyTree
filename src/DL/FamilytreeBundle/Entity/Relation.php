@@ -29,9 +29,9 @@ class Relation {
      * @ORM\JoinColumn(name="people_a_id", referencedColumnName="id")
      * 
      */
-    private $peopleAId;
+    private $peopleA;
     
-    
+
      /**
      * 
      * 
@@ -39,7 +39,7 @@ class Relation {
      * @ORM\JoinColumn(name="people_b_id", referencedColumnName="id")
      * 
      */
-    private $peopleBId;
+    private $peopleB;
     
     
     /**
@@ -49,10 +49,6 @@ class Relation {
      * 
      */
     private $relationship;
-
-    
-    
-    
     
     /**
      * Get id
@@ -65,51 +61,51 @@ class Relation {
     }
 
     /**
-     * Set peopleAId
+     * Set peopleA
      *
-     * @param \DL\FamilytreeBundle\Entity\People $peopleAId
+     * @param \DL\FamilytreeBundle\Entity\People $peopleA
      *
      * @return Relation
      */
-    public function setPeopleAId(\DL\FamilytreeBundle\Entity\People $peopleAId = null)
+    public function setPeopleA(\DL\FamilytreeBundle\Entity\People $peopleA = null)
     {
-        $this->peopleAId = $peopleAId;
+        $this->peopleA = $peopleA;
 
         return $this;
     }
 
     /**
-     * Get peopleAId
+     * Get peopleA
      *
      * @return \DL\FamilytreeBundle\Entity\People
      */
-    public function getPeopleAId()
+    public function getPeopleA()
     {
-        return $this->peopleAId;
+        return $this->peopleA;
     }
 
     /**
-     * Set peopleBId
+     * Set peopleB
      *
-     * @param \DL\FamilytreeBundle\Entity\People $peopleBId
+     * @param \DL\FamilytreeBundle\Entity\People $peopleB
      *
      * @return Relation
      */
-    public function setPeopleBId(\DL\FamilytreeBundle\Entity\People $peopleBId = null)
+    public function setPeopleB(\DL\FamilytreeBundle\Entity\People $peopleB = null)
     {
-        $this->peopleBId = $peopleBId;
+        $this->peopleB = $peopleB;
 
         return $this;
     }
 
     /**
-     * Get peopleBId
+     * Get peopleB
      *
      * @return \DL\FamilytreeBundle\Entity\People
      */
-    public function getPeopleBId()
+    public function getPeopleB()
     {
-        return $this->peopleBId;
+        return $this->peopleB;
     }
 
     /**

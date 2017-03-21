@@ -15,5 +15,4 @@ class TreeController extends Controller
     {
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig');
     }
-
 }
