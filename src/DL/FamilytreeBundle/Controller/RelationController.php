@@ -25,7 +25,7 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/update/{id}, name="update")
+     * @Route("/relation/update/{id}", name="update")
      */
     public function updateAction()
     {
