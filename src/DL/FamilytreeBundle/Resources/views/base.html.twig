@@ -13,10 +13,12 @@
         {% block body %}
             <header>
 
+                
                 {% block nav %}
-                    <nav>
-                        <a href="{{path('fos_user_registration_register')}}">Inscription</a>
-                        <a href="{{path('dl_familytree_default_index')}}">Acceuil</a><br/>
+                    
+                    <nav>   
+                        <a href="{{path('dl_familytree_default_index')}}">Acceuil</a>
+                        <a href="{{path('user_profil')}}">Profil</a><br/>
 
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             Connecté en tant que {{ app.user.username }}
@@ -24,12 +26,14 @@
                             <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
                         {% else %}
                             <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                            <a href="{{path('fos_user_registration_register')}}">Inscription</a>
                         {% endif %}
 
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="{{ path('user_index') }}">Gestion des utilisateurs</a></li>
                             {% endif %}
                     </nav>
+                    
                 {% endblock %}
 
             </header>
