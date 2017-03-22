@@ -8,6 +8,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    img_directory: '%kernel.root_dir%/../web/uploads/images'
 
 framework:
     #esi:             ~
@@ -69,12 +70,12 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
-    
+
 fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    DL\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
-    
+
     from_email:
         address:        registration@example.com
         sender_name:    test

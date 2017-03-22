@@ -1,0 +1,19 @@
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
+{% block title %}ajouter{% endblock %}
+{% block body %}
+
+<h2>Ajouter une personne</h2>
+
+{{ form_start(form) }}
+
+{{ form_label(form.firstname) }}
+{{ form_widget(form.firstname, {"attr":{"class":"name"}}) }}
+
+{{ form_label(form.lastname) }}
+{{ form_widget(form.lastname) }}
+
+{{ form_label(form.image) }}
+{{ form_widget(form.image) }}
+{{ form_end(form) }}
+
+{% endblock %}

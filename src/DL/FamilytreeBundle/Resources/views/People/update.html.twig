@@ -1,0 +1,18 @@
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
+{% block title %}modifier{% endblock %}
+{% block body %}
+
+<h2>Modifier</h2>
+
+{{ form_start(form) }}
+
+{{ form_label(form.firstname) }}
+{{ form_widget(form.firstname, {"attr":{"class":"name"}}) }}
+
+{{ form_label(form.lastname) }}
+{{ form_widget(form.lastname) }}
+
+
+{{ form_end(form) }}
+
+{% endblock %}

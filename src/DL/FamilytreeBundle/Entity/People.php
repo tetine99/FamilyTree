@@ -36,9 +36,9 @@ class People
     private $lastname;
 
     /**
-     * @var bool
+     * @var string
      *
-     * @ORM\Column(name="image", type="boolean")
+     * @ORM\Column(name="image", type="string", nullable=true)
      */
     private $image;
 
@@ -104,7 +104,7 @@ class People
     /**
      * Set image
      *
-     * @param boolean $image
+     * @param string $image
      *
      * @return People
      */
@@ -118,7 +118,7 @@ class People
     /**
      * Get image
      *
-     * @return bool
+     * @return string
      */
     public function getImage()
     {
