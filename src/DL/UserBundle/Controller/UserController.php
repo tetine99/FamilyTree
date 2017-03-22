@@ -29,7 +29,7 @@ class UserController extends Controller {
     }
 
     /**
-     * @Route("/del", name="del_user")
+     * @Route("/del", name="user_del")
      * @Security("has_role('ROLE_ADMIN')")
      */
     public function delAction(Request $request)

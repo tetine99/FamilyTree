@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
 
 {% block body %}
 
@@ -23,7 +23,7 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.email }}</td>
-                    <td><a href="{{path('del_user', {'id': user.id})}}">Supprimer</a></td>
+                    <td><a href="{{path('user_del', {'id': user.id})}}">Supprimer</a></td>
                 </tr>
 
             {% endfor %}

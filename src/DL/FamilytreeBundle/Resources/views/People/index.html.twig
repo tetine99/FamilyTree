@@ -1,36 +1,44 @@
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
+
 {% block body %}
 
-  <h1>people</h1>
+    {% block nav %}
 
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>nom</th>
-        <th>prenom</th>
-        <th>image</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for people in peoples %}
-      <tr>
-        <td>{{ people.id }}</td>
-        <td>{{ people.firstname }}</td>
-        <td>{{ people.lastname }}</td>
-        <td>
-          {% if people.image is empty %}
-            <p>non</p>
-          {% else %}
-            <!-- <a href="{{ asset('uploads/images/' ~ people.image) }}">Voir</a> -->
-            <img style="width:100px" src="{{ asset('uploads/images/' ~ people.image) }}" alt="" />
+        {{ parent() }}
 
-          {% endif %}
-        </td>
+    {% endblock %}
+    
+    <h1>people</h1>
 
-        <td><a href="{{ path("people_update", {'id':people.id}) }}">modifier</a></td>
-        <td><a href="{{ path("people_delete", {'id':people.id}) }}">supprimer</a></td>
-        {% endfor %}
-    </tbody>
-  </table>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for people in peoples %}
+                <tr>
+                    <td>{{ people.id }}</td>
+                    <td>{{ people.firstname }}</td>
+                    <td>{{ people.lastname }}</td>
+                    <td>
+                        {% if people.image is empty %}
+                            <p>non</p>
+                        {% else %}
+                          <!-- <a href="{{ asset('uploads/images/' ~ people.image) }}">Voir</a> -->
+                            <img style="width:100px" src="{{ asset('uploads/images/' ~ people.image) }}" alt="" />
+
+                        {% endif %}
+                    </td>
+
+                    <td><a href="{{ path("people_update", {'id':people.id}) }}">modifier</a></td>
+                    <td><a href="{{ path("people_delete", {'id':people.id}) }}">supprimer</a></td>
+                {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
