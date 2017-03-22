@@ -2,8 +2,11 @@
 
 namespace DL\FamilytreeBundle\Controller;
 
+use DL\FamilytreeBundle\Entity\Relation;
+use DL\FamilytreeBundle\Form\Type\RelationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\BrowserKit\Request;
 
 class RelationController extends Controller
 {
@@ -11,9 +14,18 @@ class RelationController extends Controller
     /**
      * @Route("/relation/add", name="relation_add")
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
-        return $this->render('DLFamilytreeBundle:Relation:add.html.twig');
+        $relation = new Relation();
+
+        $form = $this->createForm(RelationFormType::class, $relation);
+
+        $form->handleRequest($request);
+
+
+        return $this->render('DLFamilytreeBundle:Relation:add.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
