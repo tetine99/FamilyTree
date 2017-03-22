@@ -1,0 +1,1 @@
+INSERT INTO `relationship` (`id`, `name`) VALUES (NULL, 'Père'), (NULL, 'Mère');
