@@ -10,7 +10,20 @@
 
     <div style="border : solid 1px black">
         <p> Nom utilisateur : {{ app.user.username }} </p>
-        <p> Adresse E-mail : {{ app.user.email }}</p>
+       
+        <p> Adresse E-mail : {{ app.user.email }} 
+            {{ form_start(form2) }}{{ form_end(form2) }}</p>
+
+        {% if  app.session.flashbag.get('notice') is defined %}
+            {% for flashMessage in app.session.flashbag.get('notice') %}
+
+                <div class="alert alert-success">
+                    {{ flashMessage }}
+                </div>
+
+            {% endfor %}
+        {% endif %}
+        
         <p>Modification du mot de passe : </p>
         {{ form_start(form) }}
 
