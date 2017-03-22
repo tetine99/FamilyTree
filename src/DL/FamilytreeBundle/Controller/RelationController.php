@@ -9,7 +9,7 @@ class RelationController extends Controller
 {
 
     /**
-     * @Route("/relation/create", name="create")
+     * @Route("/relation/add", name="relation_add")
      */
     public function createAction()
     {
@@ -17,7 +17,7 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/delete/{id}", name="delete")
+     * @Route("/relation/delete/{id}", name="relation_delete")
      */
     public function deleteAction()
     {
@@ -25,7 +25,7 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/update/{id}", name="update")
+     * @Route("/relation/update/{id}", name="relation_update")
      */
     public function updateAction()
     {
@@ -33,7 +33,7 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relations", name="liste")
+     * @Route("/relation", name="relation_list")
      */
     public function listAction()
     {
