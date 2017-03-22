@@ -1,0 +1,24 @@
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
+
+{% block body %}
+
+    {% block nav %}
+
+        {{ parent() }}
+
+    {% endblock %} 
+
+    <div style="border : solid 1px black">
+        <p> Nom utilisateur : {{ app.user.username }} </p>
+        <p> Adresse E-mail : {{ app.user.email }}</p>
+        <p>Modification du mot de passe : </p>
+        {{ form_start(form) }}
+
+        {{ form_end(form) }}
+    </div>
+
+
+
+
+
+{% endblock %}

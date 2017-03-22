@@ -57,11 +57,6 @@ class UserController extends Controller {
             $em->remove($user);
             $em->flush();
 
-            $repository = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('DLUserBundle:User');
-
             $listUser = $repository->findAll();
 
             return $this->redirectToRoute('user_index', [
@@ -76,5 +71,31 @@ class UserController extends Controller {
                     'form' => $form->createView(),
         ]);
     }
+    /**
+     * 
+     * @Route("/profil", name="user_profil")
+     */
+    public function profilAction(Request $request)
+    {
+        $form = $this->createFormBuilder()
+                ->add('save', SubmitType::class, array('label' => 'Modifier le mot de passe'))
+                ->getForm();
 
+        $form->handleRequest($request);
+
+        
+        if ($form->isSubmitted())
+        {
+         
+            return $this->redirectToRoute('fos_user_change_password', [
+                        
+            ]);
+        }
+        
+        return $this->render('DLUserBundle:USer:profil.html.twig', [
+            'form' => $form->createView(),
+        ]);
+        
+    }
+  
 }
