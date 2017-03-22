@@ -1,16 +1,12 @@
-
-
-
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
 
 {% block body %}
 
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        Connecté en tant que {{ app.user.username }}
-        -
-        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-    {% endif %}
+    {% block nav %}
+
+        {{ parent() }}
+
+    {% endblock %}
 
     <div>
         <p>Voulez vous vraiment supprimer l'utilisateur < {{ user.username }} > </p>
@@ -19,4 +15,5 @@
     {{ form_start(form) }}
 
     {{ form_end(form) }}
+    
 {% endblock %}
