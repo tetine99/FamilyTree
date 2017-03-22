@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        Connecté en tant que {{ app.user.username }}
+        -
+        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+    {% else %}
+        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+    {% endif %}
+
+    <h1>Page de gestion des utilisateurs inscrit </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom Utilisateur</th>
+                <th>Adresse E-mail</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in listUser %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td><a href="{{path('del_user', {'id': user.id})}}">Supprimer</a></td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+{% endblock %}

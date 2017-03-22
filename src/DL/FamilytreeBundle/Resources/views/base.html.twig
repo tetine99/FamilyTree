@@ -3,33 +3,34 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-                {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('bundles/shop/css/style.css') }}" type="text/css" media="all" />
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/shop/css/style.css') }}" type="text/css" media="all" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-		{% block nav %}
-		{#<nav>
-			<ul>
-				<li>
-					<a href="{{path('product_list')}}">Liste des produits</a>
-				</li>
-				<li>
-					<a href="{{path('product_create')}}">Creation d'un produit</a>
-				</li>
-			</ul>
-			<ul>
-				<li>
-					<a href="{{path('category_list')}}">Liste des catégories</a>
-				</li>
-				<li>
-					<a href="{{path('category_create')}}">Creation d'une catégorie</a>
-				</li>
-			</ul>
-		</nav>#}
-		{% endblock %}
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+        
+        {% block nav %}
+            {#<nav>
+                    <ul>
+                            <li>
+                                    <a href="{{path('product_list')}}">Liste des produits</a>
+                            </li>
+                            <li>
+                                    <a href="{{path('product_create')}}">Creation d'un produit</a>
+                            </li>
+                    </ul>
+                    <ul>
+                            <li>
+                                    <a href="{{path('category_list')}}">Liste des catégories</a>
+                            </li>
+                            <li>
+                                    <a href="{{path('category_create')}}">Creation d'une catégorie</a>
+                            </li>
+                    </ul>
+            </nav>#}
+        {% endblock %}
+    {% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+</body>
 </html>
