@@ -8,11 +8,12 @@
 
 namespace DL\FamilytreeBundle\Form\Type;
 
-
+use DL\FamilytreeBundle\Entity\Relation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use DL\FamilytreeBundle\Repository\RelationRepository;
 
 class RelationFormType extends AbstractType
 {
@@ -20,7 +21,7 @@ class RelationFormType extends AbstractType
     {
         $builder
             ->add('relationship', EntityType::class,[
-                'class' => 'FamilytreeBundle:Relationship',
+                'class' => 'DLFamilytreeBundle:Relationship',
                 'choice_label' => 'name'
             ])
             ->add('save', SubmitType::class, ['label' => 'Envoyer']);

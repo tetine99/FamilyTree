@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @Author kevin
+ */
+
 namespace DL\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,20 +40,20 @@ class UserController extends Controller {
     public function delAction(Request $request)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        
+
         $repository = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('DLUserBundle:User');
-        
+
         $id = $request->get('id');
-        
+
         $user = $repository->findOneById($id);
-        
+
         $form = $this->createFormBuilder()
                 ->add('save', SubmitType::class, array('label' => 'Confirmer'))
                 ->getForm();
-        
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted())
@@ -82,7 +86,7 @@ class UserController extends Controller {
                 ->getForm();
         // un deuxieme formulaire pour modifier l'email
         $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
-                ->add('e-mail', textType::class, array('label' => 'Modification e-mail'))
+                ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
                 ->add('save2', SubmitType::class, array('label' => 'Confirmer'))
                 ->getForm();
 
