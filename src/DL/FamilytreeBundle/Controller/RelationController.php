@@ -18,11 +18,17 @@ class RelationController extends Controller
     public function createAction(Request $request)
     {
         $relation = new Relation();
-
         $form = $this->createForm(RelationFormType::class, $relation);
-
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $relation = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($relation);
+            $em->flush();
+        }
 
         return $this->render('DLFamilytreeBundle:Relation:add.html.twig', [
             'form' => $form->createView()

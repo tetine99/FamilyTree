@@ -124,4 +124,9 @@ class People
     {
         return $this->image;
     }
+
+    public function getLabel()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }

@@ -20,9 +20,17 @@ class RelationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('people_a', EntityType::class,[
+                'class' => 'DLFamilytreeBundle:People',
+                'choice_label' => 'label'
+            ])
             ->add('relationship', EntityType::class,[
                 'class' => 'DLFamilytreeBundle:Relationship',
                 'choice_label' => 'name'
+            ])
+            ->add('people_b', EntityType::class,[
+                'class' => 'DLFamilytreeBundle:People',
+                'choice_label' => 'label'
             ])
             ->add('save', SubmitType::class, ['label' => 'Envoyer']);
     }
