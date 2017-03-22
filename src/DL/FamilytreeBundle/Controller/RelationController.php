@@ -4,9 +4,10 @@ namespace DL\FamilytreeBundle\Controller;
 
 use DL\FamilytreeBundle\Entity\Relation;
 use DL\FamilytreeBundle\Form\Type\RelationFormType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class RelationController extends Controller
 {
