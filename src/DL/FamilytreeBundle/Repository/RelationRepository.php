@@ -1,6 +1,6 @@
 <?php
 
-namespace DL\UserBundle\Repository;
+namespace DL\FamilytreeBundle\Repository;
 
 /**
  * RelationRepository
