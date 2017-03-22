@@ -1,20 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% block nav %}
+
+        {{ parent() }}
+
+    {% endblock %}
     
-    
-    
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        Connecté en tant que {{ app.user.username }}
-        -
-        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-    {% endif %}
-     {% if is_granted('ROLE_ADMIN') %}
-        <li><a href="{{ path('user_index') }}">Gestion des utilisateurs</a></li>
-    {% endif %}
-    
+
     <h1>Acceuil</h1>
-   
+
 {% endblock %}
