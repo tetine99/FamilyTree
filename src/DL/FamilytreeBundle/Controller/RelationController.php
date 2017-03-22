@@ -13,7 +13,7 @@ class RelationController extends Controller
      */
     public function createAction()
     {
-        return $this->render('DLFamilytreeBundle:Relation:create.html.twig');
+        return $this->render('DLFamilytreeBundle:Relation:add.html.twig');
     }
 
     /**
