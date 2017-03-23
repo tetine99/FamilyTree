@@ -77,18 +77,17 @@ class RelationController extends Controller
     /**
      * @Route("/relation/delete/{id}", name="relation_delete")
      */
-    public function deleteAction()
+    public function deleteAction(Request $request)
     {
-        return $this->render('DLFamilytreeBundle:Relation:delete.html.twig');
-    }
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $relation = $em->getRepository('DLFamilytreeBundle:Relation')->find($id);
+        if ($relation!=null) {      //Pour éviter le bug du double-clic (Merci Céline)
+            $em->remove($relation);
+            $em->flush();
+        }
 
-    /**
-     * @Route("/relation/update/{id}", name="relation_update")
-     */
-    public function updateAction()
-    {
-        return $this->render('DLFamilytreeBundle:Relation:update.html.twig');
+        return $this->redirectToRoute('relation');
     }
-
 
 }

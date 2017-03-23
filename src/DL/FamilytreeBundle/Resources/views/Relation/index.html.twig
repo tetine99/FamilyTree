@@ -44,6 +44,7 @@
                     <td>{{ relation.peopleA.label }}</td>
                     <td>{{ relation.relationship.name }}</td>
                     <td>{{ relation.peopleB.label }}</td>
+                    <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">supprimer</a></td>
                 </tr>
             {% endfor %}
         </tbody>

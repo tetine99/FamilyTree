@@ -40,6 +40,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes:
+        # other form themes
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -66,7 +69,7 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: gmail
-    
+
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
@@ -86,7 +89,19 @@ fos_user:
         address: salakette69@gmail.com
         # Nom de l'expediteur
         sender_name: le boss
-    
+
     from_email:
         address:        salakette69@gmail.com
         sender_name:    le boss
+
+vich_uploader:
+    db_driver: orm # or mongodb or propel or phpcr
+    mappings:
+        product_image:
+            uri_prefix:         /images/products
+            upload_destination: '%kernel.root_dir%/../web/images/products'
+            namer:              vich_uploader.namer_hash
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+
