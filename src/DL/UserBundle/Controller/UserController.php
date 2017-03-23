@@ -50,8 +50,8 @@ class UserController extends Controller {
 
         $form = $this->createFormBuilder()
                 ->add('name', TextType::class, array('label' => 'username'))
+                ->add('email', TextType::class, array('label' => 'email'))
                 ->add('save', SubmitType::class, array('label' => 'Confirmer'))
-               
                 ->getForm();
 
         return $this->render('DLUserBundle:User:update.html.twig', [
