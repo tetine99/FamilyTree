@@ -6,7 +6,6 @@ parameters:
     database_user: family_tree
     database_password: family_tree
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_user: salakette69@gmail.com
+    mailer_password: 19011963
     secret: d7de23556b22293ed5de69b2c548cb63714b9d9b

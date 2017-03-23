@@ -65,8 +65,8 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
+    transport: gmail
+    
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
@@ -75,7 +75,18 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    DL\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
-
+    service:
+        mailer: fos_user.mailer.twig_swift
+    registration:
+    # Permet la validation automatique du compte par envoi d'un email
+        confirmation:
+            enabled: true
     from_email:
-        address:        registration@example.com
-        sender_name:    test
+        # Adresse de l'expediteur
+        address: salakette69@gmail.com
+        # Nom de l'expediteur
+        sender_name: le boss
+    
+    from_email:
+        address:        salakette69@gmail.com
+        sender_name:    le boss

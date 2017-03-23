@@ -70,7 +70,7 @@ class UserController extends Controller {
 
         return $this->render('DLUserBundle:User:del.html.twig', [
                     'user' => $user,
-                    'form' => $form2->createView(),
+                    'form' => $form->createView(),
         ]);
     }
 
