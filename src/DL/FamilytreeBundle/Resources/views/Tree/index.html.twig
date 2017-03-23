@@ -1,0 +1,21 @@
+
+
+<table>
+<thead>
+  <tr>
+    <th>id</th>
+    <th>nom</th>
+  </tr>
+</thead>
+
+<tbody>
+  {% for tree in trees %}
+  <tr>
+    <td>{{ tree.id }}</td>
+    <td>{{ tree.name }}</td>
+    <td><a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a></td>
+    <td><a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a></td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
