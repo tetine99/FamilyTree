@@ -3,10 +3,10 @@ parameters:
     database_host: 127.0.0.1
     database_port: null
     database_name: family_tree
-    database_user: family_tree
-    database_password: family_tree
+    database_user: root
+    database_password: null
     mailer_transport: smtp
-    mailer_user: #votre adresse gmail
-    mailer_password: #votre mot de passe gmail
+    mailer_user: null
+    mailer_password: null
     secret: d7de23556b22293ed5de69b2c548cb63714b9d9b
     mailer_host: 127.0.0.1
