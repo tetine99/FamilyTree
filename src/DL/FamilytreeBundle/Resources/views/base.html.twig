@@ -17,13 +17,14 @@
                 {% block nav %}
                     
                     <nav>   
-                        <a href="{{path('dl_familytree_default_index')}}">Accueil</a>
-                        <a href="{{path('user_profil')}}">Profil</a><br/>
+                        <a href="{{path('dl_familytree_default_index')}}">Accueil</a><br/>
+                        
 
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             Connecté en tant que {{ app.user.username }}
                             -
-                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a><br/>
+                            <a href="{{path('user_profil')}}">Profil</a><br/>
                             
                         {% else %}
                             <a href="{{ path('fos_user_security_login') }}">Connexion</a>

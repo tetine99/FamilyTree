@@ -148,7 +148,7 @@ class UserController extends Controller {
             }
         }
 
-        return $this->render('DLUserBundle:USer:profil.html.twig', [
+        return $this->render('DLUserBundle:User:profil.html.twig', [
                     'form' => $form->createView(),
                     'form2' => $form2->createView(),
         ]);
