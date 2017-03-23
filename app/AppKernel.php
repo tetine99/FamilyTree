@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new DL\FamilytreeBundle\DLFamilytreeBundle(),
             new DL\UserBundle\DLUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
+
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

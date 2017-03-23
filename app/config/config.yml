@@ -90,9 +90,3 @@ fos_user:
     from_email:
         address:        salakette69@gmail.com
         sender_name:    le boss
-
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~

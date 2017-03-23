@@ -34,6 +34,33 @@ class UserController extends Controller {
     }
 
     /**
+     * @Route("/update/{id}", name="user_update")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function updateAction(Request $request)
+    {
+        // recuperation de l'user en fonction de son id
+        $em = $this->getDoctrine()->getEntityManager();
+        $repository = $this
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('DLUserBundle:User');
+        $id = $request->get('id');
+        $user = $repository->findOneById($id);
+
+        $form = $this->createFormBuilder()
+                ->add('name', TextType::class, array('label' => 'username'))
+                ->add('save', SubmitType::class, array('label' => 'Confirmer'))
+               
+                ->getForm();
+
+        return $this->render('DLUserBundle:User:update.html.twig', [
+                    'user' => $user,
+                    'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/del/{id}", name="user_del")
      * @Security("has_role('ROLE_ADMIN')")
      */
