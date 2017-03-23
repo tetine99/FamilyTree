@@ -34,5 +34,8 @@
 /vendor/
 
 .idea
-composer.lock
-composer.phar
+/composer.lock
+/composer.phar
+
+# image
+/web/images/products
