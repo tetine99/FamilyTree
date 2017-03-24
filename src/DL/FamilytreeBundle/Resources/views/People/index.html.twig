@@ -1,11 +1,14 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/people/people.css') }}" type="text/css" media="all" />
+{% endblock %}
 
 {% block body %}
 
     <h1>people</h1>
 
-<fieldset>
+<fieldset class="people-list">
   <legend>Liste des personnes</legend>
   <table>
     <thead>
@@ -16,6 +19,7 @@
         <th>image</th>
       </tr>
     </thead>
+
     <tbody>
       {% for people in peoples %}
       <tr>
@@ -37,7 +41,7 @@
   </table>
 </fieldset>
 
-<fieldset>
+<fieldset class="people-add">
   <legend>Ajouter une personne</legend>
   {{ form_start(form) }}
 
