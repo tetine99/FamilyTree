@@ -3,8 +3,8 @@ parameters:
     database_host: 127.0.0.1
     database_port: null
     database_name: family_tree
-    database_user: root
-    database_password: null
+    database_user: family_tree
+    database_password: family_tree
     mailer_transport: smtp
     mailer_user: salakette69@gmail.com
     mailer_password: 19011963
