@@ -6,11 +6,13 @@
         <title>{% block title %}Welcome !{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('bundles/shop/css/style.css') }}" type="text/css" media="all" />
+            <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/nav.css') }}" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
 
     <body>
+        
         {% block nav %}
 
             <fieldset>
@@ -24,15 +26,16 @@
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                         Connecté en tant que {{ app.user.username }}
-                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a><br/>
-                        <a href="{{ path('user_profil')}}">Profil</a><br/>
-                        <ul>
+                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        <a href="{{ path('user_profil')}}">Profil</a>
+                        
+                        <ul class="tree">
                             <li>arbres
-                                <ul>
+                                
+                                <ul class ="niveau2">
                                     <li><a href="{{ path('people') }}">Personnes</a></li>
                                     <li><a href="{{ path('relation') }}">Relations</a></li>
                                     <li><a href="{{ path('tree_view') }}">Visuel</a></li>
-
                                 </ul>
 
                             </li>
