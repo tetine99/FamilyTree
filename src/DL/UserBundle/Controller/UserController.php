@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserController extends Controller {
 
+    private $emailPattern = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD ';
+
     /**
      * @Route("/", name="user_index")
      * @Security("has_role('ROLE_ADMIN')")
@@ -49,10 +51,84 @@ class UserController extends Controller {
         $user = $repository->findOneById($id);
 
         $form = $this->createFormBuilder()
-                ->add('name', TextType::class, array('label' => 'username'))
+                ->add('username', TextType::class, array('label' => 'username'))
                 ->add('email', TextType::class, array('label' => 'email'))
                 ->add('save', SubmitType::class, array('label' => 'Confirmer'))
                 ->getForm();
+
+        $form->handleRequest($request);
+
+
+
+        if ($form->isSubmitted())
+        {
+
+            $email = $form["email"]->getData();
+            $username = $form["username"]->getData();
+            $id = $request->get('id');
+            $user = $repository->findOneById($id);
+
+
+            if (strtolower($email) == 'x' && strtolower($username) == 'x')
+            {
+                $repository = $this
+                        ->getDoctrine()
+                        ->getManager()
+                        ->getRepository('DLUserBundle:User');
+
+                $listUser = $repository->findAll();
+
+                return $this->redirectToRoute('user_index', [
+                            'listUser' => $listUser,
+                ]);
+            }
+            elseif (strtolower($email) == 'x' && strtolower($username) != 'x')
+            {
+                $em = $this->getDoctrine()->getEntityManager();
+                $user->setUserName($username);
+                $em->persist($user);
+                $em->flush();
+            }
+            elseif (strtolower($email) != 'x' && strtolower($username) == 'x')
+            {
+                if (preg_match($this->emailPattern, $email) === 1)
+                {
+                    $em = $this->getDoctrine()->getEntityManager();
+
+                    $repository = $this
+                            ->getDoctrine()
+                            ->getManager()
+                            ->getRepository('DLUserBundle:User');
+
+
+                    $user = $repository->findOneByEmail($currentUser->getEmail());
+
+                    $user->setEmail($email);
+
+                    $em->persist($user);
+                    $em->flush();
+                }
+            }
+            else
+            {
+                if (preg_match($this->emailPattern, $email) === 1)
+                {
+                    $em = $this->getDoctrine()->getEntityManager();
+
+                    $repository = $this
+                            ->getDoctrine()
+                            ->getManager()
+                            ->getRepository('DLUserBundle:User');
+
+                    $user->setUserName($username);
+                    $user->setEmail($email);
+
+
+                    $em->persist($user);
+                    $em->flush();
+                }
+            }
+        }
 
         return $this->render('DLUserBundle:User:update.html.twig', [
                     'user' => $user,
@@ -140,11 +216,10 @@ class UserController extends Controller {
                 if ($form2->isSubmitted())
                 {
                     // on verifie que l'adresse email saisie est valide 
-                    $pattern = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD ';
                     $emailaddress = $form2["e-mail"]->getData();
 
                     // si oui on modifie le profil
-                    if (preg_match($pattern, $emailaddress) === 1)
+                    if (preg_match($this->emailPattern, $emailaddress) === 1)
                     {
                         $em = $this->getDoctrine()->getEntityManager();
 

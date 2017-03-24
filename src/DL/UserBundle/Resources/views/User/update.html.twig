@@ -1,9 +1,21 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
 {% block body %}
+
+    {% block nav %}
+
+        {{ parent() }}
+
+    {% endblock %}
     
+    
+    <h1>Formulaire de modification de l'utilisateur : {{ user.username }}</h1>
+
+
     {{ form_start(form) }}
 
     {{ form_end(form) }}
 
+    <p>si vous ne voulez modifier qu'un seul champ merci d'inscrire dans le champ inutile 'x'</p>
+    
 {% endblock %}
