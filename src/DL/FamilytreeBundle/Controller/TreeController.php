@@ -17,13 +17,32 @@ class TreeController extends Controller
      */
     public function defaultViewAction()
     {
+        $relations = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('DLFamilytreeBundle:Relation')
+            ->findAll();
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
-            'relations' => $this->getDoctrine()
-                ->getManager()
-                ->getRepository('DLFamilytreeBundle:Relation')
-                ->findAll(),
+            'tree' => $this->createTree($relations,1,2)
         ]);
     }
+
+    public function createTree($relations,$people_id,$deep)
+    {
+        $tree = array(
+            "label" => "",
+            "relations" => array()
+        );
+        foreach ($relations as $rel){
+            if($rel->getPeopleA()->getId()==$people_id){
+                $tree["label"]= $rel->getPeopleA()->getLabel();
+                if ($deep > 0){
+                    $tree["relations"][$rel->getRelationship()->getName()] = $this->createTree($relations,$rel->getPeopleB()->getId(),$deep-1);
+                }
+            }
+        }
+        return $tree;
+    }
+    
 
     /**
     * @Route("/tree", name="tree")
