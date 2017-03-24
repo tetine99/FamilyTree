@@ -4,10 +4,12 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome !{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset('bundles/shop/css/style.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/header.css') }}" />
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('bundles/shop/css/style.css') }}" type="text/css" media="all" />
-            <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/header.css') }}" />
+
         {% endblock %}
+
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
 
