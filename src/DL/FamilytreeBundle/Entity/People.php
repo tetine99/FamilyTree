@@ -59,17 +59,15 @@ class People
     *
     * @var File $image
     */
-   private $imageFile;
+    private $imageFile;
 
-
-
-   /**
+    /**
     * @var \DateTime
     *
     * @ORM\Column(name="updateat", type="datetime", nullable=true)
     */
-   private $updatedAt;
-
+    private $updatedAt;
+   
 
     /**
      * Get id
@@ -189,6 +187,10 @@ class People
    {
        return $this->imageFile;
    }
+   
+    /**
+    * Permet d'afficher dans l'interface une concaténation du prénom et du nom
+    */
 
    public function getLabel()
    {

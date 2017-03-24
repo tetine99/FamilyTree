@@ -21,9 +21,11 @@
 
 {% from _self import constructVisualTree %}
 
-{% block body %}
+{% block title %}
+Vue de l'arbre
+{% endblock %}
 
-    <h1>Vue de l'arbre</h1>
+{% block body %}
 
     {{ constructVisualTree(tree) }}
 

@@ -74,43 +74,51 @@ class PeopleController extends Controller{
 	 * @Route("/people/update/{id}", name="people_update", defaults={"id"=null})
 	 * @Method({"GET", "POST"})
 	 */
-	 public function updateAction(Request $request)
-	 {
-		 $id = $request->get('id');
+    public function updateAction(Request $request)
+    {
+        $id = $request->get('id');
 
-		 $em = $this->getDoctrine()->getManager();
-		 $people = $em->getRepository('DLFamilytreeBundle:People')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $people = $em->getRepository('DLFamilytreeBundle:People')->find($id);
 
-		 $form = $this->createForm(PeopleFormType::class, $people);
+        $form = $this->createForm(PeopleFormType::class, $people);
 
-		 $form->handleRequest($request);
-			 if($form->isValid()) {
-			 $data = $form->getData();
+        $form->handleRequest($request);
+        if($form->isValid()) {
+            $data = $form->getData();
 
-			 $file = $people->getImageFile();
-			 $em->flush();
+            $file = $people->getImageFile();
+            $em->flush();
 
-			return $this->redirectToRoute('people');
+            return $this->redirectToRoute('people');
 
-		 }
-		 return $this->render('DLFamilytreeBundle:people:update.html.twig', [
-				 'form' => $form->createView()
-		 ]);
-	 }
+        }
+        return $this->render('DLFamilytreeBundle:people:update.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
 
-	 /**
-		* @Route("/people/delete/{id}", name="people_delete", defaults={"id"=null})
-		*/
-	 public function deleteAction(Request $request)
-	 {
-		 $id = $request->get('id');
-		 $em = $this->getDoctrine()->getManager();
-		 $people = $em->getRepository('DLFamilytreeBundle:People')->find($id);
-
-		 $em->remove($people);
-		 $em->flush();
-		 return $this->redirectToRoute('people');
-	 }
+    /**
+    * @Route("/people/delete/{id}", name="people_delete", defaults={"id"=null})
+    */
+    public function deleteAction(Request $request)
+    {
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $people = $em->getRepository('DLFamilytreeBundle:People')->find($id);
+        if ($people!=null){
+            $relations = $em->getRepository('DLFamilytreeBundle:Relation')->findAll();
+            foreach ($relations as $rel){
+                if ($rel->getPeopleA()->getId()==$people->getId()
+                    || $rel->getPeopleB()->getId()==$people->getId()){
+                    $em->remove($rel);
+                }
+            }
+            $em->remove($people);
+            $em->flush();
+        }
+        return $this->redirectToRoute('people');
+    }
 
 
 
