@@ -1,7 +1,31 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
+
+
+{% macro constructVisualTree(node) %}
+    {% import _self as self %}
+    <ul>
+        <li><a href="#">{{ node["label"] | default('text') }}</a></li>
+        {% if "Père" in node["relations"] | keys %} 
+        <li>
+            {{ self.constructVisualTree( node["relations"]["Père"] ) }}
+        </li>
+        {% endif %}
+        {% if "Mère" in node["relations"] | keys %} 
+        <li>
+            {{ self.constructVisualTree( node["relations"]["Mère"] ) }}
+        </li>
+        {% endif %}
+    </ul>
+{% endmacro %}
+
+{% from _self import constructVisualTree %}
+
 {% block body %}
 
-  <h1>Vue de l'arbre</h1>
+    <h1>Vue de l'arbre</h1>
+
+    {{ constructVisualTree(tree) }}
+
 
 {% endblock %}
