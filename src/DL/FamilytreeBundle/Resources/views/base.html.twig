@@ -12,7 +12,7 @@
     </head>
 
     <body>
-        
+
         {% block nav %}
 
             <fieldset>
@@ -21,35 +21,66 @@
 
                 <nav>
 
-                    <a href="{{ path('dl_familytree_default_index')}}">Accueil</a><br/>
+                    <div id="menu">
+
+                        <ul>
+
+                            <li><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
+
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+                                <li class="arbres" ><a href="#"  >Arbres</a>
+
+                                    <ul>
+
+                                        <li><a href="{{ path('people') }}">Personnes</a></li>
+                                        <li><a href="{{ path('relation') }}">Relations</a></li>
+                                        <li><a href="{{ path('tree_view') }}">Visuel</a></li>
+
+                                    </ul>
+
+                                </li>
+
+                            {% endif %}
+                        </ul>
+
+                    </div>
+
 
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                        Connecté en tant que {{ app.user.username }}
-                        <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-                        <a href="{{ path('user_profil')}}">Profil</a>
-                        
-                        <ul class="tree">
-                            <li>arbres
-                                
-                                <ul class ="niveau2">
-                                    <li><a href="{{ path('people') }}">Personnes</a></li>
-                                    <li><a href="{{ path('relation') }}">Relations</a></li>
-                                    <li><a href="{{ path('tree_view') }}">Visuel</a></li>
+                        <div class="profil">
+
+                            Connecté en tant que {{ app.user.username }}
+
+                            <div class="profilmenu">
+
+                                <ul>
+                                    <li><a href="#"><img src="{{ asset('images/view/profil.jpg') }}" id="profil_img"/></a>
+
+                                        <ul>
+                                            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                                            <a href="{{ path('user_profil')}}">Profil</a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+
+                                                <a href="{{ path('user_index') }}" >Gestion des utilisateurs</a>
+
+                                            {% endif %}
+                                        </ul>
+
+                                    </li>
                                 </ul>
 
-                            </li>
-                        </ul>
+                            </div>
+
+                        </div>
+
+
                     {% else %}
-
-                        <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-                        <a href="{{ path('fos_user_registration_register')}}">Inscription</a>
-
-                    {% endif %}
-
-                    {% if is_granted('ROLE_ADMIN') %}
-
-                        <a href="{{ path('user_index') }}">Gestion des utilisateurs</a>
+                        <div class="anonyme">
+                            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+                            <a href="{{ path('fos_user_registration_register')}}">Inscription</a>
+                        </div>
 
                     {% endif %}
 

@@ -1,11 +1,78 @@
-ul {
-    
-    list-style-type: none;
+/* MENU */
+#menu ul {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    text-align:center;
+}
+#menu li {
+    float:left;
+    margin:auto;
+    padding:0;
+}
+#menu li a {
+    display:block;
+    width:100px;
+    color:black;
+    text-decoration:none;
+    padding:5px;
+}
+#menu li a:hover {
+    color:#FFD700;
+}
+#menu ul li ul {
+    list-style-type:none;
+    display:none;
+}
+#menu ul li:hover ul {
+    display:block;
+}
+#menu li:hover ul li {
+    float:none;
 }
 
-ul ul {
-    display: none;
+
+/* PROFIL */
+nav {
+    position: relative;
+    height: 200px;
 }
-li:hover ul.niveau2 {
-    display:block;
+
+.profil {
+
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    text-align:right;
+}
+
+.profil ul {
+    list-style-type:none;
+}
+
+.profilmenu {
+    position: absolute;
+    max-width: 400px;
+    right: 20px;
+}
+
+.profilmenu img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.profilmenu ul li ul {
+    display:none;
+
+}
+
+.profilmenu ul li:hover ul {
+    position : absolute;
+    display: block;
+    right: 10px;
+    max-width: 150px;
+    text-align: center;
+}
+.anonyme {
+    text-align: right;
 }
