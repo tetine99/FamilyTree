@@ -17,54 +17,28 @@ class PeopleController extends Controller{
 
 	/**
 	*@Route("/people", name="people")
+	*@Method({"GET", "POST"})
 	*/
 	public function indexAction(Request $request)
 	{
+		//affiche la liste des personnes
 		$em = $this->getDoctrine()->getManager();
 		$peoples = $em->getRepository('DLFamilytreeBundle:People')
 			->findAll();
 
-		return $this->render('DLFamilytreeBundle:People:index.html.twig', [
-			'peoples'=>$peoples
-		]);
-	}
-
-
-	/**
-	*@Route("/people/add", name="people_add")
-	*@Method({"GET", "POST"})
-	*/
-	public function addAction(Request $request)
-	{
+		//ajoute une personne
 		$people = new People();
-
 		$form = $this->createForm(PeopleFormType::class, $people);
-
 		$form->handleRequest($request);
 			if($form->isSubmitted() && $form->isValid()){
-
-				// $file = $people->getImage();
-
-				// if (!is_Null($file)){
-				//   // Generate a unique name for the file before saving it
-				//   $fileName = md5(uniqid()).'.'.$file->guessExtension();
-				//   // Move the file to the directory where brochures are stored
-				//   $file->move(
-				//      $this->getParameter('img_directory'),
-				//      $fileName
-				//   );
-				//   // Update the 'brochure' property to store the PDF file name
-				//   // instead of its contents
-				//   $people->setImage($fileName);
-				//  }
-
 				$em = $this->getDoctrine()->getManager();
 				$em->persist($people);  //constitue l'objet
 				$em->flush();         //enregistre en bdd
-
 				return $this->redirectToRoute('people');
 			}
-		return $this->render('DLFamilytreeBundle:People:add.html.twig',[
+
+		return $this->render('DLFamilytreeBundle:People:index.html.twig', [
+			'peoples'=>$peoples,
 			'form'=>$form->createView()
 		]);
 	}

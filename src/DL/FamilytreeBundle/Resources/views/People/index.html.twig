@@ -1,10 +1,13 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
+
 {% block body %}
 
     <h1>people</h1>
 
-    <table>
+<fieldset>
+  <legend>Liste des personnes</legend>
+  <table>
     <thead>
       <tr>
         <th>id</th>
@@ -23,9 +26,7 @@
           {% if people.image is null %}
             <p>non</p>
           {% else %}
-            <!-- <a href="{{ asset('uploads/images/' ~ people.image) }}">Voir</a> -->
-            <img style="width:100px" src="{{ asset('images/products/' ~ people.image) }}" alt="photo" />
-
+          <img style="width:100px" src="{{ asset('images/products/' ~ people.image) }}" alt="photo" />
           {% endif %}
         </td>
 
@@ -34,5 +35,29 @@
         {% endfor %}
     </tbody>
   </table>
+</fieldset>
+
+<fieldset>
+  <legend>Ajouter une personne</legend>
+  {{ form_start(form) }}
+
+  <div class="">
+    {{ form_label(form.firstname) }}
+    {{ form_widget(form.firstname, {"attr":{"class":"peope-firstname"}}) }}
+  </div>
+
+  <div class="">
+    {{ form_label(form.lastname) }}
+    {{ form_widget(form.lastname, {"attr":{"class":"people-lastname"}}) }}
+  </div>
+
+  <div class="">
+    {{ form_label(form.imageFile) }}
+    {{ form_widget(form.imageFile) }}
+  </div>
+
+  {{ form_end(form) }}
+</fieldset>
+
 
 {% endblock %}
