@@ -17,7 +17,12 @@ class TreeController extends Controller
      */
     public function defaultViewAction()
     {
-        return $this->render('DLFamilytreeBundle:Tree:default.html.twig');
+        return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
+            'relations' => $this->getDoctrine()
+                ->getManager()
+                ->getRepository('DLFamilytreeBundle:Relation')
+                ->findAll(),
+        ]);
     }
 
     /**
