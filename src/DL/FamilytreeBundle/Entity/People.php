@@ -190,6 +190,11 @@ class People
        return $this->imageFile;
    }
 
+   public function getLabel()
+   {
+       return $this->firstname . ' ' . $this->lastname;
+   }
+
 
 
 }
