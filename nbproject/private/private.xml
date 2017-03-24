@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Resources/views/User/index.html.twig</file>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Resources/views/User/profil.html.twig</file>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Resources/views/User/del.html.twig</file>
+            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/FamilytreeBundle/Resources/public/css/nav.css</file>
             <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/FamilytreeBundle/Resources/views/base.html.twig</file>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Resources/views/User/update.html.twig</file>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Controller/UserController.php</file>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/UserBundle/Resources/public/css/style.css</file>
         </group>
     </open-files>
 </project-private>
