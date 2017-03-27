@@ -4,7 +4,7 @@
     {% import _self as self %}
     {% if "label" in node | keys %} 
         <ul>
-            <li><a href="#">{{ node["label"]  }}</a></li>
+            <li>{{ node["label"]  }}</li>
             {% if "Père" in node["relations"] | keys %} 
                 <li>
                     {{ self.constructVisualTree( node["relations"]["Père"] ) }}
