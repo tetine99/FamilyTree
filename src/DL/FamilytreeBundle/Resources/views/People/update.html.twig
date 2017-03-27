@@ -1,28 +1,31 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 {% block title %}Modification Personne{% endblock %}
-
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/people/people.css') }}" type="text/css" media="all" />
+{% endblock %}
 
 {% block body %}
 
-    <h2>Modifier</h2>
-
+<fieldset>
+  <legend>Modifier</legend>
   {{ form_start(form) }}
 
-<div class="people-form-firstname">
-  {{ form_label(form.firstname) }}
-  {{ form_widget(form.firstname, {"attr":{"class":"name"}}) }}
-</div>
+  <div class="people-form-firstname">
+    {{ form_label(form.firstname) }}
+    {{ form_widget(form.firstname, {"attr":{"class":"name"}}) }}
+  </div>
 
-<div class="people-form-lastname">
-  {{ form_label(form.lastname) }}
-  {{ form_widget(form.lastname) }}
-</div>
+  <div class="people-form-lastname">
+    {{ form_label(form.lastname) }}
+    {{ form_widget(form.lastname) }}
+  </div>
 
-<div class="">
-  {{ form_label(form.imageFile) }}
-  {{ form_widget(form.imageFile) }}
-</div>
+  <div class="people-form-image">
+    {{ form_label(form.imageFile) }}
+    {{ form_widget(form.imageFile) }}
+  </div>
 
-{{ form_end(form) }}
+  {{ form_end(form) }}
+</fieldset>
 
 {% endblock %}

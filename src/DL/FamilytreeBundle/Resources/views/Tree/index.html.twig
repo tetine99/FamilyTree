@@ -1,25 +1,48 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/tree/tree.css') }}" type="text/css" media="all" />
+{% endblock %}
+
 {% block body %}
+  <div class="tree-list">
+    <fieldset>
+      <legend>Liste des arbres</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nom</th>
+          </tr>
+        </thead>
 
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>nom</th>
-      </tr>
-    </thead>
+        <tbody>
+          {% for tree in trees %}
+          <tr>
+            <td>{{ tree.id }}</td>
+            <td>{{ tree.name }}</td>
+            <td><a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a></td>
+            <td><a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
 
-    <tbody>
-      {% for tree in trees %}
-      <tr>
-        <td>{{ tree.id }}</td>
-        <td>{{ tree.name }}</td>
-        <td><a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a></td>
-        <td><a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="tree-add">
+    <fieldset>
+      <legend>Ajouter un arbre</legend>
+      {{ form_start(form) }}
+
+      <div class="tree-form-name">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {"attr":{"class":"tree-name"}}) }}
+      </div>
+
+      {{ form_end(form) }}
+    </fieldset>
+  </div>
+
 
 {% endblock %}

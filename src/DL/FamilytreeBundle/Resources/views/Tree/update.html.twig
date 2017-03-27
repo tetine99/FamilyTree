@@ -1,0 +1,21 @@
+{% extends 'DLFamilytreeBundle::base.html.twig' %}
+{% block title %}Modification d'un arbre{% endblock %}
+{% block stylesheets %}
+  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/tree/tree.css') }}" type="text/css" media="all" />
+{% endblock %}
+
+{% block body %}
+
+<fieldset>
+  <legend>Modifier l'arbre</legend>
+  {{ form_start(form) }}
+
+  <div class="tree-form-name">
+    {{ form_label(form.name) }}
+    {{ form_widget(form.name, {"attr":{"class":"name"}}) }}
+  </div>
+
+  {{ form_end(form) }}
+</fieldset>
+
+{% endblock %}

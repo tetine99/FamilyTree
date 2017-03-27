@@ -42,10 +42,11 @@ class TreeController extends Controller
         }
         return $tree;
     }
-    
+
 
     /**
     * @Route("/tree", name="tree")
+    *@Method({"GET", "POST"})
     */
     public function indexAction(Request $request)
     {
@@ -53,33 +54,20 @@ class TreeController extends Controller
   		$trees = $em->getRepository('DLFamilytreeBundle:Tree')
   			->findAll();
 
+        //ajout d'un arbre
+        $tree = new Tree();
+        $form = $this->createForm(TreeFormType::class, $tree);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+          $em = $this->getDoctrine()->getManager();
+  				$em->persist($tree);  //constitue l'objet
+  				$em->flush();         //enregistre en bdd
+          return $this->redirectToRoute('tree');
+        }
       return $this->render('DLFamilytreeBundle:Tree:index.html.twig', [
-    		'trees'=>$trees
+    		'trees'=>$trees,
+        'form'=>$form->createView()
     	]);
-    }
-
-
-    /**
-  	*@Route("/tree/add", name="tree_add")
-  	*@Method({"GET", "POST"})
-  	*/
-    public function addAction(Request $request)
-    {
-      $tree = new Tree();
-
-      $form = $this->createForm(TreeFormType::class, $tree);
-
-      $form->handleRequest($request);
-      if($form->isSubmitted() && $form->isValid()){
-        $em = $this->getDoctrine()->getManager();
-				$em->persist($tree);  //constitue l'objet
-				$em->flush();         //enregistre en bdd
-
-        return $this->redirectToRoute('tree');
-      }
-      return $this->render('DLFamilytreeBundle:Tree:add.html.twig',[
-  			'form'=>$form->createView()
-  		]);
     }
 
     /**
@@ -95,17 +83,15 @@ class TreeController extends Controller
 
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);
-
    			 if($form->isValid()) {
    			 $data = $form->getData();
    			 $em->flush();
-
          return $this->redirectToRoute('tree');
           }
-     return $this->render('DLFamilytreeBundle:Tree:add.html.twig', [
-				 'form' => $form->createView()
-		 ]);
-   }
+       return $this->render('DLFamilytreeBundle:Tree:update.html.twig', [
+  				 'form' => $form->createView()
+  		 ]);
+     }
 
    /**
 		* @Route("/tree/delete/{id}", name="tree_delete", defaults={"id"=null})

@@ -6,62 +6,66 @@
 
 {% block body %}
 
-    <h1>people</h1>
+<h1>people</h1>
 
-<fieldset class="people-list">
-  <legend>Liste des personnes</legend>
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>nom</th>
-        <th>prenom</th>
-        <th>image</th>
-      </tr>
-    </thead>
+  <div class="people-list">
+    <fieldset>
+      <legend>Liste des personnes</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nom</th>
+            <th>prenom</th>
+            <th>image</th>
+          </tr>
+        </thead>
 
-    <tbody>
-      {% for people in peoples %}
-      <tr>
-        <td>{{ people.id }}</td>
-        <td>{{ people.firstname }}</td>
-        <td>{{ people.lastname }}</td>
-        <td>
-          {% if people.image is null %}
-            <p>non</p>
-          {% else %}
-          <img style="width:100px" src="{{ asset('images/products/' ~ people.image) }}" alt="photo" />
-          {% endif %}
-        </td>
+        <tbody>
+          {% for people in peoples %}
+          <tr>
+            <td>{{ people.id }}</td>
+            <td>{{ people.firstname }}</td>
+            <td>{{ people.lastname }}</td>
+            <td>
+              {% if people.image is null %}
+                <p>non</p>
+              {% else %}
+              <img src="{{ asset('images/products/' ~ people.image) }}" alt="photo" />
+              {% endif %}
+            </td>
 
-        <td><a href="{{ path("people_update", {'id':people.id}) }}">modifier</a></td>
-        <td><a href="{{ path("people_delete", {'id':people.id}) }}">supprimer</a></td>
-        {% endfor %}
-    </tbody>
-  </table>
-</fieldset>
-
-<fieldset class="people-add">
-  <legend>Ajouter une personne</legend>
-  {{ form_start(form) }}
-
-  <div class="">
-    {{ form_label(form.firstname) }}
-    {{ form_widget(form.firstname, {"attr":{"class":"peope-firstname"}}) }}
+            <td><a href="{{ path("people_update", {'id':people.id}) }}">modifier</a></td>
+            <td><a href="{{ path("people_delete", {'id':people.id}) }}">supprimer</a></td>
+            {% endfor %}
+        </tbody>
+      </table>
+    </fieldset>
   </div>
 
-  <div class="">
-    {{ form_label(form.lastname) }}
-    {{ form_widget(form.lastname, {"attr":{"class":"people-lastname"}}) }}
-  </div>
+<div class="people-add">
+  <fieldset >
+    <legend>Ajouter une personne</legend>
+    {{ form_start(form) }}
 
-  <div class="">
-    {{ form_label(form.imageFile) }}
-    {{ form_widget(form.imageFile) }}
-  </div>
+    <div class="people-form-firstname">
+      {{ form_label(form.firstname) }}
+      {{ form_widget(form.firstname, {"attr":{"class":"people-firstname"}}) }}
+    </div>
 
-  {{ form_end(form) }}
-</fieldset>
+    <div class="people-form-lastname">
+      {{ form_label(form.lastname) }}
+      {{ form_widget(form.lastname, {"attr":{"class":"people-lastname"}}) }}
+    </div>
+
+    <div class="people-form-image">
+      {{ form_label(form.imageFile) }}
+      {{ form_widget(form.imageFile) }}
+    </div>
+
+    {{ form_end(form) }}
+  </fieldset>
+</div>
 
 
 {% endblock %}
