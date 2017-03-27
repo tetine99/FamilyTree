@@ -1,0 +1,25 @@
+.gestionuser {
+    position: relative;
+
+}
+
+.titre {
+    text-align: center;
+}
+.listuser {
+    text-align: center;
+}
+
+th {  
+    text-align: center;
+}
+
+.listuser table {
+    position: absolute;
+    width: 90%;
+    border: solid black 3px ;
+    border-radius: 5px;
+    text-align: center;
+    left: 5%;
+
+}
