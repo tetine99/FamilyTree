@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/FamilytreeBundle/Resources/public/css/nav.css</file>
             <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/FamilytreeBundle/Resources/views/base.html.twig</file>
+            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/src/DL/FamilytreeBundle/Entity/Tree.php</file>
+            <file>file:/D:/Documents/NetBeansProjects/familytree/FamilyTree/web/bundles/DLFamilytreeBundle/css/tree/tree.css</file>
         </group>
     </open-files>
 </project-private>
