@@ -1,11 +1,9 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
-
-
 {% macro constructVisualTree(node) %}
     {% import _self as self %}
     <ul>
-        <li><a href="#">{{ node["label"] | default('text') }}</a></li>
+        <li><a href="#">{{ node["label"]  }}</a></li>
         {% if "Père" in node["relations"] | keys %} 
         <li>
             {{ self.constructVisualTree( node["relations"]["Père"] ) }}
@@ -19,15 +17,24 @@
     </ul>
 {% endmacro %}
 
-{% from _self import constructVisualTree %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/tree.css') }}" />
+{% endblock %}
+
+
+
 
 {% block title %}
 Vue de l'arbre
 {% endblock %}
 
+{% from _self import constructVisualTree %}
 {% block body %}
 
+
     {{ constructVisualTree(tree) }}
+    {{ dump(tree) }}
 
 
 {% endblock %}

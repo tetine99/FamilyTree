@@ -32,6 +32,8 @@ class People
      * @ORM\Column(name="firstname", type="string", length=255)
      */
     private $firstname;
+    
+ 
 
     /**
      * @var string
@@ -199,4 +201,29 @@ class People
 
 
 
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return People
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    
 }
