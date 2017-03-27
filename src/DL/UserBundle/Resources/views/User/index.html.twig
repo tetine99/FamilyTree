@@ -1,31 +1,41 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/dluser/css/userindex.css') }}" />
+{% endblock%}
+
 {% block body %}
 
+    <div class="col-sm-12 gestionuser">
 
-    <h1>Page de gestion des utilisateurs inscrit </h1>
+        <div class="titre" >
+            <h1>Page de gestion des utilisateurs inscrit </h1>
+        </div>
 
-    <table style='border: solid black 1px'>
-        <thead>
-            <tr>
-                <th>Nom Utilisateur</th>
-                <th>Adresse E-mail</th>
+        <div class="listuser">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom Utilisateur</th>
+                        <th>Adresse E-mail</th>
+                        <th>Suppression</th>
+                        <th>Modification</th>
 
-            </tr>
-        </thead>
-        <tbody>
-            {% for user in listUser %}
-                <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td><a href="{{path('user_del', {'id': user.id})}}">Supprimer</a></td>
-                    <td><a href="{{path('user_update', {'id': user.id})}}">Modifier</a></td>
-                </tr>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in listUser %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td><a href="{{path('user_del', {'id': user.id})}}">Supprimer</a></td>
+                            <td><a href="{{path('user_update', {'id': user.id})}}">Modifier</a></td>
+                        </tr>
 
-            {% endfor %}
-        </tbody>
-    </table>
-
-
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 {% endblock %}

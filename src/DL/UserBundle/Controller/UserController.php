@@ -23,6 +23,7 @@ class UserController extends Controller {
      */
     public function indexAction()
     {
+        // on affiche la liste des utilisateur inscrit
         $repository = $this
                 ->getDoctrine()
                 ->getManager()
@@ -49,26 +50,26 @@ class UserController extends Controller {
                 ->getRepository('DLUserBundle:User');
         $id = $request->get('id');
         $user = $repository->findOneById($id);
-
+        // on crée le formulaire
         $form = $this->createFormBuilder()
                 ->add('username', TextType::class, array('label' => 'username'))
                 ->add('email', TextType::class, array('label' => 'email'))
                 ->add('save', SubmitType::class, array('label' => 'Confirmer'))
                 ->getForm();
-
+        // on ecoute le formulaire
         $form->handleRequest($request);
 
 
-
+        // si on le valide 
         if ($form->isSubmitted())
         {
-
+            // on recupere les information saisie dans les champs
             $email = $form["email"]->getData();
             $username = $form["username"]->getData();
             $id = $request->get('id');
             $user = $repository->findOneById($id);
 
-
+            // si les deux champ son inutilisé on redirige vers index
             if (strtolower($email) == 'x' && strtolower($username) == 'x')
             {
                 $repository = $this
@@ -82,17 +83,22 @@ class UserController extends Controller {
                             'listUser' => $listUser,
                 ]);
             }
+            // sinon si on veut changer username
             elseif (strtolower($email) == 'x' && strtolower($username) != 'x')
             {
+                // on enregistre le nouveau username dans la base de donnée 
                 $em = $this->getDoctrine()->getEntityManager();
                 $user->setUserName($username);
                 $em->persist($user);
                 $em->flush();
             }
+            // si l'on souhaite juste modifier l'adresse email
             elseif (strtolower($email) != 'x' && strtolower($username) == 'x')
             {
+                // on verifie que ladresse saisie est une adresse email valide
                 if (preg_match($this->emailPattern, $email) === 1)
                 {
+                    // ensuite on enregistre les modifications dans la base de données
                     $em = $this->getDoctrine()->getEntityManager();
 
                     $repository = $this
@@ -110,9 +116,11 @@ class UserController extends Controller {
                 }
             }
             else
-            {
+            {   // sinon on modifie les deux champs
+                // on verifie que l'adresse email saisie est valide
                 if (preg_match($this->emailPattern, $email) === 1)
                 {
+                    // ensuite on enregistre les modification en base
                     $em = $this->getDoctrine()->getEntityManager();
 
                     $repository = $this
@@ -139,33 +147,33 @@ class UserController extends Controller {
     /**
      * @Route("/del/{id}", name="user_del")
      * @Security("has_role('ROLE_ADMIN')")
+     * page de suppression d'un utilisateur
      */
     public function delAction(Request $request)
     {
+        // on recupere l'utilisateru en fonction de son id
         $em = $this->getDoctrine()->getEntityManager();
-
         $repository = $this
                 ->getDoctrine()
                 ->getManager()
                 ->getRepository('DLUserBundle:User');
-
         $id = $request->get('id');
-
         $user = $repository->findOneById($id);
-
+        // on crée le formaulaire 
         $form = $this->createFormBuilder()
                 ->add('save', SubmitType::class, array('label' => 'Confirmer'))
                 ->getForm();
-
+        // on ecoute le formulaire
         $form->handleRequest($request);
-
+        // si le formulaire a été valide
         if ($form->isSubmitted())
         {
+            // on supprime l'utilisateur si l'admin a valider la suppression
             $em->remove($user);
             $em->flush();
-
+            // on recupere ensuite tout les users
             $listUser = $repository->findAll();
-
+            // et on redirige vers l'index
             return $this->redirectToRoute('user_index', [
                         'listUser' => $listUser,
             ]);
