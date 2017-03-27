@@ -32,7 +32,7 @@
 
                     <ul class="nav navbar-nav">
 
-                        <li class="active"><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
+                        <li><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
 
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
@@ -61,7 +61,7 @@
                             Connecté en tant que {{ app.user.username }}
 
 
-                            <li class="test"><a href="#"><span class="glyphicon glyphicon-user"></span> Profil</a>
+                            <li class="profil"><a href="#"><span class="glyphicon glyphicon-user"></span> Profil</a>
 
 
                                 <ul>

@@ -17,26 +17,40 @@ class TreeController extends Controller
      */
     public function defaultViewAction()
     {
+        $people = $this->getDoctrine()
+            ->getManager()
+            ->getRepository('DLFamilytreeBundle:People')
+            ->findOneById(1);
+        
+            
         $relations = $this->getDoctrine()
             ->getManager()
             ->getRepository('DLFamilytreeBundle:Relation')
             ->findAll();
+        
+           
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
-            'tree' => $this->createTree($relations,1,2)
+           'tree' => $this->createTree($relations,$people,3)
+           //'tree' => $relations
         ]);
     }
 
-    public function createTree($relations,$people_id,$deep)
+    public function createTree($relations,$people,$deep)
     {
+    
         $tree = array(
-            "label" => "",
+            "label" => $people->getLabel(),
             "relations" => array()
+       
         );
         foreach ($relations as $rel){
-            if($rel->getPeopleA()->getId()==$people_id){
-                $tree["label"]= $rel->getPeopleA()->getLabel();
+            if($rel->getPeopleB()->getId()==$people->getId()){
                 if ($deep > 0){
-                    $tree["relations"][$rel->getRelationship()->getName()] = $this->createTree($relations,$rel->getPeopleB()->getId(),$deep-1);
+                    $tree["relations"][$rel->getRelationship()->getName()] = $this->createTree(
+                        $relations,
+                        $rel->getPeopleA(),
+                        $deep-1
+                    );
                 }
             }
         }

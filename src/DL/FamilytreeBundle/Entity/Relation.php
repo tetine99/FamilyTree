@@ -25,17 +25,17 @@ class Relation {
     /**
      * 
      * 
-     * @ORM\ManyToOne(targetEntity="People")
+     * @ORM\ManyToOne(targetEntity="People", fetch="EAGER")
      * @ORM\JoinColumn(name="people_a_id", referencedColumnName="id")
      * 
      */
     private $peopleA;
     
     
-     /**
+    /**
      * 
      * 
-     * @ORM\ManyToOne(targetEntity="People")
+     * @ORM\ManyToOne(targetEntity="People", fetch="EAGER")
      * @ORM\JoinColumn(name="people_b_id", referencedColumnName="id")
      * 
      */
@@ -44,7 +44,7 @@ class Relation {
     
     /**
      * 
-     * @ORM\ManyToOne(targetEntity="Relationship")
+     * @ORM\ManyToOne(targetEntity="Relationship", fetch="EAGER")
      * @ORM\JoinColumn(name="relationship_id", referencedColumnName="id")
      * 
      */
