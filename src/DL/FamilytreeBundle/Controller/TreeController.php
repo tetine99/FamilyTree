@@ -13,25 +13,40 @@ class TreeController extends Controller
 {
 
     /**
-     * @Route("/tree/view", name="tree_view")
+     * @Route("/tree/view/{id}", name="tree_view")
      */
-    public function defaultViewAction()
-    {
-        $people = $this->getDoctrine()
+    public function defaultViewAction(Request $request)
+    { 
+        $selected_people = null;
+        $selected_id = $request->get('id');
+        $message = "";
+        $tree=[];
+        
+        $peoples = $this->getDoctrine()
             ->getManager()
             ->getRepository('DLFamilytreeBundle:People')
-            ->findOneById(1);
-        
-            
-        $relations = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('DLFamilytreeBundle:Relation')
             ->findAll();
+            
+        foreach ($peoples as $p){
+            if($p->getId()==$selected_id){
+                $selected_people = $p;
+            }
+        }
         
+        if ($selected_people != null){
+            $relations = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('DLFamilytreeBundle:Relation')
+                ->findAll();
+            $tree = $this->createTree($relations,$selected_people,3);
+        }else{
+            $message = "L'utilisateur demandé n'existe pas.";
+        }
            
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
-           'tree' => $this->createTree($relations,$people,3)
-           //'tree' => $relations
+           'tree' => $tree,
+           'message' => $message,
+           'peoples' => $peoples,
         ]);
     }
 

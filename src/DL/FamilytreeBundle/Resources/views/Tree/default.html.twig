@@ -2,19 +2,21 @@
 
 {% macro constructVisualTree(node) %}
     {% import _self as self %}
-    <ul>
-        <li><a href="#">{{ node["label"]  }}</a></li>
-        {% if "Père" in node["relations"] | keys %} 
-        <li>
-            {{ self.constructVisualTree( node["relations"]["Père"] ) }}
-        </li>
-        {% endif %}
-        {% if "Mère" in node["relations"] | keys %} 
-        <li>
-            {{ self.constructVisualTree( node["relations"]["Mère"] ) }}
-        </li>
-        {% endif %}
-    </ul>
+    {% if "label" in node | keys %} 
+        <ul>
+            <li><a href="#">{{ node["label"]  }}</a></li>
+            {% if "Père" in node["relations"] | keys %} 
+                <li>
+                    {{ self.constructVisualTree( node["relations"]["Père"] ) }}
+                </li>
+            {% endif %}
+            {% if "Mère" in node["relations"] | keys %} 
+                <li>
+                    {{ self.constructVisualTree( node["relations"]["Mère"] ) }}
+                </li>
+            {% endif %}
+        </ul>
+    {% endif %}
 {% endmacro %}
 
 
@@ -32,9 +34,17 @@ Vue de l'arbre
 {% from _self import constructVisualTree %}
 {% block body %}
 
+    <h2> Liste </h2>
+    <ul class="people-list">
+        {% for people in peoples %}
+            <li>
+                <a href="{{ path('tree_view', {'id':people.id}) }}">{{people.label}}</a>
+            </li>
+        {% endfor %}
+    </ul>
 
+    <h2> Arbre </h2>
     {{ constructVisualTree(tree) }}
-    {{ dump(tree) }}
 
 
 {% endblock %}
