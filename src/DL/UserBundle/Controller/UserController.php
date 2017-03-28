@@ -1,8 +1,8 @@
 <?php
 
 /**
- * @Author kevin
- */
+* @Author kevin
+*/
 
 namespace DL\UserBundle\Controller;
 
@@ -18,49 +18,51 @@ class UserController extends Controller {
     private $emailPattern = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD ';
 
     /**
-     * @Route("/", name="user_index")
-     * @Security("has_role('ROLE_ADMIN')")
-     */
+    * @Route("/", name="user_index")
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function indexAction()
     {
         // on affiche la liste des utilisateur inscrit
         $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('DLUserBundle:User');
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('DLUserBundle:User');
 
         $listUser = $repository->findAll();
 
         return $this->render('DLUserBundle:User:index.html.twig', [
-                    'listUser' => $listUser,
+            'listUser' => $listUser,
         ]);
     }
 
     /**
-     * @Route("/update/{id}", name="user_update")
-     * @Security("has_role('ROLE_ADMIN')")
-     */
+    * @Route("/update/{id}", name="user_update")
+    * @Security("has_role('ROLE_ADMIN')")
+    */
     public function updateAction(Request $request)
     {
         // recuperation de l'user en fonction de son id
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('DLUserBundle:User');
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('DLUserBundle:User');
         $id = $request->get('id');
         $user = $repository->findOneById($id);
+
         // on crée le formulaire
         $form = $this->createFormBuilder()
-                ->add('username', TextType::class, array('label' => 'username'))
-                ->add('email', TextType::class, array('label' => 'email'))
-                ->add('save', SubmitType::class, array('label' => 'Confirmer'))
-                ->getForm();
+        ->add('username', TextType::class, array('label' => 'username'))
+        ->add('email', TextType::class, array('label' => 'email'))
+        ->add('save', SubmitType::class, array('label' => 'Confirmer'))
+        ->getForm();
+        
         // on ecoute le formulaire
         $form->handleRequest($request);
 
 
-        // si on le valide 
+        // si on le valide
         if ($form->isSubmitted())
         {
             // on recupere les information saisie dans les champs
@@ -73,20 +75,20 @@ class UserController extends Controller {
             if (strtolower($email) == 'x' && strtolower($username) == 'x')
             {
                 $repository = $this
-                        ->getDoctrine()
-                        ->getManager()
-                        ->getRepository('DLUserBundle:User');
+                ->getDoctrine()
+                ->getManager()
+                ->getRepository('DLUserBundle:User');
 
                 $listUser = $repository->findAll();
 
                 return $this->redirectToRoute('user_index', [
-                            'listUser' => $listUser,
+                    'listUser' => $listUser,
                 ]);
             }
             // sinon si on veut changer username
             elseif (strtolower($email) == 'x' && strtolower($username) != 'x')
             {
-                // on enregistre le nouveau username dans la base de donnée 
+                // on enregistre le nouveau username dans la base de donnée
                 $em = $this->getDoctrine()->getEntityManager();
                 $user->setUserName($username);
                 $em->persist($user);
@@ -102,9 +104,9 @@ class UserController extends Controller {
                     $em = $this->getDoctrine()->getEntityManager();
 
                     $repository = $this
-                            ->getDoctrine()
-                            ->getManager()
-                            ->getRepository('DLUserBundle:User');
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('DLUserBundle:User');
 
 
                     $user = $repository->findOneByEmail($currentUser->getEmail());
@@ -124,9 +126,9 @@ class UserController extends Controller {
                     $em = $this->getDoctrine()->getEntityManager();
 
                     $repository = $this
-                            ->getDoctrine()
-                            ->getManager()
-                            ->getRepository('DLUserBundle:User');
+                    ->getDoctrine()
+                    ->getManager()
+                    ->getRepository('DLUserBundle:User');
 
                     $user->setUserName($username);
                     $user->setEmail($email);
@@ -139,30 +141,30 @@ class UserController extends Controller {
         }
 
         return $this->render('DLUserBundle:User:update.html.twig', [
-                    'user' => $user,
-                    'form' => $form->createView(),
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/del/{id}", name="user_del")
-     * @Security("has_role('ROLE_ADMIN')")
-     * page de suppression d'un utilisateur
-     */
+    * @Route("/del/{id}", name="user_del")
+    * @Security("has_role('ROLE_ADMIN')")
+    * page de suppression d'un utilisateur
+    */
     public function delAction(Request $request)
     {
         // on recupere l'utilisateru en fonction de son id
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('DLUserBundle:User');
+        ->getDoctrine()
+        ->getManager()
+        ->getRepository('DLUserBundle:User');
         $id = $request->get('id');
         $user = $repository->findOneById($id);
-        // on crée le formaulaire 
+        // on crée le formaulaire
         $form = $this->createFormBuilder()
-                ->add('save', SubmitType::class, array('label' => 'Confirmer'))
-                ->getForm();
+        ->add('save', SubmitType::class, array('label' => 'Confirmer'))
+        ->getForm();
         // on ecoute le formulaire
         $form->handleRequest($request);
         // si le formulaire a été valide
@@ -175,33 +177,33 @@ class UserController extends Controller {
             $listUser = $repository->findAll();
             // et on redirige vers l'index
             return $this->redirectToRoute('user_index', [
-                        'listUser' => $listUser,
+                'listUser' => $listUser,
             ]);
         }
 
         return $this->render('DLUserBundle:User:del.html.twig', [
-                    'user' => $user,
-                    'form' => $form->createView(),
+            'user' => $user,
+            'form' => $form->createView(),
         ]);
     }
 
     /**
-     * 
-     * @Route("/profil", name="user_profil")
-     */
+    *
+    * @Route("/profil", name="user_profil")
+    */
     public function profilAction(Request $request)
     {
         // on crée un premier formulaire pour acceder a la page de modif mdp
         $form = $this->get("form.factory")->createNamedBuilder("mdpForm")
-                ->add('save', SubmitType::class, array('label' => 'Modifier le mot de passe'))
-                ->getForm();
+        ->add('save', SubmitType::class, array('label' => 'Modifier le mot de passe'))
+        ->getForm();
         // un deuxieme formulaire pour modifier l'email
         $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
-                ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
-                ->add('save2', SubmitType::class, array('label' => 'Confirmer'))
-                ->getForm();
+        ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
+        ->add('save2', SubmitType::class, array('label' => 'Confirmer'))
+        ->getForm();
 
-        // si on a cliquer sur la validation d'un des deux formulaire 
+        // si on a cliquer sur la validation d'un des deux formulaire
         if ($request->isMethod('POST'))
         {
 
@@ -223,7 +225,7 @@ class UserController extends Controller {
                 // si on valide le formulaire de modification de l'adresse email
                 if ($form2->isSubmitted())
                 {
-                    // on verifie que l'adresse email saisie est valide 
+                    // on verifie que l'adresse email saisie est valide
                     $emailaddress = $form2["e-mail"]->getData();
 
                     // si oui on modifie le profil
@@ -232,9 +234,9 @@ class UserController extends Controller {
                         $em = $this->getDoctrine()->getEntityManager();
 
                         $repository = $this
-                                ->getDoctrine()
-                                ->getManager()
-                                ->getRepository('DLUserBundle:User');
+                        ->getDoctrine()
+                        ->getManager()
+                        ->getRepository('DLUserBundle:User');
 
                         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
@@ -252,15 +254,15 @@ class UserController extends Controller {
                     else
                     {
                         $this->get('session')->getFlashBag()
-                                ->add('notice', 'Email invalide !');
+                        ->add('notice', 'Email invalide !');
                     }
                 }
             }
         }
 
         return $this->render('DLUserBundle:User:profil.html.twig', [
-                    'form' => $form->createView(),
-                    'form2' => $form2->createView(),
+            'form' => $form->createView(),
+            'form2' => $form2->createView(),
         ]);
     }
 
