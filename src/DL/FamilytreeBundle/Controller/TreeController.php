@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use DL\FamilytreeBundle\Form\Type\TreeFormType;
 use DL\FamilytreeBundle\Entity\Tree;
+use DL\FamilytreeBundle\Entity\Permission;
+use DL\FamilytreeBundle\Entity\Type;
+use DL\UserBundle\Entity\User;
 
 class TreeController extends Controller
 {
@@ -21,14 +24,14 @@ class TreeController extends Controller
             ->getManager()
             ->getRepository('DLFamilytreeBundle:People')
             ->findOneById(1);
-        
-            
+
+
         $relations = $this->getDoctrine()
             ->getManager()
             ->getRepository('DLFamilytreeBundle:Relation')
             ->findAll();
-        
-           
+
+
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
            'tree' => $this->createTree($relations,$people,3)
            //'tree' => $relations
@@ -37,11 +40,11 @@ class TreeController extends Controller
 
     public function createTree($relations,$people,$deep)
     {
-    
+
         $tree = array(
             "label" => $people->getLabel(),
             "relations" => array()
-       
+
         );
         foreach ($relations as $rel){
             if($rel->getPeopleB()->getId()==$people->getId()){
@@ -68,18 +71,39 @@ class TreeController extends Controller
   		$trees = $em->getRepository('DLFamilytreeBundle:Tree')
   			->findAll();
 
+
+
+        $mytrees = $this->container->get('security.token_storage')
+          ->getToken()->getUser()->myownTrees();
+
+
+
+
         //ajout d'un arbre
         $tree = new Tree();
+        $p = false;
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);
+
         if($form->isSubmitted() && $form->isValid()){
           $em = $this->getDoctrine()->getManager();
-  				$em->persist($tree);  //constitue l'objet
+
+          $type = $em->getRepository('DLFamilytreeBundle:Type')->findOneById(1);
+
+          $p = new Permission();
+          $p->setType($type);
+          $p->setUser( $this->container->get('security.token_storage')->getToken()->getUser() );
+          $p->setTree( $tree );
+
+          $em->persist( $p );  //constitue l'objet
+  				$em->persist( $tree );  //constitue l'objet
   				$em->flush();         //enregistre en bdd
+
           return $this->redirectToRoute('tree');
         }
       return $this->render('DLFamilytreeBundle:Tree:index.html.twig', [
     		'trees'=>$trees,
+        "test" => $mytrees,
         'form'=>$form->createView()
     	]);
     }
@@ -90,10 +114,22 @@ class TreeController extends Controller
   	 */
      public function updateAction(Request $request)
      {
+
+
+
         $id = $request->get('id');
 
         $em = $this->getDoctrine()->getManager();
    		  $tree = $em->getRepository('DLFamilytreeBundle:Tree')->find($id);
+
+
+        // // user est propriétaire de l'arbre
+        // if($this->container->get('security.token_storage')
+        //   ->getToken()->getUser()->isOwner(  $tree ))
+        // // si arbre est propriétaire de l'user
+        // if( $tree->isOwner(  $this->container->get('security.token_storage')
+        //   ->getToken()->getUser() ))
+
 
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);

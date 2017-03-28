@@ -5,12 +5,12 @@ namespace DL\FamilytreeBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tree
+ * Type
  *
- * @ORM\Table(name="tree")
- * @ORM\Entity(repositoryClass="DL\FamilytreeBundle\Repository\TreeRepository")
+ * @ORM\Table(name="type")
+ * @ORM\Entity(repositoryClass="DL\FamilytreeBundle\Repository\TypeRepository")
  */
-class Tree
+class Type
 {
     /**
      * @var int
@@ -31,7 +31,7 @@ class Tree
     /**
      *
      *
-     * @ORM\OneToMany(targetEntity="Permission", fetch="EAGER", mappedBy="tree")
+     * @ORM\OneToMany(targetEntity="Permission", mappedBy="type", fetch="EAGER")
      * @ORM\JoinColumn(name="id")
      *
      */
@@ -53,7 +53,7 @@ class Tree
      *
      * @param string $name
      *
-     * @return Tree
+     * @return Type
      */
     public function setName($name)
     {
@@ -77,7 +77,7 @@ class Tree
      *
      * @param \DL\FamilytreeBundle\Entity\Permission $permissions
      *
-     * @return Tree
+     * @return Type
      */
     public function setPermissions(\DL\FamilytreeBundle\Entity\Permission $permissions = null)
     {
@@ -108,7 +108,7 @@ class Tree
      *
      * @param \DL\FamilytreeBundle\Entity\Permission $permission
      *
-     * @return Tree
+     * @return Type
      */
     public function addPermission(\DL\FamilytreeBundle\Entity\Permission $permission)
     {
@@ -126,15 +126,4 @@ class Tree
     {
         $this->permissions->removeElement($permission);
     }
-
-
-
-    public function isOwner()
-    {
-        $this->
-    }
-
-
-
-
 }
