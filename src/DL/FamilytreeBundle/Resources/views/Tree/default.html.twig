@@ -5,12 +5,15 @@
     {% if "label" in node | keys %} 
         <ul>
             <li>
-                <div>
-                    {% if node["empty"] %} 
-                        {{ node["label"]  ~ parent }} 
+                {% if node["empty"] %} 
+                    <div>{{ node["label"]  ~ parent }} 
+                {% else %}
+                    {% if node["image"] %} 
+                        <div style="background-image:url('{{ asset('images/products/' ~ node['image']) }}')">
                     {% else %}
-                        {{ node["label"]  }}
+                        <div>{{ node["label"]  }}
                     {% endif %}
+                {% endif %}
                 </div>
             </li>
             
@@ -57,6 +60,7 @@ Vue de l'arbre
     <div class="tree-people">
 
     {{ constructVisualTree(tree) }}
+    {#{{ dump(tree) }}#}
     
     </div>
 

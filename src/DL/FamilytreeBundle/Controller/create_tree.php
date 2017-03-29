@@ -4,6 +4,7 @@ function createTree($relations,$people,$deep)
     // Vérification du nom et création d'un autre nom si besoin
     $label ="";
     $empty = false;
+    $image = false;
     if ($people==null){
         $empty = true;
         if ($deep==1){
@@ -13,11 +14,15 @@ function createTree($relations,$people,$deep)
         }
     }else{
         $label = $people->getLabel();
+        if ($people->getImage()!=null){
+            $image = $people->getImage();
+        }
     }
     // création de l'objet arbre
     $tree = array(
         "empty" => $empty,
         "label" => $label,
+        "image" => $image,
         "relations" => array()
 
     );
