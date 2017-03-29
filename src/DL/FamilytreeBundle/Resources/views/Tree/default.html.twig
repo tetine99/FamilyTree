@@ -4,7 +4,7 @@
     {% import _self as self %}
     {% if "label" in node | keys %} 
         <ul>
-            <li>{{ node["label"]  }}</li>
+            <li><div>{{ node["label"]  }}</div></li>
             {% if "Père" in node["relations"] | keys %} 
                 <li>
                     {{ self.constructVisualTree( node["relations"]["Père"] ) }}
@@ -20,9 +20,7 @@
 {% endmacro %}
 
 
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/tree.css') }}" />
-{% endblock %}
+
 
 
 
@@ -34,17 +32,25 @@ Vue de l'arbre
 {% from _self import constructVisualTree %}
 {% block body %}
 
-    <h2> Liste </h2>
-    <ul class="people-list">
-        {% for people in peoples %}
+    <div class="list-people">
+        <ul>
+
+            {% for people in peoples %}
+
             <li>
                 <a href="{{ path('tree_view', {'id':people.id}) }}">{{people.label}}</a>
             </li>
-        {% endfor %}
-    </ul>
 
-    <h2> Arbre </h2>
+            {% endfor %}
+        </ul>
+    
+    </div>
+    
+    <div class="tree-people">
+
     {{ constructVisualTree(tree) }}
+    
+    </div>
 
 
 {% endblock %}
