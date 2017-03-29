@@ -137,11 +137,11 @@ class Type
     /**
      * Set droits
      *
-     * @param \int $droits
+     * @param int $droits
      *
      * @return Type
      */
-    public function setDroits(\int $droits)
+    public function setDroits(int $droits)
     {
         $this->droits = $droits;
 
@@ -151,7 +151,7 @@ class Type
     /**
      * Get droits
      *
-     * @return \int
+     * @return int
      */
     public function getDroits()
     {

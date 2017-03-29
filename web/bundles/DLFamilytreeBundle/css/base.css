@@ -229,34 +229,3 @@ body > main{
 	height: 220%;
 }
 
-/* correct symphony bar */
-
-body > div{
-	display:none;
-}
-/*
-ul,li{
-    padding:0;
-    margin:0;
-}
-ul.root{
-    position:absolute;
-    bottom:50px;
-    left:35%;
-}
-li{
-    width:130px;
-    list-style-type:none;
-    
-}
-ul>li:nth-child(2){
-    position:absolute;
-    top:-150px;
-    left:-100%;
-}
-ul>li:nth-child(3){
-    position:absolute;
-    top:-150px;
-    left:50%;
-}
-*/
