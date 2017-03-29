@@ -45,6 +45,10 @@ class TreeController extends Controller
         }else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
+       return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
+            'peoples' => $peoples,
+            'tree' => $tree
+        ]);
     }
 
     public function createTree($relations,$people,$deep)
