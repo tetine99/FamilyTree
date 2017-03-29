@@ -30,7 +30,7 @@
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     
 					<li><a href="{{ path('people') }}">Personnes</a></li>
-					<li><a href="{{ path('relation') }}"">Relations</a></li>
+					<li><a href="{{ path('relation') }}">Relations</a></li>
 					<li><a href="{{ path('tree_view', {'id':1}) }}">Visuel</a></li>
                     
                     {% endif %}
@@ -85,9 +85,9 @@
 
         {% block body %}{% endblock %}
         
-        {% block javascripts %}{% endblock %}
-        
         </main>
+        
+        {% block javascripts %}{% endblock %}
         
     </body>
     
