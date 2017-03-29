@@ -45,6 +45,7 @@ class TreeController extends Controller
         }else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
+    }
 
     public function createTree($relations,$people,$deep)
     {
