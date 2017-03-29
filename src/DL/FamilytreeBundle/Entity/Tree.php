@@ -131,7 +131,7 @@ class Tree
 
     public function isOwner()
     {
-        $this->
+      
     }
 
 

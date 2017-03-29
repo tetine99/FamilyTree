@@ -83,7 +83,7 @@ class User extends BaseUser
       return $data;
     }
 
-    //retourne la liste des arbres propriétaire
+    //retourne la liste de mes arbres propriétaire
     public function myOwnTrees()
     {
       return $this->myTrees(true);

@@ -45,6 +45,7 @@ class TreeController extends Controller
         }else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
+    }
 
     public function createTree($relations,$people,$deep)
     {
@@ -76,16 +77,11 @@ class TreeController extends Controller
     public function indexAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
-  		$trees = $em->getRepository('DLFamilytreeBundle:Tree')
-  			->findAll();
+  		// $trees = $em->getRepository('DLFamilytreeBundle:Tree')
+  		// 	->findAll();
 
-
-
-        $mytrees = $this->container->get('security.token_storage')
-          ->getToken()->getUser()->myownTrees();
-
-
-
+      $mytrees = $this->container->get('security.token_storage')
+        ->getToken()->getUser()->myTrees();
 
         //ajout d'un arbre
         $tree = new Tree();
@@ -110,9 +106,10 @@ class TreeController extends Controller
           return $this->redirectToRoute('tree');
         }
       return $this->render('DLFamilytreeBundle:Tree:index.html.twig', [
-    		'trees'=>$trees,
-        "test" => $mytrees,
-        'form'=>$form->createView()
+          //'trees'=>$trees,
+          'trees'=>$mytrees,
+
+          'form'=>$form->createView()
     	]);
     }
 
@@ -122,15 +119,22 @@ class TreeController extends Controller
   	 */
      public function updateAction(Request $request)
      {
-
-
-
         $id = $request->get('id');
 
         $em = $this->getDoctrine()->getManager();
    		  $tree = $em->getRepository('DLFamilytreeBundle:Tree')->find($id);
 
 
+
+        //traitement formulaire
+
+
+        $types = $em->getRepository('DLFamilytreeBundle:Type')->findAll();
+
+
+   		  $permissions = $em->getRepository('DLFamilytreeBundle:Permission')->findBy( array("tree" => $tree) );
+
+        //   ->getToken()->getUser()
         // // user est propriétaire de l'arbre
         // if($this->container->get('security.token_storage')
         //   ->getToken()->getUser()->isOwner(  $tree ))
@@ -147,7 +151,9 @@ class TreeController extends Controller
          return $this->redirectToRoute('tree');
           }
        return $this->render('DLFamilytreeBundle:Tree:update.html.twig', [
-  				 'form' => $form->createView()
+  				 'form' => $form->createView(),
+           'types' => $types,
+           "permissions"=>$permissions,
   		 ]);
      }
 
