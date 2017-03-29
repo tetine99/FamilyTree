@@ -29,6 +29,13 @@ class Type
     private $name;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="droits", type="integer")
+     */
+    private $droits;
+
+    /**
      *
      *
      * @ORM\OneToMany(targetEntity="Permission", mappedBy="type", fetch="EAGER")
@@ -125,5 +132,29 @@ class Type
     public function removePermission(\DL\FamilytreeBundle\Entity\Permission $permission)
     {
         $this->permissions->removeElement($permission);
+    }
+
+    /**
+     * Set droits
+     *
+     * @param \int $droits
+     *
+     * @return Type
+     */
+    public function setDroits(\int $droits)
+    {
+        $this->droits = $droits;
+
+        return $this;
+    }
+
+    /**
+     * Get droits
+     *
+     * @return \int
+     */
+    public function getDroits()
+    {
+        return $this->droits;
     }
 }

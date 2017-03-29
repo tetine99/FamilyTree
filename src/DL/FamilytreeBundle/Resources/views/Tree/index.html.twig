@@ -19,17 +19,22 @@
         </thead>
 
         <tbody>
+
           {% for tree in trees %}
           <tr>
             <td>{{ tree.id }}</td>
             <td>{{ tree.name }}</td>
 
-            <td><a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a></td>
+            <td>
+              {% if app.user and app.user.hasRight(tree,50) %}
+              <a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a>
+              {% endif %}
+            </td>
 
             <td>
-              
+              {% if app.user and app.user.hasRight(tree,99) %}
               <a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a>
-
+              {% endif %}
             </td>
           </tr>
           {% endfor %}

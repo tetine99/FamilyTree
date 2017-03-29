@@ -89,6 +89,9 @@ class TreeController extends Controller
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);
 
+        $permissions = $this->container->get('security.token_storage')
+          ->getToken()->getUser()->getPermissions();
+
         if($form->isSubmitted() && $form->isValid()){
           $em = $this->getDoctrine()->getManager();
 
@@ -108,7 +111,7 @@ class TreeController extends Controller
       return $this->render('DLFamilytreeBundle:Tree:index.html.twig', [
           //'trees'=>$trees,
           'trees'=>$mytrees,
-
+          'permissions'=>$permissions,
           'form'=>$form->createView()
     	]);
     }
@@ -159,7 +162,7 @@ class TreeController extends Controller
 
    /**
 		* @Route("/tree/delete/{id}", name="tree_delete", defaults={"id"=null})
-		*/
+    */
 	 public function deleteAction(Request $request)
 	 {
 		 $id = $request->get('id');

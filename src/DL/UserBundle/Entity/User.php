@@ -66,27 +66,43 @@ class User extends BaseUser
         return $this->permissions;
     }
 
-
-
-
-
-    // retourne la liste des arbres
-    public function myTrees($owner = false)
+    //vérifie les droits d'accès aux arbres
+    public function hasRight($tree,$right)
     {
-        $data = [];
-        $permissions = $this->getPermissions();
-        foreach($permissions as $p)
-        {
-          if(!$owner || $p->isOwnerType() )
-            $data[] = $p->getTree();
-        }
+      $mTrees = $this->myTrees($right);
+      foreach ($mTrees as $t) {
+        if($tree == $t) return true;
+      }
+      return false;
+    }
+
+    public function isOwner($tree)
+    {
+      return $this->hasRight($tree,99);
+    }
+
+    public function isAdmin($tree)
+    {
+     return $this->hasRight($tree,50);
+    }
+
+    // retourne la liste des arbres dont j'ai accès
+    public function myTrees($type = false)
+    {
+      $data = [];
+      $permissions = $this->getPermissions();
+      foreach($permissions as $p)
+      {
+        if(!$type || $p->getType()->getDroits() >= $type )
+          $data[] = $p->getTree();
+      }
       return $data;
     }
 
     //retourne la liste de mes arbres propriétaire
     public function myOwnTrees()
     {
-      return $this->myTrees(true);
+      return $this->myTrees(99);
     }
 
 

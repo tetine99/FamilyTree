@@ -33,7 +33,7 @@ class PermissionController extends Controller
 
         $em->persist( $p );  //constitue l'objet
         $em->flush();         //enregistre en bdd
-
+        return $this->redirectToRoute('tree');
       } else {
 
       }
@@ -56,7 +56,7 @@ class PermissionController extends Controller
 
  		 $em->remove($permission);
  		 $em->flush();
- 		 return $this->redirectToRoute('tree_update', array("id" => $id_tree));
+ 		 return $this->redirectToRoute('tree');
  	 }
 
 
