@@ -44,7 +44,7 @@ class RelationController extends Controller
                 $message_ok .= "\" a bien été créé.";
             }
         }
-
+    
         return $this->render('DLFamilytreeBundle:Relation:index.html.twig', [
             'form' => $form->createView(),
             'message_error' => $message_error,

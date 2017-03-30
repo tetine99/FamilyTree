@@ -18,6 +18,7 @@ include 'create_tree.php';
 class TreeController extends Controller
 {
 
+
     /**
      * @Route("/tree/view/{id}", name="tree_view")
      * @Security("has_role('ROLE_USER')")
@@ -46,9 +47,12 @@ class TreeController extends Controller
                 ->getRepository('DLFamilytreeBundle:Relation')
                 ->findAll();
             $tree = createTree($relations,$selected_people,3);
-        }else{
+        }
+        else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
+
+
        return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
             'peoples' => $peoples,
             'tree' => $tree
