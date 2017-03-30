@@ -165,9 +165,20 @@ class Permission
 
     public function isOwnerType()
     {
-        return ( $this->getType()->getId() == 1);
-
+        return ( $this->getType()->getId() == 1 );
     }
+
+    //pour empêcher la suppresion de la permission de son propre arbre
+    public function isNotOwnerType()
+    {
+        return ( $this->getType()->getId() != 1 );
+    }
+
+
+
+
+
+
 
 
 

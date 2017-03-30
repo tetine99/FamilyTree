@@ -60,7 +60,11 @@
         <td>{{ permission.tree.name }}</td>
         <td>{{ permission.type.name }}</td>
         <td>{{ permission.user }}</td>
-        <td><a href="{{ path("permission_delete", {'id':permission.id}) }}">supprimer</a></td>
+        <td>
+          {% if app.user and permission.isNotOwnerType %}
+            <a href="{{ path("permission_delete", {'id':permission.id}) }}">supprimer</a>
+          {% endif %}
+        </td>
       </tr>
       {% endfor %}
     </tbody>

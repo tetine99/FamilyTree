@@ -37,9 +37,7 @@ class PermissionController extends Controller
       } else {
 
       }
-
-    return $this->redirectToRoute('tree_update', array("id" => $id_tree));
-
+     return $this->redirectToRoute('tree_update', array("id" => $id_tree));
     }
 
 
