@@ -14,19 +14,19 @@ class RelationController extends Controller
 {
 
     /**
-     * @Route("/relation", name="relation")
-     * @Security("has_role('ROLE_USER')")
-     */
+    * @Route("/relation", name="relation")
+    * @Security("has_role('ROLE_USER')")
+    */
     public function indexAction(Request $request)
     {
-        $relations;
-        
+        $relations = array();
+
         if($this->getUser()->getTree() != null)
         {
             $relations = $this->getDoctrine()
-                ->getManager()
-                ->getRepository('DLFamilytreeBundle:Relation')
-                ->findByTree($this->getUser()->getTree()->getId());
+            ->getManager()
+            ->getRepository('DLFamilytreeBundle:Relation')
+            ->findByTree($this->getUser()->getTree()->getId());
         }
 
         $message_error = "";
@@ -71,20 +71,20 @@ class RelationController extends Controller
     }
 
     /**
-     * Vérification du fait que la relation ne soit pas
-     * déjà présente dans la base
-     */
+    * Vérification du fait que la relation ne soit pas
+    * déjà présente dans la base
+    */
     public function checkRelationExistence($relation)
     {
         $relations = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('DLFamilytreeBundle:Relation')
-            ->findByTree($this->getUser()->getTree()->getId());
+        ->getManager()
+        ->getRepository('DLFamilytreeBundle:Relation')
+        ->findByTree($this->getUser()->getTree()->getId());
 
         foreach( $relations as $rel ){
             if ($rel->getPeopleA()->getId()==$relation->getPeopleA()->getId()
-                && $rel->getPeopleB()->getId()==$relation->getPeopleB()->getId()
-                && $rel->getRelationship()->getId()==$relation->getRelationship()->getId()){
+            && $rel->getPeopleB()->getId()==$relation->getPeopleB()->getId()
+            && $rel->getRelationship()->getId()==$relation->getRelationship()->getId()){
                 return true;
             }
         }
@@ -92,9 +92,9 @@ class RelationController extends Controller
     }
 
     /**
-     * @Route("/relation/delete/{id}", name="relation_delete")
-     * @Security("has_role('ROLE_USER')")
-     */
+    * @Route("/relation/delete/{id}", name="relation_delete")
+    * @Security("has_role('ROLE_USER')")
+    */
     public function deleteAction(Request $request)
     {
         $id = $request->get('id');
