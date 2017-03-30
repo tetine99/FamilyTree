@@ -131,13 +131,15 @@ class TreeController extends Controller
         $em = $this->getDoctrine()->getManager();
    		  $tree = $em->getRepository('DLFamilytreeBundle:Tree')->find($id);
 
-
-
         //traitement formulaire
-
-
         $types = $em->getRepository('DLFamilytreeBundle:Type')->findAll();
-
+        foreach($types as $key => $type) {
+          if( $type->getId() == 1 &&  !$this->container->get('security.token_storage')
+            ->getToken()->getUser()->isOwner($tree) )
+            {
+               array_splice($types,$key,1);
+            }
+        }
 
    		  $permissions = $em->getRepository('DLFamilytreeBundle:Permission')->findBy( array("tree" => $tree) );
 
@@ -148,7 +150,6 @@ class TreeController extends Controller
         // // si arbre est propriétaire de l'user
         // if( $tree->isOwner(  $this->container->get('security.token_storage')
         //   ->getToken()->getUser() ))
-
 
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);

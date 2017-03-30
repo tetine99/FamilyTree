@@ -66,6 +66,7 @@ class User extends BaseUser
         return $this->permissions;
     }
 
+
     //vérifie les droits d'accès aux arbres
     public function hasRight($tree,$right)
     {
@@ -78,12 +79,17 @@ class User extends BaseUser
 
     public function isOwner($tree)
     {
-      return $this->hasRight($tree,99);
+      return $this->hasRight($tree, 99);
     }
 
     public function isAdmin($tree)
     {
-     return $this->hasRight($tree,50);
+     return $this->hasRight($tree, 50);
+    }
+
+    public function isVisitor($tree)
+    {
+     return $this->hasRight($tree, 1);
     }
 
     // retourne la liste des arbres dont j'ai accès

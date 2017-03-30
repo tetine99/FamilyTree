@@ -31,7 +31,7 @@ class Tree
     /**
      *
      *
-     * @ORM\OneToMany(targetEntity="Permission", fetch="EAGER", mappedBy="tree")
+     * @ORM\OneToMany(targetEntity="Permission", fetch="EAGER", cascade="remove", mappedBy="tree")
      * @ORM\JoinColumn(name="id")
      *
      */
@@ -126,14 +126,6 @@ class Tree
     {
         $this->permissions->removeElement($permission);
     }
-
-
-
-    public function isOwner()
-    {
-
-    }
-
 
 
 

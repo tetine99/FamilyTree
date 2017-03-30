@@ -137,7 +137,7 @@ class Type
     /**
      * Set droits
      *
-     * @param \int $droits
+     * @param int $droits
      *
      * @return Type
      */
@@ -151,7 +151,7 @@ class Type
     /**
      * Get droits
      *
-     * @return \int
+     * @return int
      */
     public function getDroits()
     {
