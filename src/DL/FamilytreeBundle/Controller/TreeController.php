@@ -106,6 +106,28 @@ class TreeController extends Controller
     }
 
     /**
+  	 * @Route("/tree/select/{id}", name="tree_select", defaults={"id"=null})
+  	 * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
+  	 */
+     public function selectAction(Request $request)
+     {
+       $id = $request->get('id');
+
+       $em = $this->getDoctrine()->getManager();
+       $tree = $em->getRepository('DLFamilytreeBundle:Tree')->findOneById($id);
+
+       $user = $this->container->get('security.token_storage')
+         ->getToken()->getUser();
+        $user->setTree($tree);
+
+        $em->persist( $user );
+        $em->flush();
+
+      return $this->redirectToRoute('tree');
+     }
+
+    /**
   	 * @Route("/tree/update/{id}", name="tree_update", defaults={"id"=null})
   	 * @Method({"GET", "POST"})
      * @Security("has_role('ROLE_USER')")
