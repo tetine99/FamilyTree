@@ -1,90 +1,107 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome !{% endblock %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/base.css') }}" />
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome !{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/base.css') }}" />
 
-        {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}{% endblock %}
 
-        <link rel="icon" type="image/svg" href="{{ asset('images/view/logo.svg') }}" />
-    </head>
+    <link rel="icon" type="image/svg" href="{{ asset('images/view/logo.svg') }}" />
+</head>
 
-    <body>
+<body>
 
-        <header>
+    <header>
 
-            <h1 class="logo">
-                <a href="{{ path('dl_familytree_default_index')}}" 
-                    style="background-image:url({{ asset('images/view/logo.svg') }})"></a>
-            </h1>
+        <h1 class="logo">
+            <a href="{{ path('dl_familytree_default_index')}}"
+            style="background-image:url({{ asset('images/view/logo.svg') }})"></a>
+        </h1>
 
-            <nav class="main-menu">
-				<ul>
-					<li><a href="#">Arbres</a></li>
-                </ul>
+        <nav class="main-menu">
+
+
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+            <ul>
+                <li><a href="{{ path('tree') }}">Arbres</a></li>
+            </ul>
+
+            <ul>
+                <li><a href="{{ path('people') }}">Personnes</a></li>
+                <li><a href="{{ path('relation') }}">Relations</a></li>
+                <li><a href="{{ path('tree_view', {'id':1}) }}">Visuel</a></li>
+            </ul>
+
+            {% endif %}
+
+        </nav>
+
+        <div class="user-menu">
+            <ul>
+
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <ul>
-					<li><a href="{{ path('people') }}">Personnes</a></li>
-					<li><a href="{{ path('relation') }}">Relations</a></li>
-					<li><a href="{{ path('tree_view', {'id':1}) }}">Visuel</a></li>
-				</ul>
-                {% endif %}
-            </nav>
 
-            <div class="user-menu">
-                <ul>
+                <li>
+                    Connecté en tant que {{ app.user.username }} | Arbre actif :
+                    {% if app.user.tree.name is defined %}
 
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
-                    <li>
-                        Connecté en tant que {{ app.user.username }} |
-                    </li>
-                    <li class="user-option">
-                        <span>Options</span>
-                        <ul>
-                            <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-                            <li><a href="{{ path('user_profil')}}">Profil</a></li>
-
-                            {% if is_granted('ROLE_ADMIN') %}
-
-                            <li><a href="{{ path('user_index') }}">Utilisateurs</a></li>
-
-                            {% endif %}
-
-                        </ul>
-                    </li>
+                    {{ app.user.tree.name }}
 
                     {% else %}
-
-                    <li>
-                        <a href="{{ path('fos_user_registration_register')}}">
-                            Sign Up
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ path('fos_user_security_login') }}">
-                            Login
-                        </a>
-                    </li>
-
+                        Pas d'arbre actif
                     {% endif %}
+                    |
 
-                </ul>
-            </div>
+                </li>
 
-        </header>
+                <li class="user-option">
+                    <span>Options</span>
+                    <ul>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                        <li><a href="{{ path('user_profil')}}">Profil</a></li>
 
-        <main>
+                        {% if is_granted('ROLE_ADMIN') %}
+
+                        <li><a href="{{ path('user_index') }}">Utilisateurs</a></li>
+
+                        {% endif %}
+
+                    </ul>
+                </li>
+
+                {% else %}
+
+                <li>
+                    <a href="{{ path('fos_user_registration_register')}}">
+                        Sign Up
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">
+                        Login
+                    </a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+        </div>
+
+    </header>
+
+    <main>
 
         {% block body %}{% endblock %}
 
-        </main>
+    </main>
 
-        {% block javascripts %}{% endblock %}
+{% block javascripts %}{% endblock %}
 
-    </body>
+</body>
 
 </html>

@@ -30,7 +30,7 @@ class UserController extends Controller {
         ->getRepository('DLUserBundle:User');
 
         $listUser = $repository->findAll();
-
+        
         return $this->render('DLUserBundle:User:index.html.twig', [
             'listUser' => $listUser,
         ]);

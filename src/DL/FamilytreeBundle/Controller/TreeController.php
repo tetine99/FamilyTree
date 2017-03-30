@@ -18,6 +18,7 @@ include 'create_tree.php';
 class TreeController extends Controller
 {
 
+
     /**
      * @Route("/tree/view/{id}", name="tree_view")
      * @Security("has_role('ROLE_USER')")
@@ -46,9 +47,12 @@ class TreeController extends Controller
                 ->getRepository('DLFamilytreeBundle:Relation')
                 ->findAll();
             $tree = createTree($relations,$selected_people,3);
-        }else{
+        }
+        else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
+
+
        return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
             'peoples' => $peoples,
             'tree' => $tree
@@ -104,6 +108,28 @@ class TreeController extends Controller
           'form'=>$form->createView()
     	]);
     }
+
+    /**
+  	 * @Route("/tree/select/{id}", name="tree_select", defaults={"id"=null})
+  	 * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
+  	 */
+     public function selectAction(Request $request)
+     {
+       $id = $request->get('id');
+
+       $em = $this->getDoctrine()->getManager();
+       $tree = $em->getRepository('DLFamilytreeBundle:Tree')->findOneById($id);
+
+       $user = $this->container->get('security.token_storage')
+         ->getToken()->getUser();
+        $user->setTree($tree);
+
+        $em->persist( $user );
+        $em->flush();
+
+      return $this->redirectToRoute('tree');
+     }
 
     /**
   	 * @Route("/tree/update/{id}", name="tree_update", defaults={"id"=null})
