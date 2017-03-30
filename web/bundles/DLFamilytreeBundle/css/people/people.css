@@ -84,14 +84,39 @@ a {
 
 .people-list .container-show {
     float: left;
-    width: 12.5%;
 }
+
+/* Media Queries */
+@media screen and (min-width: 965px) and (max-width: 1100px) {
+    .people-list .container-show {
+        width: 25%;
+    }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1250px) {
+    .people-list .container-show {
+        width: 20%;
+    }
+}
+
+@media screen and (min-width: 1250px) and (max-width: 1450px) {
+    .people-list .container-show {
+        width: 15%;
+    }
+}
+
+@media screen and (min-width: 1450px) {
+    .people-list .container-show {
+        width: 12.5%;
+    }
+}
+
 .people-list .container-show img {
     width: 100%;
 }
 
 .person-picture {
-    width: 100%;
+    min-width: 100%;
     height: 300px;
     background-size: cover;
     display: block;
