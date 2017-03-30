@@ -41,11 +41,14 @@ class TreeController extends Controller
             }
         }
 
+        $tree = $this->getUser()->getTree()->getId();
+
         if ($selected_people != null){
             $relations = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('DLFamilytreeBundle:Relation')
-                ->findAll();
+                ->findByTree($tree);
+
             $tree = createTree($relations,$selected_people,3);
         }
         else{

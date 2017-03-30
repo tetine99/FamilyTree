@@ -22,6 +22,13 @@ class RelationController extends Controller
         $message_error = "";
         $message_ok = "";
         $relation = new Relation();
+
+        if( $this->getUser()->getTree() != null )    {
+
+            $relation->setTree($this->getUser()->getTree());
+
+        }
+
         $form = $this->createForm(RelationFormType::class, $relation);
         $form->handleRequest($request);
 
@@ -44,7 +51,7 @@ class RelationController extends Controller
                 $message_ok .= "\" a bien été créé.";
             }
         }
-    
+
         return $this->render('DLFamilytreeBundle:Relation:index.html.twig', [
             'form' => $form->createView(),
             'message_error' => $message_error,
@@ -52,7 +59,7 @@ class RelationController extends Controller
             'relations' => $this->getDoctrine()
                 ->getManager()
                 ->getRepository('DLFamilytreeBundle:Relation')
-                ->findAll(),
+                ->findByTree($this->getUser()->getTree()->getId()),
         ]);
     }
 
@@ -65,7 +72,8 @@ class RelationController extends Controller
         $relations = $this->getDoctrine()
             ->getManager()
             ->getRepository('DLFamilytreeBundle:Relation')
-            ->findAll();
+            ->findByTree($this->getUser()->getTree()->getId());
+
         foreach( $relations as $rel ){
             if ($rel->getPeopleA()->getId()==$relation->getPeopleA()->getId()
                 && $rel->getPeopleB()->getId()==$relation->getPeopleB()->getId()
