@@ -27,24 +27,16 @@
 
 
           {% if app.user.tree.id is defined %}
-
             {% if app.user.tree.id == tree.id %}
               <td>
                 arbre actif
               </td>
-
             {% else %}
-
               <td> <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a> </td>
-
-
-
               {% endif %}
-
           {% else %}
             <td> <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a> </td>
           {% endif %}
-
 
           <td>
             {% if app.user and app.user.hasRight(tree, 50) %}
