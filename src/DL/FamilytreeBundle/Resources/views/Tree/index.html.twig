@@ -24,6 +24,9 @@
             <td>{{ tree.id }}</td>
             <td>{{ tree.name }}</td>
             <td>
+              <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a>
+            </td>
+            <td>
               {% if app.user and app.user.hasRight(tree, 50) %}
               <a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a>
               {% endif %}

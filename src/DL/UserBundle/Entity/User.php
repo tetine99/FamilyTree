@@ -40,6 +40,16 @@ class User extends BaseUser
 
 
   /**
+  *
+  *
+  * @ORM\OneToOne(targetEntity="DL\FamilytreeBundle\Entity\Tree", fetch="EAGER")
+  * @ORM\JoinColumn(name="tree_id")
+  *
+  */
+  private $tree;
+
+
+  /**
   * Get id
   *
   * @return int
@@ -112,7 +122,7 @@ class User extends BaseUser
     return $data;
   }
 
-  
+
 
   //retourne la liste de mes arbres propriétaire
   public function myOwnTrees()
@@ -123,4 +133,52 @@ class User extends BaseUser
 
 
 
+
+    /**
+     * Add permission
+     *
+     * @param \DL\FamilytreeBundle\Entity\Permission $permission
+     *
+     * @return User
+     */
+    public function addPermission(\DL\FamilytreeBundle\Entity\Permission $permission)
+    {
+        $this->permissions[] = $permission;
+
+        return $this;
+    }
+
+    /**
+     * Remove permission
+     *
+     * @param \DL\FamilytreeBundle\Entity\Permission $permission
+     */
+    public function removePermission(\DL\FamilytreeBundle\Entity\Permission $permission)
+    {
+        $this->permissions->removeElement($permission);
+    }
+
+    /**
+     * Set tree
+     *
+     * @param \DL\FamilytreeBundle\Entity\Tree $tree
+     *
+     * @return User
+     */
+    public function setTree(\DL\FamilytreeBundle\Entity\Tree $tree = null)
+    {
+        $this->tree = $tree;
+
+        return $this;
+    }
+
+    /**
+     * Get tree
+     *
+     * @return \DL\FamilytreeBundle\Entity\Tree
+     */
+    public function getTree()
+    {
+        return $this->tree;
+    }
 }
