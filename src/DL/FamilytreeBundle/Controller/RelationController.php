@@ -19,6 +19,16 @@ class RelationController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $relations;
+        
+        if($this->getUser()->getTree() != null)
+        {
+            $relations = $this->getDoctrine()
+                ->getManager()
+                ->getRepository('DLFamilytreeBundle:Relation')
+                ->findByTree($this->getUser()->getTree()->getId());
+        }
+
         $message_error = "";
         $message_ok = "";
         $relation = new Relation();
@@ -56,10 +66,7 @@ class RelationController extends Controller
             'form' => $form->createView(),
             'message_error' => $message_error,
             'message_ok' => $message_ok,
-            'relations' => $this->getDoctrine()
-                ->getManager()
-                ->getRepository('DLFamilytreeBundle:Relation')
-                ->findByTree($this->getUser()->getTree()->getId()),
+            'relations' => $relations,
         ]);
     }
 
