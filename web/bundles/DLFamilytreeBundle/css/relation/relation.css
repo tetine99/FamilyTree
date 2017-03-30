@@ -1,0 +1,45 @@
+.clearfix {
+    clear: both;
+}
+
+.main {
+    width: 100%;
+    margin-top: 35px;
+}
+
+.ajout-relation {
+    width: 33.33333%;
+    float: right;
+}
+
+.liste-relation {
+    width: 66.66666%;
+    float: left;
+}
+
+.liste-relation table {
+    text-align: center;
+    color: #000000;
+    border-collapse: collapse;
+    border: 2px solid #d2d2d2;
+    padding: 10px;
+    width: 100%;
+}
+
+th {
+    color: #5d59ff;
+    border: 2px solid #d2d2d2;
+    padding: 10px;
+}
+
+td {
+    width: 150px;
+    height: 125px;
+    border: 2px solid #d2d2d2;
+}
+
+.liste-relation fieldset,
+.ajout-relation fieldset {
+    padding: 25px;
+    border-color: rgba(51, 42, 42, 0.29);
+}

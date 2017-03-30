@@ -7,7 +7,7 @@
     <form action="{{ path("fos_user_security_check") }}" method="post" class="form-signin">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
         <div class="login-container">
-            <h1>Connexion à vôtre compte</h1><br>
+            <h1>Connexion à votre compte</h1><br>
             <form>
                 <label for="username">{{ 'security.login.username'|trans }}</label>
                 <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
