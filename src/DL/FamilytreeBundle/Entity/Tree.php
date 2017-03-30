@@ -39,6 +39,17 @@ class Tree
 
 
     /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="Relation", fetch="EAGER", cascade="remove", mappedBy="tree")
+     * @ORM\JoinColumn(name="id")
+     *
+     */
+    private $relations;
+
+
+
+    /**
      * Get id
      *
      * @return int
@@ -129,4 +140,38 @@ class Tree
 
 
 
+
+    /**
+     * Add relation
+     *
+     * @param \DL\FamilytreeBundle\Entity\Relation $relation
+     *
+     * @return Tree
+     */
+    public function addRelation(\DL\FamilytreeBundle\Entity\Relation $relation)
+    {
+        $this->relations[] = $relation;
+
+        return $this;
+    }
+
+    /**
+     * Remove relation
+     *
+     * @param \DL\FamilytreeBundle\Entity\Relation $relation
+     */
+    public function removeRelation(\DL\FamilytreeBundle\Entity\Relation $relation)
+    {
+        $this->relations->removeElement($relation);
+    }
+
+    /**
+     * Get relations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRelations()
+    {
+        return $this->relations;
+    }
 }

@@ -21,39 +21,47 @@ class Relation {
      */
     private $id;
 
-    
+
     /**
-     * 
-     * 
+     *
+     *
      * @ORM\ManyToOne(targetEntity="People", fetch="EAGER")
      * @ORM\JoinColumn(name="people_a_id", referencedColumnName="id")
-     * 
+     *
      */
     private $peopleA;
-    
-    
+
+
     /**
-     * 
-     * 
+     *
+     *
      * @ORM\ManyToOne(targetEntity="People", fetch="EAGER")
      * @ORM\JoinColumn(name="people_b_id", referencedColumnName="id")
-     * 
+     *
      */
     private $peopleB;
-    
-    
+
+
     /**
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Relationship", fetch="EAGER")
      * @ORM\JoinColumn(name="relationship_id", referencedColumnName="id")
-     * 
+     *
      */
     private $relationship;
 
-    
-    
-    
-    
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Tree", fetch="EAGER")
+     * @ORM\JoinColumn(name="tree_id", referencedColumnName="id")
+     *
+     */
+    private $tree;
+
+
+
+
+
     /**
      * Get id
      *
@@ -134,5 +142,29 @@ class Relation {
     public function getRelationship()
     {
         return $this->relationship;
+    }
+
+    /**
+     * Set tree
+     *
+     * @param \DL\FamilytreeBundle\Entity\Tree $tree
+     *
+     * @return Relation
+     */
+    public function setTree(\DL\FamilytreeBundle\Entity\Tree $tree = null)
+    {
+        $this->tree = $tree;
+
+        return $this;
+    }
+
+    /**
+     * Get tree
+     *
+     * @return \DL\FamilytreeBundle\Entity\Tree
+     */
+    public function getTree()
+    {
+        return $this->tree;
     }
 }
