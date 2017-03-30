@@ -6,11 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use DL\FamilytreeBundle\Entity\Permission;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PermissionController extends Controller
 {
   /**
   * @Route("/permission/add", name="permission_add", defaults={"id"=null})
+  * @Security("has_role('ROLE_USER')")
   */
     public function addPermissionAction(Request $request)
     {
@@ -42,6 +44,7 @@ class PermissionController extends Controller
 
 
     /**
+      * @Security("has_role('ROLE_USER')")
  		* @Route("/permission/delete/{id}", name="permission_delete", defaults={"id"=null})
  		*/
  	 public function deletePermissionAction(Request $request)

@@ -57,7 +57,7 @@ class UserController extends Controller {
         ->add('email', TextType::class, array('label' => 'email'))
         ->add('save', SubmitType::class, array('label' => 'Confirmer'))
         ->getForm();
-        
+
         // on ecoute le formulaire
         $form->handleRequest($request);
 
@@ -190,6 +190,7 @@ class UserController extends Controller {
     /**
     *
     * @Route("/profil", name="user_profil")
+    * @Security("has_role('ROLE_USER')")
     */
     public function profilAction(Request $request)
     {
