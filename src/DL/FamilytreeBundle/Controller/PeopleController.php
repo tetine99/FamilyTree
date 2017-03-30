@@ -12,12 +12,14 @@ use DL\FamilytreeBundle\Form\Type\PeopleFormType;
 use DL\FamilytreeBundle\Entity\People;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class PeopleController extends Controller{
 
 	/**
 	*@Route("/people", name="people")
 	*@Method({"GET", "POST"})
+	* @Security("has_role('ROLE_USER')")
 	*/
 	public function indexAction(Request $request)
 	{
@@ -47,6 +49,7 @@ class PeopleController extends Controller{
 	/**
 	 * @Route("/people/update/{id}", name="people_update", defaults={"id"=null})
 	 * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
 	 */
     public function updateAction(Request $request)
     {
@@ -74,6 +77,8 @@ class PeopleController extends Controller{
 
     /**
     * @Route("/people/delete/{id}", name="people_delete", defaults={"id"=null})
+    * @Security("has_role('ROLE_USER')")
+    *
     */
     public function deleteAction(Request $request)
     {

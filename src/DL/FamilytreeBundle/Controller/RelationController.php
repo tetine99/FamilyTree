@@ -8,12 +8,14 @@ use DL\FamilytreeBundle\Form\Type\RelationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class RelationController extends Controller
 {
 
     /**
      * @Route("/relation", name="relation")
+     * @Security("has_role('ROLE_USER')")
      */
     public function indexAction(Request $request)
     {
@@ -22,7 +24,7 @@ class RelationController extends Controller
         $relation = new Relation();
         $form = $this->createForm(RelationFormType::class, $relation);
         $form->handleRequest($request);
-            
+
         if ($form->isSubmitted() && $form->isValid())
         {
 
@@ -53,7 +55,7 @@ class RelationController extends Controller
                 ->findAll(),
         ]);
     }
-    
+
     /**
      * Vérification du fait que la relation ne soit pas
      * déjà présente dans la base
@@ -76,6 +78,7 @@ class RelationController extends Controller
 
     /**
      * @Route("/relation/delete/{id}", name="relation_delete")
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction(Request $request)
     {

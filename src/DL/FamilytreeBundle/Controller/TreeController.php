@@ -11,13 +11,16 @@ use DL\FamilytreeBundle\Entity\Tree;
 use DL\FamilytreeBundle\Entity\Permission;
 use DL\FamilytreeBundle\Entity\Type;
 use DL\UserBundle\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 include 'create_tree.php';
+
 
 class TreeController extends Controller
 {
 
     /**
      * @Route("/tree/view/{id}", name="tree_view")
+     * @Security("has_role('ROLE_USER')")
      */
     public function defaultViewAction(Request $request)
     {
@@ -57,7 +60,8 @@ class TreeController extends Controller
 
     /**
     * @Route("/tree", name="tree")
-    *@Method({"GET", "POST"})
+    * @Method({"GET", "POST"})
+    * @Security("has_role('ROLE_USER')")
     */
     public function indexAction(Request $request)
     {
@@ -104,6 +108,7 @@ class TreeController extends Controller
     /**
   	 * @Route("/tree/update/{id}", name="tree_update", defaults={"id"=null})
   	 * @Method({"GET", "POST"})
+     * @Security("has_role('ROLE_USER')")
   	 */
      public function updateAction(Request $request)
      {
@@ -147,7 +152,8 @@ class TreeController extends Controller
      }
 
    /**
-		* @Route("/tree/delete/{id}", name="tree_delete", defaults={"id"=null})
+    * @Route("/tree/delete/{id}", name="tree_delete", defaults={"id"=null})
+    * @Security("has_role('ROLE_USER')")
     */
 	 public function deleteAction(Request $request)
 	 {
