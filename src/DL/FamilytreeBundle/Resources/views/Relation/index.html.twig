@@ -1,6 +1,7 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
 {% block title %}Gestion des relations{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/relation/relation.css') }}" />{% endblock %}
 {% block body %}
 <div class="message_error" style="background:red;color:white;font-weight:bold">
     {{ message_error }}
@@ -8,47 +9,53 @@
 <div class="message_ok" style="background:green;color:white;font-weight:bold">
     {{ message_ok }}
 </div>
+    <div class="main">
+        <div class="clearfix">
+            <div class="ajout-relation">
+                <fieldset>
+                    <legend>
+                        Ajout Relation
+                    </legend>
+                    {{ form_start(form) }}
 
-<fieldset>
-    <legend>
-        Ajout Relation
-    </legend>
-    {{ form_start(form) }}
+                    {{ form_widget(form.people_a) }}
+                    est
+                    {{ form_widget(form.relationship) }}
+                    de
+                    {{ form_widget(form.people_b) }}
+                    {{ form_widget(form.save) }}
 
-    {{ form_widget(form.people_a) }}
-    est 
-    {{ form_widget(form.relationship) }}
-    de
-    {{ form_widget(form.people_b) }}
-    {{ form_widget(form.save) }}
+                    {{ form_end(form) }}
+                </fieldset>
+            </div>
 
-    {{ form_end(form) }}
-</fieldset>
+            <div class="liste-relation">
+                <fieldset>
+                    <legend>
+                        Liste des relations
+                    </legend>
 
-<fieldset>
-    <legend>
-        Liste des relations
-    </legend>
-
-    <table style="width:100%;text-align:center">
-        <thead>
-            <tr>
-                <th>Première Personne</th>
-                <th>Type</th>
-                <th>Deuxième Personne</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for relation in relations %}
-                <tr>
-                    <td>{{ relation.peopleA.label }}</td>
-                    <td>{{ relation.relationship.name }}</td>
-                    <td>{{ relation.peopleB.label }}</td>
-                    <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">supprimer</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-</fieldset>
+                    <table >
+                        <thead>
+                        <tr>
+                            <th>Première Personne</th>
+                            <th>Type</th>
+                            <th>Deuxième Personne</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for relation in relations %}
+                            <tr>
+                                <td>{{ relation.peopleA.label }}</td>
+                                <td>{{ relation.relationship.name }}</td>
+                                <td>{{ relation.peopleB.label }}</td>
+                                <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">supprimer</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </fieldset>
+            </div>
+        </div>
+    </div>
 {% endblock %}
