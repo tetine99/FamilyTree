@@ -1,27 +1,38 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
-{% macro constructVisualTree(node) %}
+{% macro constructVisualTree(node,parent) %}
     {% import _self as self %}
     {% if "label" in node | keys %} 
         <ul>
-            <li><div>{{ node["label"]  }}</div></li>
+            <li>
+                {% if node["empty"] %} 
+                    <div>{{ node["label"]  ~ parent }} 
+                {% else %}
+                    {% if node["image"] %} 
+                        <div style="background-image:url('{{ asset('images/products/' ~ node['image']) }}')">
+                    {% else %}
+                        <div>{{ node["label"]  }}
+                    {% endif %}
+                {% endif %}
+                </div>
+            </li>
+            
             {% if "Père" in node["relations"] | keys %} 
-                <li>
-                    {{ self.constructVisualTree( node["relations"]["Père"] ) }}
-                </li>
+            <li>
+                {{ self.constructVisualTree( node["relations"]["Père"], "Père" ) }}
+            </li>
+                
             {% endif %}
             {% if "Mère" in node["relations"] | keys %} 
-                <li>
-                    {{ self.constructVisualTree( node["relations"]["Mère"] ) }}
-                </li>
+            
+            <li>
+                {{ self.constructVisualTree( node["relations"]["Mère"], "Mère" ) }}
+            </li>
+                
             {% endif %}
         </ul>
     {% endif %}
 {% endmacro %}
-
-
-
-
 
 
 
@@ -49,6 +60,7 @@ Vue de l'arbre
     <div class="tree-people">
 
     {{ constructVisualTree(tree) }}
+    {#{{ dump(tree) }}#}
     
     </div>
 

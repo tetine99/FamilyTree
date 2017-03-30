@@ -11,6 +11,7 @@ use DL\FamilytreeBundle\Entity\Tree;
 use DL\FamilytreeBundle\Entity\Permission;
 use DL\FamilytreeBundle\Entity\Type;
 use DL\UserBundle\Entity\User;
+include 'create_tree.php';
 
 class TreeController extends Controller
 {
@@ -41,7 +42,7 @@ class TreeController extends Controller
                 ->getManager()
                 ->getRepository('DLFamilytreeBundle:Relation')
                 ->findAll();
-            $tree = $this->createTree($relations,$selected_people,3);
+            $tree = createTree($relations,$selected_people,3);
         }else{
             $message = "L'utilisateur demandé n'existe pas.";
         }
@@ -51,27 +52,7 @@ class TreeController extends Controller
         ]);
     }
 
-    public function createTree($relations,$people,$deep)
-    {
 
-        $tree = array(
-            "label" => $people->getLabel(),
-            "relations" => array()
-
-        );
-        foreach ($relations as $rel){
-            if($rel->getPeopleB()->getId()==$people->getId()){
-                if ($deep > 0){
-                    $tree["relations"][$rel->getRelationship()->getName()] = $this->createTree(
-                        $relations,
-                        $rel->getPeopleA(),
-                        $deep-1
-                    );
-                }
-            }
-        }
-        return $tree;
-    }
 
 
     /**

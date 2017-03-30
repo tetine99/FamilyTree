@@ -67,7 +67,7 @@ class PeopleController extends Controller{
             return $this->redirectToRoute('people');
 
         }
-        return $this->render('DLFamilytreeBundle:people:update.html.twig', [
+        return $this->render('DLFamilytreeBundle:People:update.html.twig', [
             'form' => $form->createView()
         ]);
     }

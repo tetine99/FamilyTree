@@ -141,7 +141,7 @@ class Type
      *
      * @return Type
      */
-    public function setDroits(\int $droits)
+    public function setDroits(int $droits)
     {
         $this->droits = $droits;
 

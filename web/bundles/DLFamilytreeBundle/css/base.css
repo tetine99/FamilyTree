@@ -66,6 +66,7 @@ body > header{
 
 .user-menu{
 	margin-right:10px;
+	border-right:1px solid black;
 }
 
 .user-menu ul{
@@ -121,7 +122,6 @@ body > main{
 .list-people{
 	width:250px;
 	overflow:auto;
-	border:1px solid black;
 }
 .list-people ul{
 	margin:0;
@@ -144,7 +144,7 @@ body > main{
 .tree-people{
 	flex:1;
 	overflow:auto;
-	border:1px solid orange;
+	border-left:1px solid black;
 	display: flex;
 }
 
@@ -176,6 +176,7 @@ body > main{
 	justify-content: center;
 	text-align:center;
 	align-items:center;
+	
 }
 
 .tree-people li:first-child{
@@ -190,6 +191,7 @@ body > main{
 	width:80px;
 	height:100px;
 	background:white;
+	background-size:cover;
 }
 .tree-people li:nth-child(1)>div::before{
 	content: '';
@@ -229,34 +231,3 @@ body > main{
 	height: 220%;
 }
 
-/* correct symphony bar */
-
-body > div{
-	display:none;
-}
-/*
-ul,li{
-    padding:0;
-    margin:0;
-}
-ul.root{
-    position:absolute;
-    bottom:50px;
-    left:35%;
-}
-li{
-    width:130px;
-    list-style-type:none;
-    
-}
-ul>li:nth-child(2){
-    position:absolute;
-    top:-150px;
-    left:-100%;
-}
-ul>li:nth-child(3){
-    position:absolute;
-    top:-150px;
-    left:50%;
-}
-*/
