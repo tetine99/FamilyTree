@@ -1,111 +1,111 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <link rel="stylesheet" href="{{ asset('bundles/dlfamilytree/css/header.css') }}" />
-        {% endblock %}
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/base.css') }}" />
+    {% endblock %}
+</head>
+<body>
 
-        {% block nav %}
+    {% block nav %}
 
-            <nav class="navbar navbar-inverse">
+    <header>
 
-                <div class="container-fluid">
+        <h1 class="logo">
+            <a href="{{ path('dl_familytree_default_index')}}">
+                <img src="images/logo.png" alt="LOGO">
+            </a>
+        </h1>
 
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">Welcome !</a>
-                    </div>
+        <nav class="main-menu">
+            <ul>
+                <li><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
+                <li><a href="#">Arbres</a></li>
 
-                    <ul class="nav navbar-nav">
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                        <li class="active"><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
+                <li><a href="{{ path('people') }}">Personnes</a></li>
+                <li><a href="{{ path('relation') }}">Relations</a></li>
+                <li><a href="{{ path('tree_view', {'id':1}) }}">Visuel</a></li>
 
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% endif %}
 
-                            <li class="arbres" ><a href="#">Arbres</a>
+            </ul>
+        </nav>
 
-                                <ul>
+        <div class="user-menu">
+            <ul>
 
-                                    <li><a href="{{ path('people') }}">Personnes</a></li>
-                                    <li><a href="{{ path('relation') }}">Relations</a></li>
-                                    <li><a href="{{ path('tree_view') }}">Visuel</a></li>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
-                                </ul>
+                <li>
+                    Connecté en tant que {{ app.user.username }} |
+                </li>
+                <li class="user-option">
+                    <span>Options</span>
+                    <ul>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
+                        <li><a href="{{ path('user_profil')}}">Profil</a></li>
 
-                            </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+
+                        <li><a href="{{ path('user_index') }}">Utilisateurs</a></li>
 
                         {% endif %}
 
                     </ul>
+                </li>
 
+                {% else %}
 
+                <li>
+                    <a href="{{ path('fos_user_registration_register')}}">
+                        Sign Up
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">
+                        Login
+                    </a>
+                </li>
 
-                    <ul class="nav navbar-nav navbar-right">
+                {% endif %}
 
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
-                            Connecté en tant que {{ app.user.username }}
-
-
-                            <li class="test"><a href="#"><span class="glyphicon glyphicon-user"></span> Profil</a>
-
-
-                                <ul>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
-                                    <li><a href="{{ path('user_profil')}}">Profil</a></li>
-                                        {% if is_granted('ROLE_ADMIN') %}
-
-                                        <li> <a href="{{ path('user_index') }}" >Gestion des utilisateurs</a>
-
-                                        {% endif %}
-                                </ul>
-
-                            </li>
-
-
-
-                        {% else %}
-                            <li><a href="{{ path('fos_user_registration_register')}}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                            <li><a href="{{ path('fos_user_security_login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                            {% endif %}
-
-                    </ul>
-
-                </div>
-            </nav>
-
-        {% endblock %}
-        <div>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                <a href="{{ path('fos_user_security_logout') }}">
-                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                </a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-            {% endif %}
+            </ul>
         </div>
 
-        {% if app.request.hasPreviousSession %}
-            {% for type, messages in app.session.flashbag.all() %}
-                {% for message in messages %}
-                    <div class="flash-{{ type }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
+    </header>
+
+
+    {% endblock %}
+    <div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+        <a href="{{ path('fos_user_security_logout') }}">
+            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+        </a>
+        {% else %}
+        <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
         {% endif %}
+    </div>
 
-        <div>
-            {% block fos_user_content %}
+    {% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+    {% for message in messages %}
+    <div class="flash-{{ type }}">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
 
-            {% endblock fos_user_content %}
-        </div>
-    </body>
+    <div>
+        {% block fos_user_content %}
+
+        {% endblock fos_user_content %}
+    </div>
+</body>
 </html>
