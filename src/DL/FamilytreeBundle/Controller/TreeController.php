@@ -20,7 +20,7 @@ class TreeController extends Controller
 
 
     /**
-     * @Route("/tree/view/{id}", name="tree_view")
+     * @Route("/tree/view", name="tree_view")
      * @Security("has_role('ROLE_USER')")
      */
     public function defaultViewAction(Request $request)
