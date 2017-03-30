@@ -15,25 +15,29 @@
     <header>
 
         <h1 class="logo">
-            <a href="{{ path('dl_familytree_default_index')}}">
-                <img src="images/logo.png" alt="LOGO">
-            </a>
+            <a href="{{ path('dl_familytree_default_index')}}"
+            style="background-image:url({{ asset('images/view/logo.png') }})"></a>
         </h1>
 
         <nav class="main-menu">
+
+
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
             <ul>
-                <li><a href="{{ path('dl_familytree_default_index')}}">Accueil</a></li>
-                <li><a href="#">Arbres</a></li>
-
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-
+                <li><a href="{{ path('tree') }}">Arbres</a></li>
+            </ul>
+            {% if app.user.tree.name is defined %}
+            <ul>
                 <li><a href="{{ path('people') }}">Personnes</a></li>
                 <li><a href="{{ path('relation') }}">Relations</a></li>
                 <li><a href="{{ path('tree_view', {'id':1}) }}">Visuel</a></li>
-
-                {% endif %}
-
             </ul>
+            {% endif %}
+
+            {% endif %}
+
         </nav>
 
         <div class="user-menu">
@@ -42,8 +46,18 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                 <li>
-                    Connecté en tant que {{ app.user.username }} |
+                    Connecté en tant que {{ app.user.username }} | Arbre actif :
+                    {% if app.user.tree.name is defined %}
+
+                    {{ app.user.tree.name }}
+
+                    {% else %}
+                        Pas d'arbre actif
+                    {% endif %}
+                    |
+
                 </li>
+
                 <li class="user-option">
                     <span>Options</span>
                     <ul>
