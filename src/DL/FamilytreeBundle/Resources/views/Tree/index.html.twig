@@ -10,14 +10,14 @@
   <div class="col-xs-12 tree-add">
     <fieldset>
       <legend>Ajouter un arbre</legend>
-      {{ form_start(form) }}
-
-      <div class="tree-form-name">
-        {{ form_label(form.name) }}
-        {{ form_widget(form.name, {"attr":{"class":"tree-name"}}) }}
+      <div class="table-tree-add">
+        {{ form_start(form) }}
+          <div class="tree-form-name">
+          {{ form_label(form.name) }}
+          {{ form_widget(form.name, {"attr":{"class":"tree-name"}}) }}
+        </div>
+          {{ form_end(form) }}
       </div>
-
-      {{ form_end(form) }}
     </fieldset>
   </div>
 
