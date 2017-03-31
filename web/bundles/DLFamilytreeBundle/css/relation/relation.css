@@ -6,6 +6,14 @@ main {
     flex-direction: column;
 }
 
+.ajout-relation fieldset {
+    padding: 25px;
+}
+
+.ajout-relation-form select:nth-child(3) {
+    margin-top: 25px;
+}
+
 .liste-relation,
 .liste-relation table {
     width: 100%;
