@@ -48,9 +48,10 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                 <li>
-                    Connecté en tant que {{ app.user.username }} 
-                <li>
+                    <span>Connecté en tant que {{ app.user.username }} </span>
                 </li> 
+                <li>
+                    <span>
                     Arbre actif :
                     {% if app.user.tree.name is defined %}
 
@@ -59,10 +60,10 @@
                     {% else %}
                         Pas d'arbre actif
                     {% endif %}
+                    </span>
                 </li>
 
                 <li class="user-option">
-                    <span>Options</span>
                     <ul>
                         <li><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></li>
                         <li><a href="{{ path('user_profil')}}">Profil</a></li>
