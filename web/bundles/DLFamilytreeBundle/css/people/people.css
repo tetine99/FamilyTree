@@ -50,10 +50,6 @@ a {
 }
 
 /* ---------------------------------------------
-                  PEOPLE ADD
---------------------------------------------- */
-
-/* ---------------------------------------------
                   PEOPLE LIST
 --------------------------------------------- */
 .container-show {
@@ -63,15 +59,21 @@ a {
     border-radius: 10px;
 }
 
-@media screen and (min-width: 400px) and (max-width: 530px) {
-    .container-show {
-        width: 75%;
+@media screen and  (max-width: 530px) {
+    .col-xs-6 {
+        width: 50%!important;
+    }
+    .col-xxs-12 {
+        width: 100%!important;
     }
 }
 
 @media screen and (min-width: 530px) and (max-width: 767px) {
-    .container-show {
-        width: 60%;
+    .col-xs-6 {
+        width: 50%!important;
+    }
+    .col-xxs-12 {
+        width: 50%!important;
     }
 }
 
@@ -95,6 +97,7 @@ a {
     text-align: center;
     margin-bottom: 10px;
     color: rgb(205, 65, 239);
+    height: 30px;
 }
 
 .container-show .actions {
@@ -162,3 +165,8 @@ input#people_form_imageFile_file {
     width: 100%;
 }
 
+/* Pure Framework Override */
+
+.pure-button {
+    margin-bottom: 10px;
+}

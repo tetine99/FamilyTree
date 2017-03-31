@@ -30,7 +30,7 @@ class UserController extends Controller {
         ->getRepository('DLUserBundle:User');
 
         $listUser = $repository->findAll();
-        
+
         return $this->render('DLUserBundle:User:index.html.twig', [
             'listUser' => $listUser,
         ]);
@@ -51,53 +51,44 @@ class UserController extends Controller {
         $id = $request->get('id');
         $user = $repository->findOneById($id);
 
-        // on crée le formulaire
-        $form = $this->createFormBuilder()
-        ->add('username', TextType::class, array('label' => 'username'))
-        ->add('email', TextType::class, array('label' => 'email'))
-        ->add('save', SubmitType::class, array('label' => 'Confirmer'))
+        // on crée un premier formulaire pour modifier le nom d'utilisateur
+        $form = $this->get("form.factory")->createNamedBuilder("usernameForm")
+        ->add('username', TextType::class, array('label' => "Modification nom d'utilisateur"))
+        ->add('save', SubmitType::class, array('label' => "Modifier le nom d'utilisateur"))
+        ->getForm();
+        // un deuxieme formulaire pour modifier l'email
+        $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
+        ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
+        ->add('save2', SubmitType::class, array('label' => 'Confirmer'))
         ->getForm();
 
-        // on ecoute le formulaire
-        $form->handleRequest($request);
-
-
-        // si on le valide
-        if ($form->isSubmitted())
+        // si on a cliquer sur la validation d'un des deux formulaire
+        if ($request->isMethod('POST'))
         {
-            // on recupere les information saisie dans les champs
-            $email = $form["email"]->getData();
-            $username = $form["username"]->getData();
-            $id = $request->get('id');
-            $user = $repository->findOneById($id);
 
-            // si les deux champ son inutilisé on redirige vers index
-            if (strtolower($email) == 'x' && strtolower($username) == 'x')
+            // on verifie quelle formulaire a été valider
+            if ($request->request->has("usernameForm"))
             {
-                $repository = $this
-                ->getDoctrine()
-                ->getManager()
-                ->getRepository('DLUserBundle:User');
+                $form->handleRequest($request);
+                // si on clique sur changer mot de passe on est redirigé sur la page de changement de mot de passe
+                $username = $form["username"]->getData();
 
-                $listUser = $repository->findAll();
+                if($form->isValid())
+                {
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $user->setUserName($username);
+                    $em->persist($user);
+                    $em->flush();
+                }
 
-                return $this->redirectToRoute('user_index', [
-                    'listUser' => $listUser,
-                ]);
             }
-            // sinon si on veut changer username
-            elseif (strtolower($email) == 'x' && strtolower($username) != 'x')
+
+            if ($request->request->has("emailForm"))
             {
-                // on enregistre le nouveau username dans la base de donnée
-                $em = $this->getDoctrine()->getEntityManager();
-                $user->setUserName($username);
-                $em->persist($user);
-                $em->flush();
-            }
-            // si l'on souhaite juste modifier l'adresse email
-            elseif (strtolower($email) != 'x' && strtolower($username) == 'x')
-            {
-                // on verifie que ladresse saisie est une adresse email valide
+                $form2->handleRequest($request);
+                $email = $form2["e-mail"]->getData();
+
+                // on verifie que l'email saisi est valide
                 if (preg_match($this->emailPattern, $email) === 1)
                 {
                     // ensuite on enregistre les modifications dans la base de données
@@ -108,41 +99,26 @@ class UserController extends Controller {
                     ->getManager()
                     ->getRepository('DLUserBundle:User');
 
-
                     $user = $repository->findOneByEmail($currentUser->getEmail());
-
                     $user->setEmail($email);
 
                     $em->persist($user);
                     $em->flush();
                 }
-            }
-            else
-            {   // sinon on modifie les deux champs
-                // on verifie que l'adresse email saisie est valide
-                if (preg_match($this->emailPattern, $email) === 1)
+
+                // sinon on affiche un message d'erreur
+                else
                 {
-                    // ensuite on enregistre les modification en base
-                    $em = $this->getDoctrine()->getEntityManager();
-
-                    $repository = $this
-                    ->getDoctrine()
-                    ->getManager()
-                    ->getRepository('DLUserBundle:User');
-
-                    $user->setUserName($username);
-                    $user->setEmail($email);
-
-
-                    $em->persist($user);
-                    $em->flush();
+                    $this->get('session')->getFlashBag()
+                    ->add('notice', 'Email invalide !');
                 }
             }
+            
         }
-
         return $this->render('DLUserBundle:User:update.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
+            'form2' => $form2->createView(),
         ]);
     }
 
