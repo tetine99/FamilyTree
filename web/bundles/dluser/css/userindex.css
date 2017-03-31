@@ -1,0 +1,41 @@
+body {
+	background-color: #bdc0c7;
+
+}
+body > main {
+	justify-content: center;
+
+
+}
+.container{
+	display:flex;
+	width:100%;
+	justify-content: center;
+	background-size:cover;
+
+
+}
+.content{
+	max-width:760px;
+	background-color: rgba(255, 255, 255, 0.5);
+	padding: 0 1rem;
+	text-align: center;
+ 	align-items: center;
+
+}
+
+h1 {
+
+}
+
+table {
+	border: solid black 1px;
+	border-radius: 10px;
+	color: white;
+	background: grey;
+    background: linear-gradient(#333, grey);
+	padding: 10px;
+}
+table thead {
+	color: orange;
+}

@@ -1,15 +1,23 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('bundles/dluser/css/deluser.css') }}" />
 
+{% endblock %}
 {% block body %}
 
 
 
-    <div>
-        <p>Voulez vous vraiment supprimer l'utilisateur < {{ user.username }} > </p>
-    </div> 
+<div class="container" style="background-image:url({{ asset('images/view/arbres.jpg') }})">
 
-    {{ form_start(form) }}
+    <div class="content">
 
-    {{ form_end(form) }}
-    
+        <h4><p>Voulez vous vraiment supprimer l'utilisateur < {{ user.username }} > </h4>
+
+        {{ form_start(form) }}
+
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
 {% endblock %}

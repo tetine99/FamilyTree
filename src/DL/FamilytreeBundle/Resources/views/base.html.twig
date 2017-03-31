@@ -48,7 +48,10 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                 <li>
-                    Connecté en tant que {{ app.user.username }} | Arbre actif :
+                    Connecté en tant que {{ app.user.username }} 
+                <li>
+                </li> 
+                    Arbre actif :
                     {% if app.user.tree.name is defined %}
 
                     {{ app.user.tree.name }}
@@ -56,8 +59,6 @@
                     {% else %}
                         Pas d'arbre actif
                     {% endif %}
-                    |
-
                 </li>
 
                 <li class="user-option">

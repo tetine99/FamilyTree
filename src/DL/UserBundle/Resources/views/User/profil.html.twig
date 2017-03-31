@@ -1,30 +1,58 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('bundles/dluser/css/profil.css') }}" />
 
+{% endblock %}
 {% block body %}
 
-   
 
-    <div style="border : solid 1px black">
+
+
+
+
+<div class="container" style="background-image:url({{ asset('images/view/arbres.jpg') }})">
+
+
+<div class="content">
+    <h1>Profil</h1>
+
+    <div class="username">
+
         <p> Nom utilisateur : {{ app.user.username }} </p>
-       
-        <p> Adresse E-mail : {{ app.user.email }} 
+
+    </div>
+
+<br/>
+    <div class="email">
+
+        <p> Adresse e-mail : {{ app.user.email }}
+
             {{ form_start(form2) }}{{ form_end(form2) }}</p>
 
-        {% if  app.session.flashbag.get('notice') is defined %}
+            {% if  app.session.flashbag.get('notice') is defined %}
             {% for flashMessage in app.session.flashbag.get('notice') %}
 
-                <div class="alert alert-success" style="color : red"> 
-                    {{ flashMessage }}
-                </div>
+            <div class="alert alert-success" style="color : red">
+                {{ flashMessage }}
+            </div>
 
             {% endfor %}
-        {% endif %}
-        
-        <p>Modification du mot de passe : </p>
-        {{ form_start(form) }}
+            {% endif %}
+        </div>
+<br/>
 
-        {{ form_end(form) }}
+
+        <div class="password">
+
+            <p>Modification du mot de passe : </p>
+            {{ form_start(form) }}
+
+            {{ form_end(form) }}
+
+        </div>
+
     </div>
+</div>
 
 
 

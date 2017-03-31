@@ -53,62 +53,30 @@ a {
                   PEOPLE ADD
 --------------------------------------------- */
 
-.container-add {
-    width: 33%;
-    float: left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 25px;
-}
-
-
 /* ---------------------------------------------
                   PEOPLE LIST
 --------------------------------------------- */
-
 .container-show {
     background-color: rgba(222, 222, 222, 0.31);
-    margin: 25px 15px 0 0;
+    margin: 15px 0;
     padding: 15px;
     border-radius: 10px;
 }
 
+@media screen and (min-width: 400px) and (max-width: 530px) {
+    .container-show {
+        width: 75%;
+    }
+}
+
+@media screen and (min-width: 530px) and (max-width: 767px) {
+    .container-show {
+        width: 60%;
+    }
+}
+
 .container-show .firstname {
     text-transform: uppercase;
-}
-
-.people-list {
-    width: 100%; display: block;
-}
-
-.people-list .container-show {
-    float: left;
-}
-
-/* Media Queries */
-@media screen and (min-width: 965px) and (max-width: 1100px) {
-    .people-list .container-show {
-        width: 25%;
-    }
-}
-
-@media screen and (min-width: 1100px) and (max-width: 1250px) {
-    .people-list .container-show {
-        width: 20%;
-    }
-}
-
-@media screen and (min-width: 1250px) and (max-width: 1450px) {
-    .people-list .container-show {
-        width: 15%;
-    }
-}
-
-@media screen and (min-width: 1450px) {
-    .people-list .container-show {
-        width: 12.5%;
-    }
 }
 
 .people-list .container-show img {
@@ -157,8 +125,6 @@ button[type="submit"] {
     zoom: 1;
     line-height: normal;
     white-space: nowrap;
-    vertical-align: middle;
-    text-align: center;
     cursor: pointer;
     -webkit-user-drag: none;
     -webkit-user-select: none;
@@ -176,7 +142,7 @@ button[type="submit"] {
     text-decoration: none;
     border-radius: 2px;
     display: block;
-    margin: 25px auto;
+    margin: 25px 0;
 }
 
 button[type="submit"]:hover {
@@ -187,6 +153,12 @@ button[type="submit"]:hover {
 
 button[type="submit"]:active {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .15) inset, 0 0 6px rgba(0, 0, 0, .2) inset;
-    border-color: #000\9;
+    border-color: #000 \9;
+}
+
+input#people_form_imageFile_file {
+    overflow: hidden;
+    display: block;
+    width: 100%;
 }
 

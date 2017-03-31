@@ -1,52 +1,59 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
-<link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/people/people.css') }}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/bootstrap/bootstrap.min.css') }}" type="text/css" media="all"/>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/people/people.css') }}" type="text/css" media="all"/>
 {% endblock %}
 
 {% block body %}
 
-<div class="people-list">
-    <div class="container-add">
-        {{ form_start(form, {"attr":{"class":"pure-form pure-form pure-form-stacked"}}) }}
+<div class="container-fluid people-list">
+    <div class="row">
+        <div class="container-add col-xxs-12 col-xs-12 col-sm-4 col-md-3 col-lg-2">
+            {{ form_start(form, {"attr":{"class":"pure-form pure-form-stacked"}}) }}
 
-        <div class="people-form-firstname">
-            {{ form_label(form.firstname) }}
-            {{ form_widget(form.firstname, {"attr":{"class":"people-firstname"}}) }}
+            <div class="people-form-firstname">
+                {{ form_label(form.firstname) }}
+                {{ form_widget(form.firstname, {"attr":{"class":"people-firstname"}}) }}
+            </div>
+
+            <div class="people-form-lastname">
+                {{ form_label(form.lastname) }}
+                {{ form_widget(form.lastname, {"attr":{"class":"people-lastname"}}) }}
+            </div>
+
+            <div class="people-form-image">
+                {{ form_label(form.imageFile) }}
+                {{ form_widget(form.imageFile) }}
+            </div>
+
+            {{ form_end(form) }}
         </div>
 
-        <div class="people-form-lastname">
-            {{ form_label(form.lastname) }}
-            {{ form_widget(form.lastname, {"attr":{"class":"people-lastname"}}) }}
-        </div>
+        <div class="container-show-wrapper ">
+            {% for people in peoples %}
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+                    <div class="container-show">
+                        <div class="person-data">
+                            <span class="firstname">{{ people.firstname }}</span>
+                            <span class="lastname">{{ people.lastname }}</span>
+                        </div>
+                        {% if people.image is null %}
+                            <p>pas d'image</p>
+                        {% else %}
+                            <div class="person-picture" style=" background-image: url('{{ asset('images/products/' ~ people.image) }}') "></div>
+                        {% endif %}
 
-        <div class="people-form-image">
-            {{ form_label(form.imageFile) }}
-            {{ form_widget(form.imageFile) }}
+                        <div class="actions">
+                            <a href="{{ path("people_update", {'id':people.id}) }}" class="button-xsmall pure-button">modifier</a>
+                            <a href="{{ path("people_delete", {'id':people.id}) }}" class="button-xsmall pure-button">supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-
-        {{ form_end(form) }}
     </div>
-
-    {% for people in peoples %}
-    <div class="container-show">
-        <div class="person-data">
-            <span class="firstname">{{ people.firstname }}</span>
-            <span class="lastname">{{ people.lastname }}</span>
-        </div>
-        {% if people.image is null %}
-        <p>pas d'image</p>
-        {% else %}
-        <div class="person-picture" style=" background-image: url('{{ asset('images/products/' ~ people.image) }}') "></div>
-        {% endif %}
-
-        <div class="actions">
-            <a href="{{ path("people_update", {'id':people.id}) }}" class="button-xsmall pure-button">modifier</a>
-            <a href="{{ path("people_delete", {'id':people.id}) }}" class="button-xsmall pure-button">supprimer</a>
-        </div>
-    </div>
-    {% endfor %}
 </div>
 
 {% endblock %}
