@@ -33,6 +33,31 @@ main {
     text-align: center;
 }
 
+/* Media Queries */
+@media screen and (min-width: 0px) and (max-width: 965px) {
+    .relations .ajout-relation  {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 965px) and (max-width: 1200px) {
+    .relations .ajout-relation  {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+    .relations .ajout-relation  {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .relations .ajout-relation  {
+        width: 40%;
+    }
+}
+
 button[type="submit"] {
     zoom: 1;
     line-height: normal;
