@@ -5,73 +5,76 @@
 {% endblock %}
 
 {% block body %}
+<div class="background-opacity">
 
-<div class="tree-list">
-  <fieldset>
-    <legend>Liste des arbres</legend>
-    <table>
-      <thead>
-        <tr>
-          <th>id</th>
-          <th>nom</th>
-        </tr>
-      </thead>
+  <div class="col-xs-12 tree-add">
+    <fieldset>
+      <legend>Ajouter un arbre</legend>
+      {{ form_start(form) }}
 
-      <tbody>
+      <div class="tree-form-name">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name, {"attr":{"class":"tree-name"}}) }}
+      </div>
 
-        {% for tree in trees %}
+      {{ form_end(form) }}
+    </fieldset>
+  </div>
 
-        <tr>
-          <td>{{ tree.id }}</td>
-          <td>{{ tree.name }}</td>
+  <div class="col-xs-12 tree-list">
+    <fieldset>
+      <legend>Liste des arbres</legend>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>nom</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          {% for tree in trees %}
+
+          <tr>
+            <td>{{ tree.id }}</td>
+            <td>{{ tree.name }}</td>
 
 
-          {% if app.user.tree.id is defined %}
-            {% if app.user.tree.id == tree.id %}
-              <td>
-                arbre actif
-              </td>
+            {% if app.user.tree.id is defined %}
+              {% if app.user.tree.id == tree.id %}
+                <td>
+                  arbre actif
+                </td>
+              {% else %}
+                <td> <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a> </td>
+                {% endif %}
             {% else %}
               <td> <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a> </td>
+            {% endif %}
+
+            <td>
+              {% if app.user and app.user.hasRight(tree, 50) %}
+              <a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a>
               {% endif %}
-          {% else %}
-            <td> <a href="{{ path("tree_select", {'id':tree.id}) }}">sélectionner</a> </td>
-          {% endif %}
+            </td>
+            <td>
+              {% if app.user and app.user.hasRight(tree, 99) %}
+              <a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a>
 
-          <td>
-            {% if app.user and app.user.hasRight(tree, 50) %}
-            <a href="{{ path("tree_update", {'id':tree.id}) }}">modifier</a>
-            {% endif %}
-          </td>
-          <td>
-            {% if app.user and app.user.hasRight(tree, 99) %}
-            <a href="{{ path("tree_delete", {'id':tree.id}) }}">supprimer</a>
+              {% endif %}
+            </td>
+          </tr>
 
-            {% endif %}
-          </td>
-        </tr>
-
-        {% endfor %}
+          {% endfor %}
 
 
-      </tbody>
-    </table>
-  </fieldset>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+
+
 </div>
-
-<div class="tree-add">
-  <fieldset>
-    <legend>Ajouter un arbre</legend>
-    {{ form_start(form) }}
-
-    <div class="tree-form-name">
-      {{ form_label(form.name) }}
-      {{ form_widget(form.name, {"attr":{"class":"tree-name"}}) }}
-    </div>
-
-    {{ form_end(form) }}
-  </fieldset>
-</div>
-
 
 {% endblock %}

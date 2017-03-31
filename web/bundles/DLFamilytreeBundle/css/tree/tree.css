@@ -26,7 +26,7 @@ body{
 a{
   text-decoration: none;
 }
-
+/*
 .group:after{
   content: '';
   clear: both;
@@ -38,24 +38,45 @@ a{
 .block-center > .inner{
   width: 1170px;
   margin: 0 auto;
+}*/
+
+body{
+  background: url(../../../../images/view/fond-tree.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+}
+.background-opacity{
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 0;
 }
 
 /* ---------------------------------------------
-TREE VIEW
+TREE index
 --------------------------------------------- */
-.tree-list{
-  float: left;
-  width: 70%;
+main{
+
 }
 
 .tree-add{
-  float: right;
-  width: 30%;
+
+margin: 50px 10px 20px 5px;
 }
+
+.tree-list{
+  
+ margin: 20px 10px 20px 5px;
+}
+
+
 
 /* ---------------------------------------------
 TREE LIST
 --------------------------------------------- */
+th{
+  color:#ff03a4;
+}
 
 table {
   text-align: center;
@@ -66,23 +87,24 @@ table {
 table, th, td {
     border: 2px solid black;
     padding: 10px;
+    font-size: 75%;
 }
 
-th{
-  color:#ff03a4;
-}
+
 
 td{
-  width: 150px;
+  width: 70px;
 }
 
 td:first-child{
-  width: 50px;
+  /*width: 50px;*/
+  display: none;
 }
 
 td:last-child,
-td:nth-last-child(2){
-  width: 100px;
+td:nth-last-child(2),
+td:nth-last-child(3){
+  width: 70px;
 }
 
 /* ---------------------------------------------
@@ -90,7 +112,7 @@ TREE ADD
 --------------------------------------------- */
 label{
   display: block;
-	width: 150px;
+	width: 100px;
 	float: left;
 }
 
@@ -100,4 +122,29 @@ label{
 
 /* ---------------------------------------------
 TREE UPDATE
---------*/
+--------------------------------------------- */
+
+
+
+
+/* ---------------------------------------------
+TREE index
+Tablet
+--------------------------------------------- */
+@media (min-width: 768px){
+main{
+
+
+}
+
+.tree-list{
+  float: left;
+  margin: 50px auto;
+   width: 70%;
+}
+
+.tree-add{
+  float: right;
+  margin: 50px auto;
+  width: 30%;
+}
