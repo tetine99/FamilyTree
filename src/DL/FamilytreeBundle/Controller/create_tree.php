@@ -7,7 +7,9 @@ function createTree($relations,$people,$deep)
     $image = false;
     if ($people==null){
         $empty = true;
-        if ($deep==1){
+        if ($deep==3){
+            $label = "Enfant";
+        }else if($deep==1){
             $label = "Grand ";
         }else if($deep==0){
             $label = "Arrière Grand ";

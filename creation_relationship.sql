@@ -1,1 +1,2 @@
 INSERT INTO `relationship` (`id`, `name`) VALUES (NULL, 'Père'), (NULL, 'Mère');
+INSERT INTO `type` (`id`, `name`, `droits`) VALUES (NULL, 'owner', '99'), (NULL, 'admin', '50'), (NULL, 'visitor', '1');
