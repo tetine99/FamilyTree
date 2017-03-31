@@ -60,7 +60,6 @@ body > header a {
 	background-position:center;
 	background-repeat: no-repeat;
 	height:100px;
-	background-color:orange;
 }
 
 /* HEADER NAV */
@@ -111,6 +110,7 @@ body > main{
 	}
 	body > main{
 		flex-direction: row;
+		flex:1;
 	}
 }
 
