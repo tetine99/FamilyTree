@@ -111,8 +111,6 @@ body > main{
 		flex:1;
 		min-height:100%;
 	}
-	.list-people{
-		max-height:100%;
-	}
+
 }
 
