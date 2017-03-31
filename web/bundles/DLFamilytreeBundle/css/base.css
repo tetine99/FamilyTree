@@ -9,8 +9,6 @@ html, body{
 body{
 	margin:0;
 	padding:0;
-	display:flex;
-	flex-direction: column;
 	font-family:FuturaHvBt,"Trebuchet MS",Arial,sans-serif
 }
 /* HEADER */
@@ -103,6 +101,7 @@ body > main{
 	.main-menu{
 		align-items:center;
 		flex:1;
+		
 	}
 	.user-menu > ul {
 		flex-direction: column;
@@ -110,6 +109,10 @@ body > main{
 	body > main{
 		flex-direction: row;
 		flex:1;
+		min-height:100%;
+	}
+	.list-people{
+		max-height:100%;
 	}
 }
 
