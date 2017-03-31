@@ -72,6 +72,7 @@
 	height:100px;
 	background:white;
 	background-size:cover;
+	background-position:center;
 }
 .tree-people li:nth-child(1)>div::before{
 	content: '';
