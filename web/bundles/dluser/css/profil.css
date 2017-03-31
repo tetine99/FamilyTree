@@ -1,0 +1,35 @@
+body {
+    background-color: #bdc0c7;
+
+}
+body > main {
+    justify-content: center;
+}
+div {
+    padding: 2px;
+    color: white;
+    text-align: center;
+}
+
+div .username {
+
+    width: 500px;
+    text-align: center;
+    border-radius: 10px;
+    background: grey;
+    background: linear-gradient(#333, grey);
+}
+div .email {
+
+    text-align: center;
+    border-radius: 10px;
+    background: grey;
+    background: linear-gradient(#333, grey);
+}
+div .password {
+
+    text-align: center;
+    border-radius: 10px;
+    background: grey;
+    background: linear-gradient(#333, grey);
+}
