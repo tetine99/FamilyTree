@@ -50,10 +50,6 @@ a {
 }
 
 /* ---------------------------------------------
-                  PEOPLE ADD
---------------------------------------------- */
-
-/* ---------------------------------------------
                   PEOPLE LIST
 --------------------------------------------- */
 .container-show {
@@ -101,6 +97,7 @@ a {
     text-align: center;
     margin-bottom: 10px;
     color: rgb(205, 65, 239);
+    height: 30px;
 }
 
 .container-show .actions {
@@ -168,3 +165,8 @@ input#people_form_imageFile_file {
     width: 100%;
 }
 
+/* Pure Framework Override */
+
+.pure-button {
+    margin-bottom: 10px;
+}
