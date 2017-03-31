@@ -29,6 +29,7 @@ class TreeController extends Controller
         $selected_id = $request->get('id');
         $message = "";
         $tree=[];
+        $relations=[];
 
         $peoples = $this->getDoctrine()
             ->getManager()
@@ -48,15 +49,10 @@ class TreeController extends Controller
                 ->getManager()
                 ->getRepository('DLFamilytreeBundle:Relation')
                 ->findByTree($tree);
-
-            $tree = createTree($relations,$selected_people,3);
         }
-        else{
-            $message = "L'utilisateur demandé n'existe pas.";
-        }
+        $tree = createTree($relations,$selected_people,3);
 
-
-       return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
+        return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
             'peoples' => $peoples,
             'tree' => $tree
         ]);
