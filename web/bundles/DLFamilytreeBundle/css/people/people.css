@@ -125,6 +125,10 @@ a {
     border-radius: 18%;
 }
 
+.container-show-first {
+    margin-left: 20px;
+}
+
 .people-form-image label {
     text-transform: capitalize;
     margin-top: 10px;
