@@ -23,10 +23,12 @@ class RelationController extends Controller
 
         if($this->getUser()->getTree() != null)
         {
-            $relations = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('DLFamilytreeBundle:Relation')
-            ->findByTree($this->getUser()->getTree()->getId());
+            // $relations = $this->getDoctrine()
+            // ->getManager()
+            // ->getRepository('DLFamilytreeBundle:Relation')
+            // ->findByTree($this->getUser()->getTree()->getId());
+            $relations = $this->container->get('security.token_storage')
+              ->getToken()->getUser()->getTree()->getRelations();
         }
 
         $message_error = "";
@@ -60,6 +62,7 @@ class RelationController extends Controller
                 $message_ok .= $relation->getPeopleB()->getLabel();
                 $message_ok .= "\" a bien été créé.";
             }
+            return $this->redirectToRoute('relation');
         }
 
         return $this->render('DLFamilytreeBundle:Relation:index.html.twig', [

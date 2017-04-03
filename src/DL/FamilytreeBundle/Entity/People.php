@@ -32,8 +32,8 @@ class People
      * @ORM\Column(name="firstname", type="string", length=255)
      */
     private $firstname;
-    
- 
+
+
 
     /**
      * @var string
@@ -69,7 +69,16 @@ class People
     * @ORM\Column(name="updateat", type="datetime", nullable=true)
     */
     private $updatedAt;
-   
+
+    /**
+     *
+     *
+     * @ORM\ManyToOne(targetEntity="Tree", inversedBy="peoples", fetch="EAGER")
+     * @ORM\JoinColumn(name="tree_id")
+     *
+     */
+    private $tree;
+
 
     /**
      * Get id
@@ -189,7 +198,7 @@ class People
    {
        return $this->imageFile;
    }
-   
+
     /**
     * Permet d'afficher dans l'interface une concaténation du prénom et du nom
     */
@@ -225,5 +234,29 @@ class People
     {
         return $this->updatedAt;
     }
-    
+
+
+    /**
+     * Set tree
+     *
+     * @param \DL\FamilytreeBundle\Entity\Tree $tree
+     *
+     * @return People
+     */
+    public function setTree(\DL\FamilytreeBundle\Entity\Tree $tree = null)
+    {
+        $this->tree = $tree;
+
+        return $this;
+    }
+
+    /**
+     * Get tree
+     *
+     * @return \DL\FamilytreeBundle\Entity\Tree
+     */
+    public function getTree()
+    {
+        return $this->tree;
+    }
 }

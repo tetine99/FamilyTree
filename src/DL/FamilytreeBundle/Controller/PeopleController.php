@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use DL\FamilytreeBundle\Form\Type\PeopleFormType;
 use DL\FamilytreeBundle\Entity\People;
+use DL\FamilytreeBundle\Entity\Tree;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -30,15 +31,22 @@ class PeopleController extends Controller{
 
 		$peoples = $this->container->get('security.token_storage')
 			->getToken()->getUser()->myPeople();
-			//var_dump($peoples);die();
+
+
+		$tree = $this->container->get('security.token_storage')
+			->getToken()->getUser()->getTree();
 
 		//ajoute une personne
 		$people = new People();
 		$form = $this->createForm(PeopleFormType::class, $people);
 		$form->handleRequest($request);
 			if($form->isSubmitted() && $form->isValid()){
+
+				$people->setTree($tree);
 				$em = $this->getDoctrine()->getManager();
+
 				$em->persist($people);  //constitue l'objet
+				$em->persist($tree);
 				$em->flush();         //enregistre en bdd
 				return $this->redirectToRoute('people');
 			}

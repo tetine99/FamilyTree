@@ -130,25 +130,39 @@ class User extends BaseUser
     return $this->myTrees(99);
   }
 
+  // public function myPeople(){
+  //   $data = [];
+  //   $trees = $this->myTrees();
+  //   foreach ($trees as $key => $tree) {
+  //     {
+  //       $relations = $tree->getRelations();
+  //       foreach ($relations as $key => $relation) {
+  //         $peoples = $relation->getPeoples();
+  //         foreach($peoples as $people)
+  //         {
+  //           $data[] = $people;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return ($data);
+  // }
+
   public function myPeople(){
     $data = [];
     $trees = $this->myTrees();
-    foreach ($trees as $key => $tree) {
+    foreach ($trees as $key => $tree)
       {
-        $relations = $tree->getRelations();
-        foreach ($relations as $key => $relation) {
-          $peoples = $relation->getPeoples();
-          foreach($peoples as $people)
-          {
-            $data[] = $people;
-          }
+        $peoples = $tree->getPeoples();
+        foreach($peoples as $people)
+        {
+          $data[] = $people;
         }
       }
-    }
-
     return ($data);
-
   }
+
+
 
 
 

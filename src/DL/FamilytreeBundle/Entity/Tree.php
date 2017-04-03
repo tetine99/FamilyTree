@@ -47,6 +47,15 @@ class Tree
      */
     private $relations;
 
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="People", fetch="EAGER", cascade="remove", mappedBy="tree")
+     * @ORM\JoinColumn(name="id")
+     *
+     */
+    private $peoples;
+
 
 
     /**
@@ -173,5 +182,39 @@ class Tree
     public function getRelations()
     {
         return $this->relations;
+    }
+
+    /**
+     * Add people
+     *
+     * @param \DL\FamilytreeBundle\Entity\People $people
+     *
+     * @return Tree
+     */
+    public function addPeople(\DL\FamilytreeBundle\Entity\People $people)
+    {
+        $this->peoples[] = $people;
+
+        return $this;
+    }
+
+    /**
+     * Remove people
+     *
+     * @param \DL\FamilytreeBundle\Entity\People $people
+     */
+    public function removePeople(\DL\FamilytreeBundle\Entity\People $people)
+    {
+        $this->peoples->removeElement($people);
+    }
+
+    /**
+     * Get peoples
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPeoples()
+    {
+        return $this->peoples;
     }
 }
