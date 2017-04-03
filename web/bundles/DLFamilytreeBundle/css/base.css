@@ -89,6 +89,7 @@ body{
 	display:flex;
 	flex-direction: column;
 	flex:1;
+	flex-wrap:wrap;
 }
 
 @media (min-width: 768px){
