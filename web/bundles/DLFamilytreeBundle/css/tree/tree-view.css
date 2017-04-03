@@ -23,12 +23,11 @@
 .tree-people{
 	flex:1;
 	overflow:auto;
-	border-left:1px solid black;
 	display: flex;
+	min-height:500px;
 }
 
 .tree-people ul{
-	position: relative; 
 	padding:0;
     margin:0;
 	display: flex ;
@@ -88,20 +87,12 @@
 	position: absolute; 
 	bottom: 15%; 
 	left: 50%;
+	right: -50%;
 	background:white;
 	border-bottom:1px solid grey;
-	width: calc(120% + 12px); 
 	height: 50%;/*height of the div child*/
 }
-.tree-people li:nth-child(3)>ul::before{
-	content: '';
-	position: absolute; 
-	top: 70%; 
-	left:calc(51%);
-	background:white;
-	width: calc(35% + 15px); 
-	height: 20%;/*height of the div child*/
-}
+
 .tree-people li:first-child:only-child div::before{
 	display: none;
 }
@@ -112,7 +103,7 @@
 }
 
 @media (min-width: 768px){
-	body > main{
+	.main-container > main{
 		min-height:auto;
 		height:calc(100% - 90px);
 	}
@@ -120,5 +111,8 @@
 		height:100%;
 		width:250px;
 		overflow:auto;
+	}
+	.tree-people{
+		border-left:1px solid black;
 	}
 }
