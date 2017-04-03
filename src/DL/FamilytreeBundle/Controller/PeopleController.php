@@ -30,7 +30,7 @@ class PeopleController extends Controller{
 		 	//->findAll();
 
 		$peoples = $this->container->get('security.token_storage')
-			->getToken()->getUser()->myPeople();
+			->getToken()->getUser()->getTree()->getPeoples();
 
 
 		$tree = $this->container->get('security.token_storage')
