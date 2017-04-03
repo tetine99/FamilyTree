@@ -158,6 +158,7 @@ TABLET
     width: 100%;
     margin: 0 5px 20px;
     min-height: 300px;
+	height: calc(100% - 150px);
   }
 
   table, th, td {
