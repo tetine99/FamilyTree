@@ -84,6 +84,12 @@ body{
 	margin-right:5px;
 }
 
+/* MESSAGE */
+.message{
+	display:flex;
+	flex-direction: row;
+}
+	
 /* MAIN */
 .main-container > main{
 	display:flex;
