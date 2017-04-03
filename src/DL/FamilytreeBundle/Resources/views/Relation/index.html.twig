@@ -7,7 +7,8 @@
 
 {% block title %}Gestion des relations{% endblock %}
 
-{% block body %}
+
+{% block message %}
 
 <div class="message_error">
 
@@ -37,58 +38,61 @@
     {% endif %}
 
 </div>
+{% endblock %}
+{% block body %}
 
 
 
 
 
+    <div class="ajout-relation">
+        <fieldset>
+            <legend>
+                Ajouter une relation
+            </legend>
+            {{ form_start(form, {"attr":{"class":"ajout-relation-form pure-form pure-form-aligned"}}) }}
 
-<div class="ajout-relation">
-    <fieldset>
-        <legend>
-            Ajouter une relation
-        </legend>
-        {{ form_start(form, {"attr":{"class":"ajout-relation-form pure-form pure-form-aligned"}}) }}
+            {{ form_widget(form.people_a) }}
+            est
+            {{ form_widget(form.relationship) }}
+            de
+            {{ form_widget(form.people_b) }}
+            {{ form_widget(form.save) }}
 
-        {{ form_widget(form.people_a) }}
-        est
-        {{ form_widget(form.relationship) }}
-        de
-        {{ form_widget(form.people_b) }}
-        {{ form_widget(form.save) }}
+            {{ form_end(form) }}
+        </fieldset>
+    </div>
 
-        {{ form_end(form) }}
-    </fieldset>
-</div>
+    <div class="liste-relation">
+        <fieldset>
+            <legend>
+                Liste des relations
+            </legend>
 
-<div class="liste-relation">
-    <fieldset>
-        <legend>
-            Liste des relations
-        </legend>
+            <table class="pure-table pure-table-striped">
+                <thead>
+                    <tr>
+                        <th>Première Personne</th>
+                        <th>Type</th>
+                        <th>Deuxième Personne</th>
+                        <th>Supprimer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for relation in relations %}
+                    <tr>
+                        <td>{{ relation.peopleA.label }}</td>
+                        <td>{{ relation.relationship.name }}</td>
+                        <td>{{ relation.peopleB.label }}</td>
+                        <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">Supprimer</a></td>
 
-        <table class="pure-table pure-table-striped">
-            <thead>
-                <tr>
-                    <th>Première Personne</th>
-                    <th>Type</th>
-                    <th>Deuxième Personne</th>
-                    <th>Supprimer</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for relation in relations %}
-                <tr>
-                    <td>{{ relation.peopleA.label }}</td>
-                    <td>{{ relation.relationship.name }}</td>
-                    <td>{{ relation.peopleB.label }}</td>
-                    <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">Supprimer</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        </fieldset>
+    </div>
 
-    </fieldset>
-</div>
+
 {% endblock %}
