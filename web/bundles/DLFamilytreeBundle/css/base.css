@@ -126,4 +126,10 @@ body{
 	}
 
 }
-
+/* FOOTER */
+.main-container > footer{
+	background:#222;
+	color:#FCFAEC;
+	padding:10px;
+	text-align:center;
+}
