@@ -1,47 +1,46 @@
-body {
-    background-color: #bdc0c7;
 
-}
-body > main {
-    justify-content: center;
-    
-}
-div {
-    padding: 2px;
-    color: white;
-    text-align: center;
+.container{
+
+	text-align: center;
 }
 
-div .username {
+.content{
 
-    width: 500px;
-    text-align: center;
-    border-radius: 10px;
-    background: grey;
-    background: linear-gradient(#333, grey);
-}
-div .email {
+	background-color: rgba(255, 255, 255, 0.5);
+	height: 100%;
+	color: orange;
 
-    text-align: center;
-    border-radius: 10px;
-    background: grey;
-    background: linear-gradient(#333, grey);
+
+
 }
+.content .titre {
+	display: inline-block;
+}
+
+div .username,
+div .email,
 div .password {
 
-    text-align: center;
-    border-radius: 10px;
-    background: grey;
-    background: linear-gradient(#333, grey);
+	background: linear-gradient(#333, grey);
+	border-radius: 10px;
+	padding: 1px;
+	margin-bottom: 5px;
 }
-.container{
-	display:flex;
-	width:100%;
-	justify-content: center;
-	background-size:cover;
-}
-.content{
-	max-width:760px;
-	background-color: rgba(255, 255, 255, 0.5);
-	padding: 0 1rem;
+@media (min-width: 768px) {
+
+	.container {
+		width: 100%;
+	}
+
+	.content {
+margin: 0 auto;
+width: 50%;
+	}
+
+	div .username,
+	div .email,
+	div .password {
+
+	}
+
 }

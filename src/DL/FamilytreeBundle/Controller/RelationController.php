@@ -31,8 +31,7 @@ class RelationController extends Controller
               ->getToken()->getUser()->getTree()->getRelations();
         }
 
-        $message_error = "";
-        $message_ok = "";
+
         $relation = new Relation();
 
         if( $this->getUser()->getTree() != null )    {
@@ -48,27 +47,31 @@ class RelationController extends Controller
         {
 
             if ($relation->getPeopleA()->getId()==$relation->getPeopleB()->getId()){
-                $message_error = "Vous ne pouvez pas créer de relation sur une même personne.";
+
+                $this->get('session')->getFlashBag()
+                ->add('relationerror', 'Vous ne pouvez pas créer de relation sur une même personne.');
+
             }else if($this->checkRelationExistence($relation)){
-                $message_error = "Cette relation existe déjà dans la base.";
+
+                $this->get('session')->getFlashBag()
+                ->add('relationerror', 'Cette relation existe déjà dans la base.');
+
+
             }else{
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($relation);
                 $em->flush();
-                $message_ok = "La relation \"".$relation->getPeopleA()->getLabel();
-                $message_ok .= " est ";
-                $message_ok .= $relation->getRelationship()->getName();
-                $message_ok .= " de ";
-                $message_ok .= $relation->getPeopleB()->getLabel();
-                $message_ok .= "\" a bien été créé.";
+
+                $this->get('session')->getFlashBag()
+                ->add('relationok', "La relation " . $relation->getPeopleA()->getLabel() . " est " . $relation->getRelationship()->getName() . " de " . $relation->getPeopleB()->getLabel() . " a bien été créé.");
+
+
             }
             return $this->redirectToRoute('relation');
         }
 
         return $this->render('DLFamilytreeBundle:Relation:index.html.twig', [
             'form' => $form->createView(),
-            'message_error' => $message_error,
-            'message_ok' => $message_ok,
             'relations' => $relations,
         ]);
     }

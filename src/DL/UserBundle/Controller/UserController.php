@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class UserController extends Controller {
 
+    // regex qui certifie la validité d'une adresse email
+
     private $emailPattern = '/^(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){255,})(?!(?:(?:\x22?\x5C[\x00-\x7E]\x22?)|(?:\x22?[^\x5C\x22]\x22?)){65,}@)(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22))(?:\.(?:(?:[\x21\x23-\x27\x2A\x2B\x2D\x2F-\x39\x3D\x3F\x5E-\x7E]+)|(?:\x22(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|(?:\x5C[\x00-\x7F]))*\x22)))*@(?:(?:(?!.*[^.]{64,})(?:(?:(?:xn--)?[a-z0-9]+(?:-[a-z0-9]+)*\.){1,126}){1,}(?:(?:[a-z][a-z0-9]*)|(?:(?:xn--)[a-z0-9]+))(?:-[a-z0-9]+)*)|(?:\[(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){7})|(?:(?!(?:.*[a-f0-9][:\]]){7,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,5})?)))|(?:(?:IPv6:(?:(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){5}:)|(?:(?!(?:.*[a-f0-9]:){5,})(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3})?::(?:[a-f0-9]{1,4}(?::[a-f0-9]{1,4}){0,3}:)?)))?(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))(?:\.(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:1[0-9]{2})|(?:[1-9]?[0-9]))){3}))\]))$/iD ';
 
     /**
@@ -68,6 +70,7 @@ class UserController extends Controller {
         {
 
             // on verifie quelle formulaire a été valider
+            // si il s'agit du formulaire de username
             if ($request->request->has("usernameForm"))
             {
                 $form->handleRequest($request);
@@ -83,9 +86,10 @@ class UserController extends Controller {
                 }
 
             }
-
+            // si il s'agit du formulaire d'adresse email
             if ($request->request->has("emailForm"))
             {
+
                 $form2->handleRequest($request);
                 $email = $form2["e-mail"]->getData();
 
@@ -130,7 +134,7 @@ class UserController extends Controller {
     */
     public function delAction(Request $request)
     {
-        // on recupere l'utilisateru en fonction de son id
+        // on recupere l'utilisateur en fonction de son id
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $this
         ->getDoctrine()
@@ -156,7 +160,7 @@ class UserController extends Controller {
 
             // on recupere ensuite tout les users
             $listUser = $repository->findAll();
-            
+
             // et on redirige vers l'index
             return $this->redirectToRoute('user_index', [
                 'listUser' => $listUser,
@@ -193,26 +197,31 @@ class UserController extends Controller {
         {
 
             // on verifie quelle formulaire a été valider
+            // si on souhaite modifier le mot de passe
             if ($request->request->has("mdpForm"))
             {
                 $form->handleRequest($request);
                 // si on clique sur changer mot de passe on est redirigé sur la page de changement de mot de passe
                 if ($form->isSubmitted())
                 {
+                    // on redirige vers la page de modification du mot de passe
                     return $this->redirectToRoute('fos_user_change_password', [
                     ]);
                 }
             }
-
+            // si l'on valide le formulaire de modification d'adresse email
             if ($request->request->has("emailForm"))
             {
+                // on ecoute le formulaire
                 $form2->handleRequest($request);
+
                 // si on valide le formulaire de modification de l'adresse email
                 if ($form2->isSubmitted())
                 {
-                    // on verifie que l'adresse email saisie est valide
+                    // on recupere l'adresse saisie dans le formulaire
                     $emailaddress = $form2["e-mail"]->getData();
 
+                    // on verifie que l'adresse email saisie est valide
                     // si oui on modifie le profil
                     if (preg_match($this->emailPattern, $emailaddress) === 1)
                     {
@@ -223,15 +232,17 @@ class UserController extends Controller {
                         ->getManager()
                         ->getRepository('DLUserBundle:User');
 
+                        // on recupere l'utilisateur connecté
                         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
-
+                        // on modifie sont adresse email
                         $user = $repository->findOneByEmail($currentUser->getEmail());
                         $user->setEmail($emailaddress);
-
+                        // et on enregistre en base
                         $em->persist($user);
                         $em->flush();
-
+                        // on redirige ensuite vers le profil utilisateur
                         return $this->redirectToRoute('user_profil', [
+
                         ]);
                     }
                     // sinon on affiche un message d'erreur

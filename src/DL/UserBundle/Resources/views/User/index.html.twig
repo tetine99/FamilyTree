@@ -10,36 +10,32 @@
 
     <div class="content" >
 
-            <h1>Page de gestion des utilisateurs inscrit </h1>
+        <h1 class="titre">Page de gestion des utilisateurs inscrit </h1>
 
-            <table>
 
-                <thead>
-                    <tr>
-                        <th>Nom Utilisateur</th>
-                        <th>Adresse E-mail</th>
-                        <th>Suppression</th>
-                        <th>Modification</th>
-                    </tr>
-                </thead>
+        {% for user in listUser %}
 
-                <tbody>
+        <div class="userinfo">
 
-                    {% for user in listUser %}
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.email }}</td>
-                        <td><a href="{{path('user_del', {'id': user.id})}}">Supprimer</a></td>
-                        <td><a href="{{path('user_update', {'id': user.id})}}">Modifier</a></td>
-                    </tr>
-                    {% endfor %}
 
-                </tbody>
 
-            </table>
+            <tr>
+                <p>
+                nom utilisateur : {{ user.username }}
+                <br/>
+                Adresse E-mail : {{ user.email }}
+                <br/>
+                Suppression : <a href="{{path('user_del', {'id': user.id})}}">Supprimer</a>
+                <br/>
+                Modification : <a href="{{path('user_update', {'id': user.id})}}">Modifier</a>
+            </p>
 
+
+
+        </div>
+{% endfor %}
     </div>
-    
+
 </div>
 
 {% endblock %}

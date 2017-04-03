@@ -6,60 +6,88 @@
 {% endblock %}
 
 {% block title %}Gestion des relations{% endblock %}
+
 {% block body %}
-    <div class="message_error" style="background:red;color:white;font-weight:bold">
-        {{ message_error }}
-    </div>
-    <div class="message_ok" style="background:green;color:white;font-weight:bold">
-        {{ message_ok }}
-    </div>
 
-    <div class="ajout-relation">
-        <fieldset>
-            <legend>
-                Ajouter une relation
-            </legend>
-            {{ form_start(form, {"attr":{"class":"ajout-relation-form pure-form pure-form-aligned"}}) }}
+<div class="message_error">
 
-            {{ form_widget(form.people_a) }}
-            est
-            {{ form_widget(form.relationship) }}
-            de
-            {{ form_widget(form.people_b) }}
-            {{ form_widget(form.save) }}
+    {% if  app.session.flashbag.get('relationerror') is defined %}
+    {% for flashMessage in app.session.flashbag.get('relationerror') %}
 
-            {{ form_end(form) }}
-        </fieldset>
+    <div class="alert alert-error" style="color : red">
+        {{ flashMessage }}
     </div>
 
-    <div class="liste-relation">
-        <fieldset>
-            <legend>
-                Liste des relations
-            </legend>
+    {% endfor %}
+    {% endif %}
 
-            <table class="pure-table pure-table-striped">
-                <thead>
+</div>
+
+
+<div class="message_ok">
+
+    {% if  app.session.flashbag.get('relationok') is defined %}
+    {% for flashMessage in app.session.flashbag.get('relationok') %}
+
+    <div class="alert alert-success" style="color : green">
+        {{ flashMessage }}
+    </div>
+
+    {% endfor %}
+    {% endif %}
+
+</div>
+
+
+
+
+
+<div class="ajout-relation">
+    <fieldset>
+        <legend>
+            Ajouter une relation
+        </legend>
+        {{ form_start(form, {"attr":{"class":"ajout-relation-form pure-form pure-form-aligned"}}) }}
+
+        {{ form_widget(form.people_a) }}
+        est
+        {{ form_widget(form.relationship) }}
+        de
+        {{ form_widget(form.people_b) }}
+        {{ form_widget(form.save) }}
+
+        {{ form_end(form) }}
+    </fieldset>
+</div>
+
+<div class="liste-relation">
+    <fieldset>
+        <legend>
+            Liste des relations
+        </legend>
+
+        <table class="pure-table pure-table-striped">
+            <thead>
                 <tr>
                     <th>Première Personne</th>
                     <th>Type</th>
                     <th>Deuxième Personne</th>
-                    <th></th>
+                    <th>Supprimer</th>
                 </tr>
-                </thead>
-                <tbody>
+            </thead>
+            <tbody>
                 {% for relation in relations %}
-                    <tr>
-                        <td>{{ relation.peopleA.label }}</td>
-                        <td>{{ relation.relationship.name }}</td>
-                        <td>{{ relation.peopleB.label }}</td>
-                        <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">supprimer</a></td>
+                <tr>
+                    <td>{{ relation.peopleA.label }}</td>
+                    <td>{{ relation.relationship.name }}</td>
+                    <td>{{ relation.peopleB.label }}</td>
+                    <td><a href="{{ path("relation_delete", {'id':relation.id}) }}">Supprimer</a></td>
 
-                    </tr>
+                </tr>
                 {% endfor %}
-                </tbody>
-            </table>
+            </tbody>
+        </table>
 
-        </fieldset>
-    </div>
+    </fieldset>
+</div>
 {% endblock %}
