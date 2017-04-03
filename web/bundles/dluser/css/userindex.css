@@ -1,12 +1,14 @@
 .container{
-
 	text-align: center;
+	background-size:  cover;
+	background-position: center;
 }
 
 .content{
 	height: 100%;
 	background-color: rgba(255, 255, 255, 0.5);
 	color: orange;
+
 }
 
 .content .titre {

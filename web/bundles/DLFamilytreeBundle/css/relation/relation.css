@@ -1,10 +1,14 @@
+.message_error {
+    width: 100%;
+
+}
+.message_ok {
+    width: 100%;
+}
 .clearfix {
     clear: both;
 }
 
-main {
-    flex-direction: column;
-}
 
 .ajout-relation fieldset {
     padding: 25px;
