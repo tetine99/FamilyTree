@@ -56,6 +56,7 @@ class UserController extends Controller {
         ->add('username', TextType::class, array('label' => "Modification nom d'utilisateur"))
         ->add('save', SubmitType::class, array('label' => "Modifier le nom d'utilisateur"))
         ->getForm();
+
         // un deuxieme formulaire pour modifier l'email
         $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
         ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
@@ -113,7 +114,7 @@ class UserController extends Controller {
                     ->add('notice', 'Email invalide !');
                 }
             }
-            
+
         }
         return $this->render('DLUserBundle:User:update.html.twig', [
             'user' => $user,
@@ -137,20 +138,25 @@ class UserController extends Controller {
         ->getRepository('DLUserBundle:User');
         $id = $request->get('id');
         $user = $repository->findOneById($id);
-        // on crée le formaulaire
+
+        // on crée le formulaire
         $form = $this->createFormBuilder()
         ->add('save', SubmitType::class, array('label' => 'Confirmer'))
         ->getForm();
+
         // on ecoute le formulaire
         $form->handleRequest($request);
+
         // si le formulaire a été valide
         if ($form->isSubmitted())
         {
             // on supprime l'utilisateur si l'admin a valider la suppression
             $em->remove($user);
             $em->flush();
+
             // on recupere ensuite tout les users
             $listUser = $repository->findAll();
+            
             // et on redirige vers l'index
             return $this->redirectToRoute('user_index', [
                 'listUser' => $listUser,
@@ -170,10 +176,12 @@ class UserController extends Controller {
     */
     public function profilAction(Request $request)
     {
+
         // on crée un premier formulaire pour acceder a la page de modif mdp
         $form = $this->get("form.factory")->createNamedBuilder("mdpForm")
         ->add('save', SubmitType::class, array('label' => 'Modifier le mot de passe'))
         ->getForm();
+
         // un deuxieme formulaire pour modifier l'email
         $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
         ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
@@ -218,7 +226,6 @@ class UserController extends Controller {
                         $currentUser = $this->container->get('security.token_storage')->getToken()->getUser();
 
                         $user = $repository->findOneByEmail($currentUser->getEmail());
-
                         $user->setEmail($emailaddress);
 
                         $em->persist($user);
