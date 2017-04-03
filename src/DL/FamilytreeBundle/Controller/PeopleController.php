@@ -25,8 +25,12 @@ class PeopleController extends Controller{
 	{
 		//affiche la liste des personnes
 		$em = $this->getDoctrine()->getManager();
-		$peoples = $em->getRepository('DLFamilytreeBundle:People')
-			->findAll();
+		// $peoples = $em->getRepository('DLFamilytreeBundle:People')
+		 	//->findAll();
+
+		$peoples = $this->container->get('security.token_storage')
+			->getToken()->getUser()->myPeople();
+			//var_dump($peoples);die();
 
 		//ajoute une personne
 		$people = new People();

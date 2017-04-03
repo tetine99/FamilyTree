@@ -167,4 +167,17 @@ class Relation {
     {
         return $this->tree;
     }
+
+
+    public function getPeoples()
+    {
+      $data = [];
+      $data[] = $this->getPeopleA();
+      $data[] = $this->getPeopleB();
+
+    return $data;
+
+    }
+
+
 }
