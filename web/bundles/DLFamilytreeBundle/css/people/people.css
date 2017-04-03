@@ -54,6 +54,10 @@ a {
                   PEOPLE LIST
 --------------------------------------------- */
 
+.wrapper-people {
+    width: 100%;
+}
+
 .container-show {
     background-color: rgba(222, 222, 222, 0.31);
     margin: 15px 0;
@@ -93,6 +97,10 @@ a {
     background-size: cover;
     display: block;
     background-position: 50% 50%;
+}
+
+.container-show p:first-of-type {
+    text-align: center;
 }
 
 .container-show .person-data {
