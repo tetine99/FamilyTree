@@ -130,9 +130,14 @@ TABLET
   flex-wrap: wrap;
   }
 
+  .tree-update-fieldset,
+  .tree-add-user-fieldset{
+    height: 150px;
+  }
+
   .tree-update,
   .tree-add-user{
-  max-height: 100px;
+  max-height: 150px;
   margin-top: 10px;
   }
 
@@ -148,15 +153,11 @@ TABLET
     margin-right: 1%;
   }
 
-  .tree-update-fieldset,
-  .tree-add-user-fieldset{
-    height: 150px;
-  }
-
   .tree-right-list{
     display: inline-block;
     width: 100%;
     margin: 0 5px 20px;
+    min-height: 300px;
   }
 
   table, th, td {
@@ -166,16 +167,7 @@ TABLET
 }
 
 @media (min-width: 1024px){
-  .tree-update,
-  .tree-add-user{
-  max-height: 0;
-  margin-top: 10px;
-  }
-
-  .tree-update-fieldset,
-  .tree-add-user-fieldset{
-    height: 150px;
-  }
+  
 
   table, th, td {
     font-size: 120%;
