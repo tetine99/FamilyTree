@@ -83,6 +83,57 @@ class User extends BaseUser
     return $this->permissions;
   }
 
+  /**
+   * Add permission
+   *
+   * @param \DL\FamilytreeBundle\Entity\Permission $permission
+   *
+   * @return User
+   */
+  public function addPermission(\DL\FamilytreeBundle\Entity\Permission $permission)
+  {
+      $this->permissions[] = $permission;
+
+      return $this;
+  }
+
+  /**
+   * Remove permission
+   *
+   * @param \DL\FamilytreeBundle\Entity\Permission $permission
+   */
+  public function removePermission(\DL\FamilytreeBundle\Entity\Permission $permission)
+  {
+      $this->permissions->removeElement($permission);
+  }
+
+  /**
+   * Set tree
+   *
+   * @param \DL\FamilytreeBundle\Entity\Tree $tree
+   *
+   * @return User
+   */
+  public function setTree(\DL\FamilytreeBundle\Entity\Tree $tree = null)
+  {
+      $this->tree = $tree;
+
+      return $this;
+  }
+
+  /**
+   * Get tree
+   *
+   * @return \DL\FamilytreeBundle\Entity\Tree
+   */
+  public function getTree()
+  {
+      return $this->tree;
+  }
+
+
+
+
 
   //vérifie les droits d'accès aux arbres
   public function hasRight($tree,$right)
@@ -123,31 +174,13 @@ class User extends BaseUser
   }
 
 
-
   //retourne la liste de mes arbres propriétaire
   public function myOwnTrees()
   {
     return $this->myTrees(99);
   }
 
-  // public function myPeople(){
-  //   $data = [];
-  //   $trees = $this->myTrees();
-  //   foreach ($trees as $key => $tree) {
-  //     {
-  //       $relations = $tree->getRelations();
-  //       foreach ($relations as $key => $relation) {
-  //         $peoples = $relation->getPeoples();
-  //         foreach($peoples as $people)
-  //         {
-  //           $data[] = $people;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return ($data);
-  // }
-
+  //permet de récupérer la liste des peoples liés à l'arbre
   public function myPeople(){
     $data = [];
     $trees = $this->myTrees();
@@ -162,57 +195,5 @@ class User extends BaseUser
     return ($data);
   }
 
-
-
-
-
-
-
-    /**
-     * Add permission
-     *
-     * @param \DL\FamilytreeBundle\Entity\Permission $permission
-     *
-     * @return User
-     */
-    public function addPermission(\DL\FamilytreeBundle\Entity\Permission $permission)
-    {
-        $this->permissions[] = $permission;
-
-        return $this;
-    }
-
-    /**
-     * Remove permission
-     *
-     * @param \DL\FamilytreeBundle\Entity\Permission $permission
-     */
-    public function removePermission(\DL\FamilytreeBundle\Entity\Permission $permission)
-    {
-        $this->permissions->removeElement($permission);
-    }
-
-    /**
-     * Set tree
-     *
-     * @param \DL\FamilytreeBundle\Entity\Tree $tree
-     *
-     * @return User
-     */
-    public function setTree(\DL\FamilytreeBundle\Entity\Tree $tree = null)
-    {
-        $this->tree = $tree;
-
-        return $this;
-    }
-
-    /**
-     * Get tree
-     *
-     * @return \DL\FamilytreeBundle\Entity\Tree
-     */
-    public function getTree()
-    {
-        return $this->tree;
-    }
+    
 }

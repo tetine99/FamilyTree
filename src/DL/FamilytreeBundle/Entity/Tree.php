@@ -208,6 +208,7 @@ class Tree
         $this->peoples->removeElement($people);
     }
 
+    //retourne la liste des peoples de l'arbre
     /**
      * Get peoples
      *

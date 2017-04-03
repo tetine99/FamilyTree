@@ -162,7 +162,7 @@ class Permission
         $this->tree->removeElement($tree);
     }
 
-
+    // pour récupérer la liste des arbres propriétaire
     public function isOwnerType()
     {
         return ( $this->getType()->getId() == 1 );

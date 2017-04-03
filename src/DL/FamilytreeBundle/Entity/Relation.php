@@ -176,7 +176,6 @@ class Relation {
       $data[] = $this->getPeopleB();
 
     return $data;
-
     }
 
 

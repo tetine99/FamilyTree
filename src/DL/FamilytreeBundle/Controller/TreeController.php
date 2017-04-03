@@ -31,10 +31,12 @@ class TreeController extends Controller
         $tree=[];
         $relations=[];
 
-        $peoples = $this->getDoctrine()
-            ->getManager()
-            ->getRepository('DLFamilytreeBundle:People')
-            ->findAll();
+        // $peoples = $this->getDoctrine()
+        //     ->getManager()
+        //     ->getRepository('DLFamilytreeBundle:People')
+        //     ->findAll();
+        $peoples = $this->container->get('security.token_storage')
+          ->getToken()->getUser()->getTree()->getPeoples();
 
         foreach ($peoples as $p){
             if($p->getId()==$selected_id){
