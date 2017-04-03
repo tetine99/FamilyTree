@@ -32,6 +32,7 @@ body > header li {
 	list-style-type:none;
 	display:flex;
 	width:100%;
+	justify-content:flex-end;
 }
 body > header a {
 	text-decoration:none;
@@ -69,8 +70,8 @@ body > header a {
 .user-menu{
 	width:100%
 }
-.user-menu .user-option span{
-	display:none;
+.user-menu span{
+	margin-right:5px;
 }
 
 /* MAIN */
