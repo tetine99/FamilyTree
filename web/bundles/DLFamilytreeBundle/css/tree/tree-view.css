@@ -15,15 +15,17 @@
 	text-align:center;
 	color:black;
 	text-decoration:none;
+	padding:5px 0;
 }
-.list-people a:hover{
+.list-people a:hover,
+.list-people a:focus
+{
 	background:orange
 }
 
 .tree-people{
 	flex:1;
 	overflow:auto;
-	display: flex;
 	min-height:500px;
 }
 
