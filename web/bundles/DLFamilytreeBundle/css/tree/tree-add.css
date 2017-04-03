@@ -43,6 +43,7 @@ a{
 body{
   background: url(../../../../images/view/fond-tree.jpg);
   background-attachment: fixed;
+  background-position: center;
   background-size: cover;
 }
 .background-opacity{
@@ -56,36 +57,47 @@ body{
 /* ---------------------------------------------
 TREE index
 --------------------------------------------- */
-main{
-
+.tree-update{
+  margin: 10px 5px 5px;
 }
 
-.tree-add{
-margin: 10px 5px ;
+.tree-add-user{
+  margin: 10px 5px 5px;
 }
 
-.tree-list{
- margin: 10px 5px 40px;
+.tree-right-list{
+  margin: 10px 5px 20px;
 }
+
 
 /* ---------------------------------------------
-TREE ADD
+TREE UPDATE
 --------------------------------------------- */
-label{
-  display: block;
-	width: 100px;
-	float: left;
+.tree-update-form-name{
+  padding: 5px 0 10px;
 }
 
-.tree-form-name{
-  margin: 10px 0;
-}
 
 /* ---------------------------------------------
-TREE LIST
+TREE ADD USER
+--------------------------------------------- */
+.tree-add-right-type,
+.tree-add-user-mail{
+  padding: 5px 0 10px;
+}
+
+.tree-add-right-label{
+  display: inline-block;
+  padding: 0px 0 10px;
+}
+
+
+
+/* ---------------------------------------------
+TREE update list
 --------------------------------------------- */
 th{
-  color:rgb(205, 65, 239);
+  color: rgb(205, 65, 239);
 }
 
 table {
@@ -105,59 +117,67 @@ td{
   width: 200px;
 }
 
-
 th:first-child,
 td:first-child{
   display: none;
 }
 
-
-
 /* ---------------------------------------------
-TREE index
-Tablet
+TABLET
 --------------------------------------------- */
 @media (min-width: 768px){
   main{
-
+  flex-wrap: wrap;
   }
 
-  .tree-list,
-  .tree-add{
-    margin: 5px auto;
+  .tree-update,
+  .tree-add-user{
+  max-height: 100px;
+  margin-top: 10px;
   }
 
-  .tree-list{
-    float: left;
+  .tree-update{
+    width: 46%;
     margin-left: 1%;
     margin-right: 1%;
-    width: 68%;
   }
 
-  .tree-add{
-    float: right;
+  .tree-add-user{
+    width: 50%;
     margin-left: 1%;
     margin-right: 1%;
-    width: 28%;
   }
 
-  table, th, td {
-    font-size: 100%;
+  .tree-update-fieldset,
+  .tree-add-user-fieldset{
+    height: 150px;
   }
 
-
-  td:last-child,
-  td:nth-last-child(2),
-  td:nth-last-child(3){
-
+  .tree-right-list{
+    display: inline-block;
+    width: 100%;
+    margin: 0 5px 20px;
   }
 
-}
-
-
-@media (min-width: 1025px){
   table, th, td {
     font-size: 110%;
   }
 
+}
+
+@media (min-width: 1024px){
+  .tree-update,
+  .tree-add-user{
+  max-height: 0;
+  margin-top: 10px;
+  }
+
+  .tree-update-fieldset,
+  .tree-add-user-fieldset{
+    height: 150px;
+  }
+
+  table, th, td {
+    font-size: 120%;
+  }
 }

@@ -1,75 +1,85 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 {% block title %}Modification d'un arbre{% endblock %}
 {% block stylesheets %}
-  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/tree/tree.css') }}" type="text/css" media="all" />
+  <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/tree/tree-add.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block body %}
 
-<fieldset>
-  <legend>Modifier l'arbre</legend>
-  {{ form_start(form) }}
+<div class="background-opacity">
+</div>
 
-  <div class="tree-form-name">
-    {{ form_label(form.name) }}
-    {{ form_widget(form.name, {"attr":{"class":"name"}}) }}
-  </div>
+<div class="tree-update">
+  <fieldset class="tree-update-fieldset">
+    <legend>Modifier l'arbre</legend>
+    {{ form_start(form) }}
 
-  {{ form_end(form) }}
-</fieldset>
+    <div class="tree-update-form-name">
+      {{ form_label(form.name) }}
+      {{ form_widget(form.name, {"attr":{"class":"name"}}) }}
+    </div>
 
-<fieldset>
-  <legend>Ajouter un utilisateur à un arbre</legend>
-  <form class="" action="/permission/add" method="post">
+    {{ form_end(form) }}
+  </fieldset>
+</div>
 
-    <div class="tree-update-type">
-      <label for="id">Sélectionner le droit</label> :
-      <select name='type'>
-        {% for type in types %}
-          <option value='{{ type.id }}'>{{ type.name }}</option>
+<div class="tree-add-user">
+  <fieldset class="tree-add-user-fieldset">
+    <legend>Ajouter un utilisateur à un arbre</legend>
+    <form class="" action="/permission/add" method="post">
+
+      <div class="tree-add-right-type">
+        <label for="id">Sélectionner le droit</label> :
+        <select name='type'>
+          {% for type in types %}
+            <option class="tree-add-right-field" value='{{ type.id }}'>{{ type.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="tree-add-user-mail">
+        <label class="tree-add-right-label" for="mail">Ajouter l'e-mail de l'utilisateur</label> : <input type="email" name="mail" value=""/>
+      </div>
+
+      <input type="hidden" name="id_tree" value="{{ form.vars.data.id}}"/>
+      <input type="submit" value="Envoyer" />
+
+    </form>
+  </fieldset>
+</div>
+
+<div class="tree-right-list">
+  <fieldset>
+    <legend>Modifier les droits</legend>
+
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>Nom de l'arbre</th>
+          <th>type de droit</th>
+          <th>Utilisateur</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for permission in permissions %}
+        <tr>
+          <td>{{ permission.id }}</td>
+          <td>{{ permission.tree.name }}</td>
+          <td>{{ permission.type.name }}</td>
+          <td>{{ permission.user }}</td>
+          <td>
+            {% if app.user and permission.isNotOwnerType %}
+              <a href="{{ path("permission_delete", {'id':permission.id}) }}">supprimer</a>
+            {% endif %}
+          </td>
+        </tr>
         {% endfor %}
-      </select>
-    </div>
+      </tbody>
+    </table>
 
-    <div class="tree_update-mail">
-      <label for="mail">Ajouter l'e-mail de l'utilisateur</label> : <input type="email" name="mail" value=""/>
-    </div>
+  </fieldset>
+</div>
 
-    <input type="hidden" name="id_tree" value="{{ form.vars.data.id}}"/>
-    <input type="submit" value="Envoyer" />
-
-  </form>
-</fieldset>
-
-<fieldset>
-  <legend>Modifier les droits</legend>
-
-  <table>
-    <thead>
-      <tr>
-        <th>id</th>
-        <th>Nom de l'arbre</th>
-        <th>type de droit</th>
-        <th>Utilisateur</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for permission in permissions %}
-      <tr>
-        <td>{{ permission.id }}</td>
-        <td>{{ permission.tree.name }}</td>
-        <td>{{ permission.type.name }}</td>
-        <td>{{ permission.user }}</td>
-        <td>
-          {% if app.user and permission.isNotOwnerType %}
-            <a href="{{ path("permission_delete", {'id':permission.id}) }}">supprimer</a>
-          {% endif %}
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-</fieldset>
 
 {% endblock %}
