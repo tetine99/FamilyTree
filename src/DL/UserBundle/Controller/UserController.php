@@ -188,7 +188,7 @@ class UserController extends Controller {
 
         // un deuxieme formulaire pour modifier l'email
         $form2 = $this->get("form.factory")->createNamedBuilder("emailForm")
-        ->add('e-mail', TextType::class, array('label' => 'Modification e-mail'))
+        ->add('e-mail', TextType::class, array('label' => 'Modification e-mail : '))
         ->add('save2', SubmitType::class, array('label' => 'Confirmer'))
         ->getForm();
 

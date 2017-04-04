@@ -28,11 +28,11 @@
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
                 <ul>
-                    <li><a href="{{ path('tree') }}">Arbres</a></li>
+                    <li><a href="{{ path('tree') }}">Mes Arbres</a></li>
                 </ul>
                 {% if app.user.tree.name is defined %}
                 <ul>
-                    <li><a href="{{ path('people') }}">Personnes</a></li>
+                    <li><a href="{{ path('people') }}">Membres de la famille</a></li>
                     <li><a href="{{ path('relation') }}">Relations</a></li>
                     <li><a href="{{ path('tree_view') }}">Visuel</a></li>
                 </ul>
@@ -49,7 +49,7 @@
 
                     <li>
                         <span>Connecté en tant que {{ app.user.username }} </span>
-                    </li> 
+                    </li>
                     <li>
                         <span>
                         Arbre actif :
@@ -108,8 +108,8 @@
             © 2017 DL-06
         </footer>
     </div>
-    
-    
+
+
     {% block javascripts %}{% endblock %}
 
 </body>
