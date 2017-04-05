@@ -50,13 +50,14 @@ a {
     margin: 0 auto;
 }
 
+.container-fluid {
+    display: block;
+    width: 100%;
+}
+
 /* ---------------------------------------------
                   PEOPLE LIST
 --------------------------------------------- */
-
-.wrapper-people {
-    width: 100%;
-}
 
 .container-show {
     background-color: rgba(222, 222, 222, 0.31);
@@ -123,10 +124,6 @@ a {
 
 .container-show .person-picture {
     border-radius: 18%;
-}
-
-.container-show-first {
-    margin-left: 20px;
 }
 
 .people-form-image label {

@@ -17,51 +17,41 @@ include 'create_tree.php';
 
 class TreeController extends Controller
 {
-
-
     /**
      * @Route("/tree/view", name="tree_view")
      * @Security("has_role('ROLE_USER')")
      */
     public function defaultViewAction(Request $request)
     {
-        $selected_people = null;
+        // récupération de l'id si disponible
         $selected_id = $request->get('id');
-        $message = "";
-        $tree=[];
-        $relations=[];
-
-        // $peoples = $this->getDoctrine()
-        //     ->getManager()
-        //     ->getRepository('DLFamilytreeBundle:People')
-        //     ->findAll();
+        $selected_people = null;
+        $relations = [];
+        // récupération des personnes de l'arbre sélectionné
         $peoples = $this->container->get('security.token_storage')
           ->getToken()->getUser()->getTree()->getPeoples();
-
+        // recherche dans ces personnes de celle correspondant à l'id demandé
         foreach ($peoples as $p){
-            if($p->getId()==$selected_id){
+            if($p->getId() == $selected_id){
                 $selected_people = $p;
             }
         }
-
-        $tree = $this->getUser()->getTree()->getId();
-
+        // recupération de l'id de l'arbre selectionné
+        $tree_id = $this->getUser()->getTree()->getId();
+        // si la personne selectionnée existe bien,
+        // recherche des relations relatives à l'arbre sélectionné
         if ($selected_people != null){
             $relations = $this->getDoctrine()
                 ->getManager()
                 ->getRepository('DLFamilytreeBundle:Relation')
-                ->findByTree($tree);
+                ->findByTree($tree_id);
         }
-        $tree = createTree($relations,$selected_people,3);
-
+        $tree = createTree( $relations, $selected_people, 3 );
         return $this->render('DLFamilytreeBundle:Tree:default.html.twig', [
             'peoples' => $peoples,
             'tree' => $tree
         ]);
     }
-
-
-
 
     /**
     * @Route("/tree", name="tree")
@@ -186,7 +176,7 @@ class TreeController extends Controller
 		 $tree = $em->getRepository('DLFamilytreeBundle:Tree')->find($id);
 
 		 $em->remove($tree);
-		 $em->flush();
+		 $em->flush(); 
 		 return $this->redirectToRoute('tree');
 	 }
 
