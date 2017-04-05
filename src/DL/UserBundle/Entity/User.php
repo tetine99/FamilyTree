@@ -42,7 +42,7 @@ class User extends BaseUser
   /**
   *
   *
-  * @ORM\OneToOne(targetEntity="DL\FamilytreeBundle\Entity\Tree", fetch="EAGER")
+  * @ORM\ManyToOne(targetEntity="DL\FamilytreeBundle\Entity\Tree", fetch="EAGER")
   * @ORM\JoinColumn(name="tree_id")
   *
   */
@@ -195,5 +195,5 @@ class User extends BaseUser
     return ($data);
   }
 
-    
+
 }

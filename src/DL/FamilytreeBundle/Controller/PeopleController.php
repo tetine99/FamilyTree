@@ -74,9 +74,9 @@ class PeopleController extends Controller{
 
         $form->handleRequest($request);
         if($form->isValid()) {
-            $data = $form->getData();
-
-            $file = $people->getImageFile();
+            // $data = $form->getData();
+						//
+            // $file = $people->getImageFile();
             $em->flush();
 
             return $this->redirectToRoute('people');

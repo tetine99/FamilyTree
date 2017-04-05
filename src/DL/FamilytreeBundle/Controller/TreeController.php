@@ -71,15 +71,13 @@ class TreeController extends Controller
     public function indexAction(Request $request)
     {
       $em = $this->getDoctrine()->getManager();
-  		// $trees = $em->getRepository('DLFamilytreeBundle:Tree')
-  		// 	->findAll();
 
       $mytrees = $this->container->get('security.token_storage')
         ->getToken()->getUser()->myTrees();
 
         //ajout d'un arbre
         $tree = new Tree();
-        $p = false;
+        $perm = false;
         $form = $this->createForm(TreeFormType::class, $tree);
         $form->handleRequest($request);
 
@@ -91,19 +89,18 @@ class TreeController extends Controller
 
           $type = $em->getRepository('DLFamilytreeBundle:Type')->findOneById(1);
 
-          $p = new Permission();
-          $p->setType($type);
-          $p->setUser( $this->container->get('security.token_storage')->getToken()->getUser() );
-          $p->setTree( $tree );
+          $perm = new Permission();
+          $perm->setType($type);
+          $perm->setUser( $this->container->get('security.token_storage')->getToken()->getUser() );
+          $perm->setTree( $tree );
 
-          $em->persist( $p );  //constitue l'objet
+          $em->persist( $perm );  //constitue l'objet
   				$em->persist( $tree );  //constitue l'objet
   				$em->flush();         //enregistre en bdd
 
           return $this->redirectToRoute('tree');
         }
       return $this->render('DLFamilytreeBundle:Tree:index.html.twig', [
-          //'trees'=>$trees,
           'trees'=>$mytrees,
           'permissions'=>$permissions,
           'form'=>$form->createView()

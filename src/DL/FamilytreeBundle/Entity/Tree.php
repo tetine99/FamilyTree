@@ -3,6 +3,7 @@
 namespace DL\FamilytreeBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use DL\FamilytreeBundle\Entity\User;
 
 /**
  * Tree
@@ -55,6 +56,15 @@ class Tree
      *
      */
     private $peoples;
+
+    /**
+     *
+     *
+     * @ORM\OneToMany(targetEntity="DL\UserBundle\Entity\User", fetch="EAGER", cascade="remove", mappedBy="tree")
+     * @ORM\JoinColumn(name="id")
+     *
+     */
+    private $users;
 
 
 
@@ -217,5 +227,39 @@ class Tree
     public function getPeoples()
     {
         return $this->peoples;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \DL\UserBundle\Entity\User $user
+     *
+     * @return Tree
+     */
+    public function addUser(\DL\UserBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \DL\UserBundle\Entity\User $user
+     */
+    public function removeUser(\DL\UserBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }
