@@ -176,7 +176,7 @@ class TreeController extends Controller
 		 $tree = $em->getRepository('DLFamilytreeBundle:Tree')->find($id);
 
 		 $em->remove($tree);
-		 $em->flush(); 
+		 $em->flush();
 		 return $this->redirectToRoute('tree');
 	 }
 

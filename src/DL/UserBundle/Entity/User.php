@@ -165,11 +165,15 @@ class User extends BaseUser
   {
     $data = [];
     $permissions = $this->getPermissions();
+
+
     foreach($permissions as $p)
     {
       if(!$type || $p->getType()->getDroits() >= $type )
-      $data[] = $p->getTree();
+      $data[ $p->getTree()->getId() ] = $p->getTree();
     }
+
+
     return $data;
   }
 
