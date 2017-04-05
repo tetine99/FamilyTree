@@ -1,39 +1,5 @@
 {% extends 'DLFamilytreeBundle::base.html.twig' %}
 
-{% macro constructVisualTree(node,parent) %}
-    {% import _self as self %}
-    {% if "label" in node | keys %} 
-        <ul>
-            <li>
-                {% if node["empty"] %} 
-                    <div>{{ node["label"]  ~ parent }} 
-                {% else %}
-                    {% if node["image"] %} 
-                        <div style="background-image:url('{{ asset('images/products/' ~ node['image']) }}')">
-                    {% else %}
-                        <div>{{ node["label"]  }}
-                    {% endif %}
-                {% endif %}
-                </div>
-            </li>
-            
-            {% if "Père" in node["relations"] | keys %} 
-            <li>
-                {{ self.constructVisualTree( node["relations"]["Père"], "Père" ) }}
-            </li>
-                
-            {% endif %}
-            {% if "Mère" in node["relations"] | keys %} 
-            
-            <li>
-                {{ self.constructVisualTree( node["relations"]["Mère"], "Mère" ) }}
-            </li>
-                
-            {% endif %}
-        </ul>
-    {% endif %}
-{% endmacro %}
-
 {% block stylesheets %}
 <link rel="stylesheet" href="{{ asset('bundles/DLFamilytreeBundle/css/tree/tree-view.css') }}" />
 {% endblock %}
@@ -42,29 +8,61 @@
 Vue de l'arbre
 {% endblock %}
 
+<!-- DEBUT MACRO -->
+{% macro constructVisualTree(node,parent) %}
+    <!-- la macro (comme une fonction) va permettre de créer un arbre 
+    de liste html en fonction de l'arbre généré coté serveur. -->
+    {% import _self as self %}
+    {% if "label" in node | keys %} 
+        <ul>
+            <li>
+                {% if node["empty"] %} 
+                    <!-- Objet vide, on concatène le label et la catégorie -->
+                    <div>{{ node["label"] ~ parent }} 
+                {% else %}
+                    <!-- Si l'image est présente, on la met en propriété css background-image -->
+                    {% if node["image"] %} 
+                        <div style="background-image:url('{{ asset('images/products/' ~ node['image']) }}')">
+                    {% else %}
+                        <!-- Sinon, on n'affiche que le label -->
+                        <div>{{ node["label"]  }}
+                    {% endif %}
+                {% endif %}
+                </div>
+            </li>
+            <!-- Appel de la macro de manière recurcive sur les deux catégories -->
+            {% if "Père" in node["relations"] | keys %} 
+            <li>
+                {{ self.constructVisualTree( node["relations"]["Père"], "Père" ) }}
+            </li>
+            {% endif %}
+            {% if "Mère" in node["relations"] | keys %} 
+            <li>
+                {{ self.constructVisualTree( node["relations"]["Mère"], "Mère" ) }}
+            </li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+<!-- FIN MACRO -->
+
 {% from _self import constructVisualTree %}
+
 {% block body %}
 
     <div class="list-people">
         <ul>
-
             {% for people in peoples %}
-
             <li>
                 <a href="{{ path('tree_view', {'id':people.id}) }}">{{people.label}}</a>
             </li>
-
             {% endfor %}
         </ul>
-    
     </div>
     
     <div class="tree-people">
-
-    {{ constructVisualTree(tree) }}
-    {#{{ dump(tree) }}#}
-    
+        <!-- APPEL MACRO -->
+        {{ constructVisualTree(tree) }}
     </div>
-
-
+    
 {% endblock %}
