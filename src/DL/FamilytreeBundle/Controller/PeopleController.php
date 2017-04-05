@@ -65,23 +65,26 @@ class PeopleController extends Controller{
 	 */
     public function updateAction(Request $request)
     {
+        // Récupération de l'ID dans la requete
         $id = $request->get('id');
 
+        // On crée l'entity manager pour pouvoir y trouver l'id correspondant
         $em = $this->getDoctrine()->getManager();
         $people = $em->getRepository('DLFamilytreeBundle:People')->find($id);
 
+        // Création du formulaire pour changer les données, en utilisant un template FormType prérempli avec les données de people
         $form = $this->createForm(PeopleFormType::class, $people);
 
+        // Les données du formulaire soumis sont transmises
         $form->handleRequest($request);
+        // On verifie que le formulaire est valide, une autre méthode plus pérènne serait d'utiliser | if (Form::isSubmitted() && Form::isValid()) | car Form::isValid()) sera bientôt deprécié
         if($form->isValid()) {
-            $data = $form->getData();
-
-            $file = $people->getImageFile();
+            // Ecriture des changement en BDD
             $em->flush();
-
+            // Redirection vers la page people
             return $this->redirectToRoute('people');
-
         }
+        // On passe le formulaire à la vue pour affichage
         return $this->render('DLFamilytreeBundle:People:update.html.twig', [
             'form' => $form->createView()
         ]);
